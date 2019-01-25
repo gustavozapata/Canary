@@ -5,8 +5,8 @@
  */
 package project;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,13 +20,14 @@ public class Main {
     public static void main(String[] args){
         JFrame window = new JFrame("TODO CANARIO");
         
-        FlowLayout layout = new FlowLayout();
+        BorderLayout borderLayout = new BorderLayout();
                 
         JLabel appTitle = new JLabel("ToDo Canario");
-        appTitle.setFont(new Font("Sans-Serif", Font.BOLD, 50));
+        appTitle.setFont(new Font("Sans-Serif", Font.BOLD, 40));
+        appTitle.setHorizontalAlignment(JLabel.CENTER);
         
-        window.setLayout(layout);
-        window.add(appTitle);
+        window.setLayout(borderLayout);
+        window.add(appTitle, borderLayout.NORTH);
         window.setSize(1200, 700);
         window.getContentPane().setBackground(Color.WHITE);
         window.setVisible(true);
