@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.font.TextAttribute;
@@ -135,7 +136,7 @@ public class Main {
         
         //TASK CONTAINER
         JPanel centerTaskPanel = new JPanel(new BorderLayout());
-        JPanel taskInformationPanel = new JPanel();
+        JPanel taskInformationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         centerTaskPanel.add(taskDescription, BorderLayout.NORTH);
         centerTaskPanel.add(taskInformationPanel, BorderLayout.CENTER);
         
