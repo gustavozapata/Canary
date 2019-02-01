@@ -146,6 +146,13 @@ public class Main {
 //        BufferedImage image = ImageIO.read(new File("/edit2.png"));
 //        JLabel label = new JLabel(new ImageIcon(image));
 //        taskActionsPanel.add(label);
+
+        JLabel assignee = new JLabel("Kylan Haffie");
+        taskInformationPanel.add(assignee);
+
+
+
+
         
         JPanel taskCompletePanel = new JPanel();
         taskCompletePanel.add(taskCompleteCheckBox);
