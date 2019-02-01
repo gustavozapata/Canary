@@ -7,6 +7,7 @@ package project;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -28,6 +29,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -77,6 +79,13 @@ public class Main {
         BoxLayout addTaskLayout = new BoxLayout(addTaskPanel, BoxLayout.Y_AXIS);
         addTaskPanel.setBackground(Color.WHITE);
         addTaskPanel.setLayout(addTaskLayout);
+        addTaskPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+//        addTaskPanel.setBorder(BorderFactory.createLineBorder(new Color(112,112,112)));
+        
+        addTask.setBorder(BorderFactory.createEmptyBorder(0, 18, 0, 0));
+        addTask.setHorizontalAlignment(JLabel.CENTER);
+        
+        
         addTaskPanel.add(addTask);
         addTaskPanel.add(addTaskText);
         
@@ -148,7 +157,7 @@ public class Main {
 //        JLabel label = new JLabel(new ImageIcon(image));
 //        taskActionsPanel.add(label);
 
-        JLabel assignee = new JLabel("Kylan Haffie");
+        JLabel assignee = new JLabel("Assigned to: Kylan Haffie");
         taskInformationPanel.add(assignee);
 
 
