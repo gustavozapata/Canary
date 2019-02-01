@@ -79,7 +79,7 @@ public class Main {
         BoxLayout addTaskLayout = new BoxLayout(addTaskPanel, BoxLayout.Y_AXIS);
         addTaskPanel.setBackground(Color.WHITE);
         addTaskPanel.setLayout(addTaskLayout);
-        addTaskPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        addTaskPanel.setBorder(new EmptyBorder(0, 15, 0, 0));
 //        addTaskPanel.setBorder(BorderFactory.createLineBorder(new Color(112,112,112)));
         
         addTask.setBorder(BorderFactory.createEmptyBorder(0, 18, 0, 0));
