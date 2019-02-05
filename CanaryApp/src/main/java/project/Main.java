@@ -28,6 +28,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -118,6 +119,12 @@ public class Main {
         bottomPanel.setBackground(Color.WHITE);
         
         
+        //FOCUS INPUT ########### WORKING ON THIS ##########
+        JTextField textField = new JTextField(10);
+        JPanel delete = new JPanel();
+//        delete.add(textField);
+//        textField.requestFocusInWindow();
+        
         
         //TODO LAYOUT
         JPanel topTodoPanel = new JPanel();
@@ -143,6 +150,7 @@ public class Main {
         JCheckBox taskCompleteCheckBox = new JCheckBox();
         JLabel taskDescription = new JLabel("Make an stunning Java Swing App");
         
+        
         //TASK CONTAINER
         JPanel centerTaskPanel = new JPanel(new BorderLayout());
         JPanel taskInformationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -159,9 +167,6 @@ public class Main {
 
         JLabel assignee = new JLabel("Assigned to: Kylan Haffie");
         taskInformationPanel.add(assignee);
-
-
-
 
         
         JPanel taskCompletePanel = new JPanel();
