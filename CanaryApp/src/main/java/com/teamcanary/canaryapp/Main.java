@@ -18,7 +18,6 @@ public class Main {
         
         //MAIN WINDOW
         MainWindow window = new MainWindow();
-        
-        
+                
     }
 }
