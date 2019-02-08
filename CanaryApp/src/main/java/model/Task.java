@@ -18,6 +18,31 @@ public class Task {
     private Date date;  //or private String date;
     private String priority;
     private String category;
+    private SubTaskContainer subTaskContainer;
+    private boolean complete;
+
+    public boolean getComplete() {
+        return this.complete;
+    }
+    
+    public void toggleComplete(){
+        this.complete = !this.complete;
+    }
+    
+    public void markComplete(){    
+        this.complete = true;
+    }
+
+    
+    
+    
+    public SubTaskContainer getSubTaskContainer() {
+        return this.subTaskContainer;
+    }
+
+    public void setSubTaskContainer(SubTaskContainer container) {
+        this.subTaskContainer = container;
+    }
 
     public String getTaskDescription() {
         return taskDescription;
