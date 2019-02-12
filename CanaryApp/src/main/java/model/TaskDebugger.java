@@ -18,7 +18,7 @@ public class TaskDebugger {
         System.out.println("COMPLETE: " + task.getComplete());
         System.out.println("PRIORITY: " + task.getPriority());
         System.out.println("ASSIGNEE: " + task.getAssignedTo());
-        for (SubTask subtask: task.getSubTaskContainer().getSubTask()) {   
+        for (SubTask subtask: task.getSubTaskContainer().getAll()) {   
             System.out.println("---------------------------SUBTASK--------------------------------------");
             System.out.println("SUBTASK DESCRIPTION: " + subtask.getTaskDescription());
             System.out.println("COMPLETE: " + subtask.getComplete());

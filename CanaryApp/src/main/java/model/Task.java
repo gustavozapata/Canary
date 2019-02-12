@@ -10,14 +10,23 @@ public class Task {
     private String priority;
     private String category;
     private SubTaskContainer subTaskContainer;
+    private TaskContainer taskContainer;
+    
     private boolean complete;
     private TaskDebugger debugger;
     
-    public Task(String taskDescription){
+    public Task(TaskContainer taskContainer, String taskDescription){
         this.setSubTaskContainer(new SubTaskContainer());
+        this.setTaskContainer(taskContainer);
         this.taskDescription = taskDescription;
-        
         this.setDebugger(new TaskDebugger());
+    }
+    public void setTaskContainer(TaskContainer taskContainer){
+        this.taskContainer = taskContainer;
+    }
+    
+    public TaskContainer getTaskContainer(){
+        return this.taskContainer;
     }
     
     public TaskDebugger getDebugger(){   
@@ -38,10 +47,7 @@ public class Task {
     
     public void markComplete(){    
         this.complete = true;
-    }
-
-    
-    public SubTaskContainer getSubTaskContainer() {
+    }public SubTaskContainer getSubTaskContainer() {
         return this.subTaskContainer;
     }
 

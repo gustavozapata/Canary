@@ -10,17 +10,14 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-/**
- *
- * @author Gustavo
- */
+
 public class MainWindow extends JFrame {
     
     public MainWindow() {
-        this.setTitle("TODO CANARIO");
+        this.setTitle("ToDo Canary");
         this.setLayout(new BorderLayout());
         this.getContentPane().setBackground(Color.WHITE);
-        this.setSize(1200, 700);
+        this.setSize(240, 240);
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
