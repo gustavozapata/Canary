@@ -19,6 +19,7 @@ public class Task {
         
         this.setDebugger(new TaskDebugger());
     }
+    public Task(){}
     
     public TaskDebugger getDebugger(){   
         return this.debugger;
