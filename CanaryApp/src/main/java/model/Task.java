@@ -28,6 +28,7 @@ public class Task {
     public TaskContainer getTaskContainer(){
         return this.taskContainer;
     }
+    public Task(){}
     
     public TaskDebugger getDebugger(){   
         return this.debugger;
