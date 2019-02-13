@@ -1,5 +1,6 @@
 package com.teamcanary.canaryapp;
 
+import controller.TaskSystem;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.BorderFactory;
@@ -14,21 +15,18 @@ import view.TasksContainerView;
 public class Main {
     public static void main(String[] args){
         
-         
-        Task t1 = TaskSystem.taskManager.newTask("Create a Task");
-        Task t2= TaskSystem.taskManager.newTask("Create another Task");
-        Task t3 = TaskSystem.taskManager.newTask("Create a final Task");
-        Task t4= TaskSystem.taskManager.newTask("Do more stuff!");
-        SubTask s1 = TaskSystem.taskManager.newSubTask(t4,"Create a new Subtask");
+        User u1 = new User("Kylan","Haffie","Mazemace","Todocanary123");
         
-        
-        
+        Task t1 = TaskSystem.taskManager.newTask("Eat Food",u1);
+        Task t2= TaskSystem.taskManager.newTask("Drink Water",u1);
+        Task t3 = TaskSystem.taskManager.newTask("Party all Night",u1);
+        Task t4= TaskSystem.taskManager.newTask("Sleep",u1);
+        SubTask s1 = TaskSystem.taskManager.newSubTask(t4,"Dream of Code",u1);
+    
         s1.toggleComplete();       
         t1.toggleComplete();
         
-        
-        
-        
+
         //MAIN WINDOW - SETTINGS
         AppWindow window = new AppWindow();
         window.setTitle("TODO CANARIO");

@@ -20,13 +20,13 @@ public class TaskContainer {
         this.task.addAll(task);     
     }
     
-    public Task newTask(String Description){
-        Task task = new Task(this,Description);
+    public Task newTask(String Description, User user){
+        Task task = new Task(this,Description,user);
         this.addItem(task);
         return task; 
     }
-    public SubTask newSubTask(Task task, String Description){
-        SubTask subtask = new SubTask(this,Description);
+    public SubTask newSubTask(Task task, String Description, User user){
+        SubTask subtask = new SubTask(this,Description, user);
         task.getSubTaskContainer().addItem(subtask);
         return subtask;
     }

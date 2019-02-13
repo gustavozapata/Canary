@@ -14,6 +14,13 @@ public class User {
     private String familyName;
     private String userName;
     private String password;
+    
+    public User(String givenName,String familyName, String userName, String password){
+        this.setGivenName(givenName);
+        this.setFamilyName(familyName);
+        this.setUserName(userName);
+        this.setPassword(password);
+    }
 
     public String getGivenName() {
         return givenName;

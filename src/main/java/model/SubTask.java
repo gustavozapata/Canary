@@ -4,8 +4,8 @@ package model;
 
 public class SubTask extends Task {
 
-    public SubTask(TaskContainer taskContainer, String taskDescription) {
-        super(taskContainer, taskDescription);
+    public SubTask(TaskContainer taskContainer, String taskDescription, User user) {
+        super(taskContainer, taskDescription, user);
     }
 
 

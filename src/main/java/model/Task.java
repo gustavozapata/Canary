@@ -15,10 +15,11 @@ public class Task {
     private boolean complete;
     private TaskDebugger debugger;
     
-    public Task(TaskContainer taskContainer, String taskDescription){
+    public Task(TaskContainer taskContainer, String taskDescription, User user){
         this.setSubTaskContainer(new SubTaskContainer());
         this.setTaskContainer(taskContainer);
         this.taskDescription = taskDescription;
+        this.setAssignedTo(user);
         this.setDebugger(new TaskDebugger());
     }
     public void setTaskContainer(TaskContainer taskContainer){

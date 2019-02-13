@@ -5,6 +5,11 @@
  */
 package view;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -12,26 +17,48 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SpringLayout;
+import model.User;
 
 
 public class TaskView extends JPanel{
     
     
     
-    private AppText textarea = new AppText("New Task");
+    private AppText description = new AppText("New Task");
+    private AppText assignee = new AppText("");
     private JCheckBox completed = new JCheckBox();
     
-    public TaskView(String task_description, boolean task_completed){
+    public TaskView(String task_description, boolean task_completed, User task_assignee){
        
-       textarea.setText(task_description);
-       textarea.setHeadingTwo();
-       completed.setSelected(task_completed);  
-       JPanel listPane = new JPanel();
-       listPane.setLayout(new BoxLayout(listPane, BoxLayout.X_AXIS));
-       listPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-       listPane.add(textarea);
-       listPane.add(completed);
-       this.add(listPane);
+        
+        
+       BorderLayout borderlayout = new BorderLayout();
+       JPanel layout = new JPanel();
+       layout.setLayout(borderlayout);
+      // listPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+       
+ 
+       completed.setSelected(task_completed); 
+       layout.add(completed,BorderLayout.WEST);   
+
+       description.setText(task_description);
+       description.setHeadingTwo();
+       //description.setPreferredSize(new Dimension(500, 50));
+       layout.add(description,BorderLayout.EAST); 
+       
+       
+       assignee.setText("Assigned to: " + task_assignee.getGivenName());
+       layout.add(assignee,BorderLayout.PAGE_END);
+      
+       
+     // layout.setPreferredSize(new Dimension(900, 100));
+      layout.setBackground(new Color(203, 232, 254));
+       
+ 
+         
+       
+       this.add(layout,BorderLayout.WEST);   
     }   
     
 }

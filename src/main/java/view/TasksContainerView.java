@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 import model.SubTask;
 import model.Task;
 import model.TaskContainer;
-import model.TaskSystem;
+import controller.TaskSystem;
 
 public class TasksContainerView extends JPanel{
     
@@ -27,7 +27,7 @@ public class TasksContainerView extends JPanel{
        JPanel listPane = new JPanel();
        listPane.setLayout(new BoxLayout(listPane, BoxLayout.Y_AXIS));
        //listPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-       
+     
        
        System.out.println("Searching for tasks");
        System.out.println(TaskSystem.taskManager.getAll());
@@ -37,11 +37,12 @@ public class TasksContainerView extends JPanel{
        
        // Getting every Task and Subtask and adding a new TaskView for it
        for (Task task: TaskSystem.taskManager.getAll()) {  
-        TaskView new_task = new TaskView(task.getTaskDescription(),task.getComplete());
+        TaskView new_task = new TaskView(task.getTaskDescription(),task.getComplete(),task.getAssignedTo());
         listPane.add(new_task);
             for (SubTask subtask: task.getSubTaskContainer().getAll()) {  
-                TaskView new_subtask = new TaskView(subtask.getTaskDescription(),subtask.getComplete());
+                TaskView new_subtask = new TaskView(subtask.getTaskDescription(),subtask.getComplete(),subtask.getAssignedTo());
                 listPane.add(new_subtask);
+            
             }        
                 
                 
