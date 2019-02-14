@@ -1,11 +1,26 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package model;
 
+/**
+ *
+ * @author Gustavo
+ */
 public class User {
     private String givenName;
     private String familyName;
     private String userName;
     private String password;
+    
+    public User(String givenName,String familyName, String userName, String password){
+        this.setGivenName(givenName);
+        this.setFamilyName(familyName);
+        this.setUserName(userName);
+        this.setPassword(password);
+    }
 
     public String getGivenName() {
         return givenName;

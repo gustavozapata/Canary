@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.awt.BorderLayout;
@@ -21,29 +16,33 @@ import javax.swing.SwingConstants;
 import model.SubTask;
 import model.Task;
 import model.TaskContainer;
+import controller.TaskSystem;
 
 public class TasksContainerView extends JPanel{
     
     
     
-   public TasksContainerView(TaskContainer container){
+   public TasksContainerView(){
        
        JPanel listPane = new JPanel();
        listPane.setLayout(new BoxLayout(listPane, BoxLayout.Y_AXIS));
        //listPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-       
+     
        
        System.out.println("Searching for tasks");
-       System.out.println(container.getAll());
+       System.out.println(TaskSystem.taskManager.getAll());
+       this.setPreferredSize(new Dimension(912, 600));
+
        
        
        // Getting every Task and Subtask and adding a new TaskView for it
-       for (Task task: container.getAll()) {  
-        TaskView new_task = new TaskView(task.getTaskDescription(),task.getComplete());
+       for (Task task: TaskSystem.taskManager.getAll()) {  
+        TaskView new_task = new TaskView(task.getTaskDescription(),task.getComplete(),task.getAssignedTo());
         listPane.add(new_task);
             for (SubTask subtask: task.getSubTaskContainer().getAll()) {  
-                TaskView new_subtask = new TaskView(subtask.getTaskDescription(),subtask.getComplete());
+                TaskView new_subtask = new TaskView(subtask.getTaskDescription(),subtask.getComplete(),subtask.getAssignedTo());
                 listPane.add(new_subtask);
+            
             }        
                 
                 
@@ -53,7 +52,7 @@ public class TasksContainerView extends JPanel{
        
        this.add(listPane);
 
-       
+   }
 
        
        
@@ -63,5 +62,3 @@ public class TasksContainerView extends JPanel{
 
        
     }
-   
-}

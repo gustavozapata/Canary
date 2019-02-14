@@ -1,5 +1,6 @@
 package com.teamcanary.canaryapp;
 
+import controller.TaskSystem;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.BorderFactory;
@@ -7,27 +8,25 @@ import javax.swing.BoxLayout;
 import view.AppPanel;
 import view.AppWindow;
 import view.TodoPanel;
-import java.util.Arrays;
-import javax.swing.WindowConstants;
-import view.MainWindow;
-
 import model.*;
-import view.*;
-import controller.SubTaskOperator;
+import view.TasksContainerView;
+
 
 public class Main {
     public static void main(String[] args){
         
+        User u1 = new User("Kylan","Haffie","Mazemace","Todocanary123");
         
-        Task t1 = new Task("Create a Task");
-        //TASK CONTAINER CLASS MISSING
-//        SubTask s1 = new SubTask("Create a SubTask");
-//        SubTask s2 = new SubTask("Create a Second SubTask");
-//        s2.toggleComplete();
-//        t1.getSubTaskContainer().AddSubTask(s1);
-//        t1.getSubTaskContainer().AddSubTask(s2);
-//        t1.getDebugger().Print();
+        Task t1 = TaskSystem.taskManager.newTask("Eat Food",u1);
+        Task t2= TaskSystem.taskManager.newTask("Drink Water",u1);
+        Task t3 = TaskSystem.taskManager.newTask("Party all Night",u1);
+        Task t4= TaskSystem.taskManager.newTask("Sleep",u1);
+        SubTask s1 = TaskSystem.taskManager.newSubTask(t4,"Dream of Code",u1);
+    
+        s1.toggleComplete();       
+        t1.toggleComplete();
         
+
         //MAIN WINDOW - SETTINGS
         AppWindow window = new AppWindow();
         window.setTitle("TODO CANARIO");
@@ -77,7 +76,7 @@ public class Main {
         
         //TODO
         todoPanel.add(toolbarPanel, BorderLayout.NORTH);
-        todoPanel.add(tasksPanel, BorderLayout.CENTER);
+        todoPanel.add(tasksPanel, BorderLayout.WEST);
         
         
         //APP
@@ -91,36 +90,20 @@ public class Main {
         appTopPanel.add(appSettingsPanel, BorderLayout.EAST);
         
         appCentrePanel.add(todoPanel, BorderLayout.CENTER);
+        
+        TasksContainerView tasks = new TasksContainerView();     
+        tasksPanel.add(tasks);
+        
         appBottomPanel.add(window.getAppFooter());
         
         
        
         
         //MAIN WINDOW
-        MainWindow window = new MainWindow(); 
-        TaskContainer taskManager = new TaskContainer();
-        
- 
-        
-        
-        
-        
-        Task t1 = taskManager.newTask("Create a Task");
-        Task t2= taskManager.newTask("Create another Task");
-        Task t3 = taskManager.newTask("Create a final Task");
-        Task t4= taskManager.newTask("Do more stuff!");
-        SubTask s1 = taskManager.newSubTask(t1, "Create a new Subtask");
-        
-        s1.toggleComplete();       
-        t1.toggleComplete();
-        
-        
-        
-        //t1.getDebugger().Print();
-        TasksContainerView tasks = new TasksContainerView(taskManager);
-        window.add(tasks,BorderLayout.CENTER);
+        window.add(appTopPanel, BorderLayout.NORTH);
+        window.add(appCentrePanel, BorderLayout.CENTER);
+        window.add(appBottomPanel, BorderLayout.SOUTH);
         window.setVisible(true);
-            
     }
 }
         
