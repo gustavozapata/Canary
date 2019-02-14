@@ -14,8 +14,8 @@ public class Main {
     public static void main(String[] args){
         
         
-        //CODE TO BE REALLOCATED
-//        Task t1 = new Task("Create a Task");
+        Task t1 = new Task("Create a Task");
+        //TASK CONTAINER CLASS MISSING
 //        SubTask s1 = new SubTask("Create a SubTask");
 //        SubTask s2 = new SubTask("Create a Second SubTask");
 //        s2.toggleComplete();
