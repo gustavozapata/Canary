@@ -1,19 +1,26 @@
 package com.teamcanary.canaryapp;
 
+import controller.TaskSystem;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.BoxLayout;
+import model.Task;
+import model.User;
 import view.AppPanel;
 import view.AppWindow;
+import view.TasksContainerView;
 import view.TodoPanel;
 import view.TodoText;
 
-/**
- *
- * @author Gustavo
- */
 public class Main {
     public static void main(String[] args){
+        
+        //CREATING DEFAULT TESTING TASKS
+        User u1 = new User("Kylan","Haffie","Mazemace","Todocanary123");
+        Task t1 = TaskSystem.taskManager.newTask("Eat",u1);
+        Task t2 = TaskSystem.taskManager.newTask("Sleep",u1);
+        Task t3 = TaskSystem.taskManager.newTask("Code",u1);
+        Task t4 = TaskSystem.taskManager.newTask("Repeat",u1);
         
         //MAIN WINDOW - LABELS
         AppWindow window = new AppWindow();
@@ -22,9 +29,7 @@ public class Main {
         window.setAppFooter("Contact Canary");
         window.setAppNewTask("New Task");
         window.setAppLogin("Login");
-        
-        
-        
+               
         //APP - PANELS
         AppPanel appTopPanel = new AppPanel(new BorderLayout());
         AppPanel appCentrePanel = new AppPanel(new BorderLayout());
@@ -44,6 +49,9 @@ public class Main {
         TodoPanel tasksPanel = new TodoPanel();
         TodoPanel toolbarPanel = new TodoPanel();
         toolbarPanel.renderToolbarPanel();
+        
+        //TODO - TASKS
+        tasksPanel.add(new TasksContainerView());
         
         //TODO - LABELS
         TodoText noTasksMsg = new TodoText();

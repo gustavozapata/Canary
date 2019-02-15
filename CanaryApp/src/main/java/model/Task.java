@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.util.Date;
+import model.User;
 
-/**
- *
- * @author Gustavo
- */
 public class Task {
     private String taskDescription;
     private User owner;
@@ -18,6 +10,42 @@ public class Task {
     private Date date;  //or private String date;
     private String priority;
     private String category;
+    private SubTaskContainer subTaskContainer;
+    private TaskContainer taskContainer;
+    
+    private boolean complete;
+    
+    public Task(TaskContainer taskContainer, String taskDescription, User user){
+        this.setSubTaskContainer(new SubTaskContainer());
+        this.setTaskContainer(taskContainer);
+        this.taskDescription = taskDescription;
+        this.setAssignedTo(user);
+    }
+    public void setTaskContainer(TaskContainer taskContainer){
+        this.taskContainer = taskContainer;
+    }
+    
+    public TaskContainer getTaskContainer(){
+        return this.taskContainer;
+    }
+    
+    public boolean getComplete() {
+        return this.complete;
+    }
+    
+    public void toggleComplete(){
+        this.complete = !this.complete;
+    }
+    
+    public void markComplete(){    
+        this.complete = true;
+    }public SubTaskContainer getSubTaskContainer() {
+        return this.subTaskContainer;
+    }
+
+    public void setSubTaskContainer(SubTaskContainer container) {
+        this.subTaskContainer = container;
+    }
 
     public String getTaskDescription() {
         return taskDescription;

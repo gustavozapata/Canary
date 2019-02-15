@@ -7,10 +7,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-/**
- *
- * @author Gustavo
- */
 public class TodoPanel extends JPanel {
     public TodoPanel(){
         super(true);
