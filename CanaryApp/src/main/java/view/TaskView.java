@@ -34,7 +34,7 @@ public class TaskView extends JPanel{
        
         
         
-       BorderLayout borderlayout = new BorderLayout();
+       BorderLayout borderlayout = new BorderLayout(10,2);
        JPanel layout = new JPanel();
        layout.setLayout(borderlayout);
       // listPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
@@ -46,19 +46,14 @@ public class TaskView extends JPanel{
        description.setText(task_description);
        description.setHeadingTwo();
        //description.setPreferredSize(new Dimension(500, 50));
-       layout.add(description,BorderLayout.EAST); 
+       layout.add(description,BorderLayout.CENTER); 
        
        
        assignee.setText("Assigned to: " + task_assignee.getGivenName());
        layout.add(assignee,BorderLayout.PAGE_END);
-      
-       
-      layout.setPreferredSize(new Dimension(900, 100));
-      layout.setBackground(new Color(203, 232, 254));
-       
  
-         
-       
+      layout.setPreferredSize(new Dimension(900, 100));
+
        this.add(layout,BorderLayout.WEST);   
     }   
     

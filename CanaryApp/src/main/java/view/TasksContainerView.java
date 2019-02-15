@@ -26,12 +26,10 @@ public class TasksContainerView extends JPanel{
        
        JPanel listPane = new JPanel();
        listPane.setLayout(new BoxLayout(listPane, BoxLayout.Y_AXIS));
-          
-       System.out.println("Searching for tasks");
-       System.out.println(TaskSystem.taskManager.getAll());
-       this.setPreferredSize(new Dimension(912, 600));
-
        
+       JScrollPane scrollPane = new JScrollPane(listPane);
+       scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
        
        // Getting every Task and Subtask and adding a new TaskView for it
        for (Task task: TaskSystem.taskManager.getAll()) {  
@@ -42,13 +40,10 @@ public class TasksContainerView extends JPanel{
                 listPane.add(new_subtask);
             
             }        
-                
-                
-        
         listPane.add(new JSeparator());
        }
        
-       this.add(listPane);
+       this.add(scrollPane);
 
    }
 
