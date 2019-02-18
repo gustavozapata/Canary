@@ -34,26 +34,21 @@ public class TaskView extends JPanel{
        
         
         
-       BorderLayout borderlayout = new BorderLayout(10,2);
+       BorderLayout borderlayout = new BorderLayout(10,20);
        JPanel layout = new JPanel();
        layout.setLayout(borderlayout);
-      // listPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
        
- 
        completed.setSelected(task_completed); 
        layout.add(completed,BorderLayout.WEST);   
 
        description.setText(task_description);
        description.setHeadingTwo();
-       //description.setPreferredSize(new Dimension(500, 50));
        layout.add(description,BorderLayout.CENTER); 
-       
        
        assignee.setText("Assigned to: " + task_assignee.getGivenName());
        layout.add(assignee,BorderLayout.PAGE_END);
  
-      layout.setPreferredSize(new Dimension(900, 100));
-
+       layout.setPreferredSize(new Dimension(900,100));
        this.add(layout,BorderLayout.WEST);   
     }   
     

@@ -21,8 +21,8 @@ public class Main {
         Task t2 = TaskSystem.taskManager.newTask("Sleep",u1);
         Task t3 = TaskSystem.taskManager.newTask("Code",u1);
         Task t4 = TaskSystem.taskManager.newTask("Repeat",u1);
-        Task t5 = TaskSystem.taskManager.newTask("Please",u1);
-        Task t6 = TaskSystem.taskManager.newTask("Do",u1);
+        Task t5 = TaskSystem.taskManager.newTask("Cry",u1);
+        Task t6 = TaskSystem.taskManager.newTask("Try",u1);
         
         //MAIN WINDOW - LABELS
         AppWindow window = new AppWindow();
