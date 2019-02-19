@@ -2,12 +2,13 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.font.TextAttribute;
-import java.util.Map;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 /**
@@ -17,10 +18,12 @@ import javax.swing.SwingConstants;
 public class CreateTaskView extends JDialog {
     private TodoPanel createTaskMainPanel = new TodoPanel();
     private TodoPanel createTaskNorth = new TodoPanel();
+    private TodoPanel createTaskCentre = new TodoPanel();
     private TodoPanel createTaskSouth = new TodoPanel();
     
-    private TodoText createTaskTitle = new TodoText();
-    private TodoButton createTaskButton = new TodoButton();
+    private JLabel createTaskTitle = new JLabel();
+    private JButton createTaskButton = new JButton();
+    private JTextField createTaskDescription = new JTextField();
     
     
     public CreateTaskView() {
@@ -43,14 +46,18 @@ public class CreateTaskView extends JDialog {
         createTaskButton.setText("Create");
         createTaskButton.setForeground(Color.WHITE);
         createTaskButton.setBackground(new Color(112,112,112));
+        
+        createTaskDescription.setPreferredSize(new Dimension(120,30));
 //        createTaskButton.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
 
         createTaskSouth.setBorder(BorderFactory.createEmptyBorder(0,0,15,0));
         
         createTaskNorth.add(createTaskTitle);
+        createTaskCentre.add(createTaskDescription);
         createTaskSouth.add(createTaskButton);
         
         createTaskMainPanel.add(createTaskNorth, BorderLayout.NORTH);
+        createTaskMainPanel.add(createTaskCentre, BorderLayout.CENTER);
         createTaskMainPanel.add(createTaskSouth, BorderLayout.SOUTH);
         
         this.add(createTaskMainPanel);
