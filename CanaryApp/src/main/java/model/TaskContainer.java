@@ -24,6 +24,7 @@ public class TaskContainer {
     }
     
     public Task newTask(String Description, User user){
+        System.out.println("New Task!");
         Task task = new Task(this,Description,user);
         this.addItem(task);
         return task; 

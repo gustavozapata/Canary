@@ -34,9 +34,6 @@ public class TaskView extends JPanel{
     
     public TaskView(String task_description, boolean task_completed, User task_assignee,boolean isSubTask){
        
-        
-        
-
        completed.setSelected(task_completed);
        description.setText(task_description);
        description.setHeadingTwo();
@@ -66,10 +63,7 @@ public class TaskView extends JPanel{
             assignee.setText("Assigned to: " + task_assignee.getGivenName());
             layout.add(assignee,BorderLayout.PAGE_END);
             
-        }
-       
- 
-       
+        }      
        this.add(layout);   
        
 

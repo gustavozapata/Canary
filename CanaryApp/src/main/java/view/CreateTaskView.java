@@ -1,15 +1,20 @@
 package view;
 
+import controller.GUIManager;
+import controller.TaskSystem;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import model.Task;
+import model.User;
 
 /**
  *
@@ -25,6 +30,12 @@ public class CreateTaskView extends JDialog {
     private JButton createTaskButton = new JButton();
     private JTextField createTaskDescription = new JTextField();
     
+    public void createTask(){
+        User u1 = new User("Kylan","Haffie","Mazemace","Todocanary123");
+        Task t1 = TaskSystem.taskManager.newTask(createTaskDescription.getText(),u1);
+        GUIManager.createTaskView();
+        
+    }
     
     public CreateTaskView() {
         this.setSize(650, 400);
@@ -60,6 +71,7 @@ public class CreateTaskView extends JDialog {
         createTaskMainPanel.add(createTaskCentre, BorderLayout.CENTER);
         createTaskMainPanel.add(createTaskSouth, BorderLayout.SOUTH);
         
+        createTaskButton.addActionListener(e -> createTask());
         this.add(createTaskMainPanel);
     }
 }
