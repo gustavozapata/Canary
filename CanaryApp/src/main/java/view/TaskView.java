@@ -12,6 +12,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,26 +32,57 @@ public class TaskView extends JPanel{
     private AppText assignee = new AppText("");
     private JCheckBox completed = new JCheckBox();
     
-    public TaskView(String task_description, boolean task_completed, User task_assignee){
+    public TaskView(String task_description, boolean task_completed, User task_assignee,boolean isSubTask){
        
         
         
-       BorderLayout borderlayout = new BorderLayout(10,20);
-       JPanel layout = new JPanel();
-       layout.setLayout(borderlayout);
-       
-       completed.setSelected(task_completed); 
-       layout.add(completed,BorderLayout.WEST);   
 
+       completed.setSelected(task_completed);
        description.setText(task_description);
        description.setHeadingTwo();
-       layout.add(description,BorderLayout.CENTER); 
+       JPanel layout = new JPanel();
+
+        if(isSubTask){
+            description.setHeadingThree();
+            BoxLayout boxlayout = new BoxLayout(layout, BoxLayout.X_AXIS);
+            layout.setLayout(boxlayout); 
+           AppText image = new AppText("");
+           image.setIcon(new ImageIcon("src/main/java/images/BlankBorder.png"));
+           layout.add(image);
+           layout.add(completed);
+           layout.add(description); 
+           layout.setPreferredSize(new Dimension(900,50));
+       }
+        else{
+             description.setHeadingTwo();
+             BorderLayout borderlayout = new BorderLayout(1,20);
+   
+             layout.setLayout(borderlayout);
+            
+            
+            layout.add(completed,BorderLayout.WEST);   
+            layout.add(description,BorderLayout.CENTER); 
+            layout.setPreferredSize(new Dimension(900,100));
+            assignee.setText("Assigned to: " + task_assignee.getGivenName());
+            layout.add(assignee,BorderLayout.PAGE_END);
+            
+        }
        
-       assignee.setText("Assigned to: " + task_assignee.getGivenName());
-       layout.add(assignee,BorderLayout.PAGE_END);
  
-       layout.setPreferredSize(new Dimension(900,100));
-       this.add(layout,BorderLayout.WEST);   
+       
+       this.add(layout);   
+       
+
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
     }   
     
 }

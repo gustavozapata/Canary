@@ -27,7 +27,8 @@ public class TasksContainerView extends JPanel{
        
        JPanel listPane = new JPanel();
        listPane.setLayout(new BoxLayout(listPane, BoxLayout.Y_AXIS));
-       listPane.setSize(new Dimension(900,1000));
+       listPane.setAlignmentX(listPane.LEFT_ALIGNMENT);
+       listPane.setBackground(Color.RED);
        JScrollPane scrollPane = new JScrollPane(listPane);
        scrollPane.setPreferredSize(new Dimension(900,450));
        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -35,13 +36,13 @@ public class TasksContainerView extends JPanel{
        
        // Getting every Task and Subtask and adding a new TaskView for it
        for (Task task: TaskSystem.taskManager.getAll()) {  
-        TaskView new_task = new TaskView(task.getTaskDescription(),task.getComplete(),task.getAssignedTo());
+        TaskView new_task = new TaskView(task.getTaskDescription(),task.getComplete(),task.getAssignedTo(),false);
         listPane.add(new_task);
-           // for (SubTask subtask: task.getSubTaskContainer().getAll()) {  
-            //    TaskView new_subtask = new TaskView(subtask.getTaskDescription(),subtask.getComplete(),subtask.getAssignedTo());
-             //   listPane.add(new_subtask);        
-           // }        
-       // listPane.add(new JSeparator());
+            for (SubTask subtask: task.getSubTaskContainer().getAll()) {  
+                TaskView new_subtask = new TaskView(subtask.getTaskDescription(),subtask.getComplete(),subtask.getAssignedTo(),true);
+                listPane.add(new_subtask);    
+            }        
+        listPane.add(new JSeparator());
        }
        
        

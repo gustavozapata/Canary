@@ -30,6 +30,11 @@ public class AppText extends JLabel {
         this.setHorizontalAlignment(LEFT);
     }
         
+       public void setHeadingThree(){ // For Tasks
+        this.setFont(new Font("Sans-Serif", Font.BOLD, 20));
+        this.setHorizontalAlignment(LEFT);
+    }
+        
     public void setHeadingSix(){
         this.setFont(new Font("Sans-Serif", Font.BOLD, 15));
         this.setHorizontalAlignment(CENTER);

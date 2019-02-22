@@ -1,15 +1,15 @@
 package com.teamcanary.canaryapp;
 
-import com.google.gson.Gson;
 import controller.TaskSystem;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import model.Task;
 import model.User;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClientBuilder;
+//import com.google.gson.Gson;
+//import org.apache.http.client.HttpClient;
+//import org.apache.http.client.methods.HttpGet;
+//import org.apache.http.impl.client.HttpClientBuilder;
 import view.AppPanel;
 import view.AppWindow;
 import view.TasksContainerView;
@@ -20,13 +20,13 @@ public class Main {
     public static void main(String[] args){
         
         //------>>>>>>>> TO BE MOVED TO THE RIGHT CLASS
-        String paulJsonUrl = "http://nooblab.com/p2.json";
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpGet request = new HttpGet(paulJsonUrl);
+      //  String paulJsonUrl = "http://nooblab.com/p2.json";
+     //   HttpClient client = HttpClientBuilder.create().build();
+      //  HttpGet request = new HttpGet(paulJsonUrl);
 
 
         //------>>>>>>>> TO BE MOVED TO THE RIGHT CLASS
-        Gson gson = new Gson();
+        //Gson gson = new Gson();
         
         
         //CREATING DEFAULT TESTING TASKS
@@ -35,8 +35,11 @@ public class Main {
         Task t2 = TaskSystem.taskManager.newTask("Sleep",u1);
         Task t3 = TaskSystem.taskManager.newTask("Code",u1);
         Task t4 = TaskSystem.taskManager.newTask("Repeat",u1);
-        Task t5 = TaskSystem.taskManager.newTask("Cry",u1);
-        Task t6 = TaskSystem.taskManager.newTask("Try",u1);
+        Task t5 = TaskSystem.taskManager.newTask("TASK",u1);
+        Task s1 = TaskSystem.taskManager.newSubTask(t5,"SUBTASK",u1);
+        Task s2 = TaskSystem.taskManager.newSubTask(t5,"SUBTASK2",u1);
+        
+        
         
         //MAIN WINDOW - LABELS
         AppWindow window = new AppWindow();
