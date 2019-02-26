@@ -10,11 +10,18 @@ public class App {
         Work,
         Personal
     }
-    
+    //Categories a = Categories.Home;
     enum Priorities {
         High,
         Medium,
         Low
     }
-    //Categories a = Categories.Home;
+    
+    public String[] getCategories(){
+        return this.categories;
+    }
+    
+    public String[] getPriorities(){
+        return this.priorities;
+    }
 }
