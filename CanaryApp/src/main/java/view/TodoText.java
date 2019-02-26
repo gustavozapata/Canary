@@ -28,4 +28,16 @@ public class TodoText extends JLabel {
         this.setForeground(new Color(200, 200, 200));
         this.setBorder(BorderFactory.createEmptyBorder(200, 0, 0, 0));
     }
+    
+    public void setNewTaskTitle(String text){
+        this.setText(text);
+        this.setFont(new Font("Sans-serif", Font.BOLD, 27));
+        this.setForeground(new Color(235,17,69));
+    }
+    
+    public void setNewTaskLabel(String text){
+        this.setText(text);
+        this.setFont(new Font("Sans-serif", Font.BOLD, 23));
+        this.setForeground(new Color(74,74,74));
+    }
 }
