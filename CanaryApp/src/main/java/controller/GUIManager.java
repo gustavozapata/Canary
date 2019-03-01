@@ -40,7 +40,7 @@ public class GUIManager {
     
     public static void createTaskView(){
 
-           //APP - PANELS
+        //APP - PANELS
         AppPanel appTopPanel = new AppPanel(new BorderLayout());
         AppPanel appCentrePanel = new AppPanel(new BorderLayout());
         AppPanel appBottomPanel = new AppPanel();
@@ -61,9 +61,9 @@ public class GUIManager {
         toolbarPanel.renderToolbarPanel();
         
         //TODO - TASKS
-        TasksContainerView tasksview = new TasksContainerView();
-        tasksPanel.add(tasksview);
-        GUIManager.task_view = tasksview;
+//        TasksContainerView tasksview = new TasksContainerView();
+//        tasksPanel.add(tasksview);
+//        GUIManager.task_view = tasksview;
         
         //TODO - LABELS
         TodoText noTasksMsg = new TodoText();
