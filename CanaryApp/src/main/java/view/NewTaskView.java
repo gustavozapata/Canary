@@ -75,6 +75,11 @@ public class NewTaskView extends JDialog {
         
 
         
+        createTaskButton.addActionListener(e -> {
+            System.out.println("Handled Lambda listener");
+            System.out.println("Have fun!");
+        });
+        
         //COMPONENTS FORMATTING
         createTaskTitle.setNewTaskTitle("New Task");
         createTaskDescription.setNewTaskLabel("Task Description");
