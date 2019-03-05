@@ -1,14 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
-/**
- *
- * @author Kylan
- */
+import java.util.ArrayList;
+
+
 public class TaskContainer {
     
+    private ArrayList<Task> task = new ArrayList<Task>();
+    
+    public ArrayList<Task> getAll(){ 
+        return this.task;
+    }
+
+    public void addItem(Task task){
+        this.task.add(task);
+    }
+
+    public void addItems(ArrayList<SubTask> task){
+        this.task.addAll(task);     
+    }
+    
+    
+    public Task newTask(String Description, User user){
+        System.out.println("New Task!");
+        Task task = new Task(this,Description,user);
+        this.addItem(task);
+        return task; 
+    }
 }

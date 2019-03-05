@@ -12,5 +12,11 @@ public class Main {
         AppGUIBuilder appBuilder = new AppGUIBuilder();
         appBuilder.buildAppWindow();
         appBuilder.generateLabels();
+        
+        
+        
+        
+        
+        
     }
 }
