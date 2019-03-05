@@ -1,6 +1,6 @@
 package view;
 
-import controller.MainWindowListener;
+import controller.AppListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.BorderFactory;
@@ -9,57 +9,53 @@ import javax.swing.WindowConstants;
 
 /**
  *
- * @author Gustavo
+ * @author k1715308
  */
-public class AppWindow extends JFrame {
+public class AppView extends JFrame {
     
-    // TODO: DOUBLE CHECK WITH PAUL
-    //##### PANELS #####
+    //PANELS
     private AppPanel appTopPanel = new AppPanel();
     private AppPanel appBottomPanel = new AppPanel();
     private AppPanel appCentrePanel = new AppPanel();
     private AppPanel appLeftPanel = new AppPanel();
     private AppPanel appRightPanel = new AppPanel();
     
-    //##### COMPONENTS #####
-    private AppText appTitle = new AppText();
-    private AppText appFooter = new AppText();
-    private AppText appPlusSign = new AppText("+");
-    private AppText appNewTask = new AppText();
-    private AppText appLogin = new AppText();
+    //COMPONENTS
+    private AppLabel appTitle = new AppLabel();
+    private AppLabel appFooter = new AppLabel();
+    private AppLabel appPlusSign = new AppLabel("+");
+    private AppLabel appNewTask = new AppLabel();
+    private AppLabel appLogin = new AppLabel();
     
-    //##### LISTENERS #####
-    private MainWindowListener windowListener = new MainWindowListener();
+    //LISTENERS
+    private AppListener appListener = new AppListener();    
     
-    //SINGLETON CLASS - (ONLY ONE INSTANCE OF THE CLASS CAN BE CREATED)
-    /*public static MainWindow instance = null;
-    private MainWindow(){
+    //SINGLETON CLASS
+    public static AppView instance = null;
+    private AppView(){
         super();
-    }
-    public static MainWindow getInstance(){
-        if(MainWindow.instance == null){
-            instance = new MainWindow();
-        }
-        return instance;
-    }*/
-    
-    public AppWindow() {
         this.setLayout(new BorderLayout());
         this.getContentPane().setBackground(Color.WHITE);
         this.setSize(1200, 700);
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
-        this.appPlusSign.addMouseListener(windowListener);
+        this.appPlusSign.addMouseListener(appListener);
     }
     
+    public static AppView getInstance(){
+        if(AppView.instance == null){
+            instance = new AppView();
+        }
+        return instance;
+    }
     
     //COMPONENTS GETTERS AND SETTERS
     public void setAppTitle(String text){
         this.appTitle.setText(text);
         this.appTitle.setHeadingOne();
     }
-    public AppText getAppTitle(){
+    public AppLabel getAppTitle(){
         return this.appTitle;
     }
     
@@ -67,11 +63,11 @@ public class AppWindow extends JFrame {
         this.appFooter.setText(text);
         this.appFooter.setHeadingSix();
     }
-    public AppText getAppFooter(){
+    public AppLabel getAppFooter(){
         return this.appFooter;
     }
     
-    public AppText getAppPlusSign(){
+    public AppLabel getAppPlusSign(){
         this.appPlusSign.setPlusSign();
         return this.appPlusSign;
     }
@@ -80,7 +76,7 @@ public class AppWindow extends JFrame {
         this.appNewTask.setText(text);
         this.appNewTask.setBorder(BorderFactory.createEmptyBorder(0,30,0,0));
     }
-    public AppText getAppNewTask(){
+    public AppLabel getAppNewTask(){
         return this.appNewTask;
     }
     
@@ -88,7 +84,7 @@ public class AppWindow extends JFrame {
         this.appLogin.setText(text);
         this.appLogin.setBorder(BorderFactory.createEmptyBorder(30,0,0,0));
     }
-    public AppText getAppLogin(){
+    public AppLabel getAppLogin(){
         return this.appLogin;
     }
 }

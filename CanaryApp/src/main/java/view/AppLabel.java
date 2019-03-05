@@ -10,31 +10,29 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author Gustavo
+ * @author k1715308
  */
-public class AppText extends JLabel {
-    public AppText(String text) {
+public class AppLabel extends JLabel {
+    public AppLabel(String text) {
         super(text, null, LEADING);
     }
-    public AppText(){
+    public AppLabel(){
         super("", null, LEADING);
     }
     
+    //HEADINGS
     public void setHeadingOne(){
         this.setFont(new Font("Sans-Serif", Font.BOLD, 40));
         this.setHorizontalAlignment(CENTER);
     }
-    
-        public void setHeadingTwo(){ // For Tasks
+    public void setHeadingTwo(){ // For Tasks
         this.setFont(new Font("Sans-Serif", Font.BOLD, 30));
         this.setHorizontalAlignment(LEFT);
     }
-        
-       public void setHeadingThree(){ // For Tasks
+    public void setHeadingThree(){ // For Tasks
         this.setFont(new Font("Sans-Serif", Font.BOLD, 20));
         this.setHorizontalAlignment(LEFT);
     }
-        
     public void setHeadingSix(){
         this.setFont(new Font("Sans-Serif", Font.BOLD, 15));
         this.setHorizontalAlignment(CENTER);
@@ -44,6 +42,7 @@ public class AppText extends JLabel {
         this.setFont(this.getFont().deriveFont(attributes));
         this.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
     }
+    
     public void setPlusSign(){
         this.setFont(new Font("Sans-Serif", Font.BOLD, 60));
         this.setForeground(new Color(37, 167, 254));

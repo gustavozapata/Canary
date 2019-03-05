@@ -1,25 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
+import static controller.AppListener.newTaskView;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import view.CreateTaskView;
 
 /**
  *
  * @author Gustavo
  */
-public class MainWindowListener implements MouseListener {
+public class NewTaskListener implements MouseListener {
     
-    private CreateTaskView createTaskView = new CreateTaskView();
-
-    @Override
+        @Override
     public void mouseClicked(MouseEvent e) {
-        createTaskView.setVisible(true);
+        newTaskView.setVisible(false);
     }
 
     @Override
@@ -30,7 +23,5 @@ public class MainWindowListener implements MouseListener {
     public void mouseEntered(MouseEvent e) {}
     @Override
     public void mouseExited(MouseEvent e) {}
-    
-   
     
 }

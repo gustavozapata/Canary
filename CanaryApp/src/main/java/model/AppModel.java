@@ -1,21 +1,12 @@
 package model;
 
-public class App {
+/**
+ *
+ * @author k1715308
+ */
+public class AppModel {
     final private String[] categories = new String[] {"University", "Home", "Work", "Personal"};
     final private String[] priorities = new String[] {"High", "Medium", "Low"};
-    
-    enum Categories {
-        University,
-        Home,
-        Work,
-        Personal
-    }
-    //Categories a = Categories.Home;
-    enum Priorities {
-        High,
-        Medium,
-        Low
-    }
     
     public String[] getCategories(){
         return this.categories;
