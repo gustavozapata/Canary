@@ -31,13 +31,8 @@ public class Task {
     
     public void markComplete(){    
         this.complete = true;
-    }public SubTaskContainer getSubTaskContainer() {
-        return this.subTaskContainer;
     }
-
-    public void setSubTaskContainer(SubTaskContainer container) {
-        this.subTaskContainer = container;
-    }
+    
 
     public String getTaskDescription() {
         return taskDescription;

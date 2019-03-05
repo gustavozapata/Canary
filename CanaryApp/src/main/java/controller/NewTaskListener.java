@@ -8,11 +8,15 @@ import java.awt.event.MouseListener;
  *
  * @author Gustavo
  */
+
+
+
+
 public class NewTaskListener implements MouseListener {
     
         @Override
     public void mouseClicked(MouseEvent e) {
-        newTaskView.setVisible(false);
+        newTaskView.setVisible(false);         
     }
 
     @Override

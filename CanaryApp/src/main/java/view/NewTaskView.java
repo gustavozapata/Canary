@@ -54,6 +54,8 @@ public class NewTaskView extends JDialog {
     private NewTaskListener newTaskListener = new NewTaskListener();
     
     
+    
+    
     public NewTaskView() {
         this.setSize(700, 400);
         this.setLocation(300, 150);
