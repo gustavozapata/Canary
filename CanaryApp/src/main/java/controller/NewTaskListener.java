@@ -11,13 +11,13 @@ import java.awt.event.MouseListener;
 
 
 public class NewTaskListener implements MouseListener {
-//    TaskPanel adsaf = new TaskPanel();
-//    AppGUIBuilder test = new AppGUIBuilder();
-    
     @Override
     public void mouseClicked(MouseEvent e) {
         newTaskView.setVisible(false);
 //        test.renderTasks();
+        AppGUIBuilder.renderTasks();
+//        validate();
+//        repaint();
     }
 
     @Override

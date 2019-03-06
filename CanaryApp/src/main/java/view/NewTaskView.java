@@ -75,12 +75,6 @@ public class NewTaskView extends JDialog {
         containerTaskDescription.setLayout(new BoxLayout(containerTaskDescription, BoxLayout.Y_AXIS));
         containerTaskDescription.setBorder(BorderFactory.createEmptyBorder(0,0,40,110));
         
-
-        
-        createTaskButton.addActionListener(e -> {
-            System.out.println("Handled Lambda listener");
-            System.out.println("Have fun!");
-        });
         
         //COMPONENTS FORMATTING
         createTaskTitle.setNewTaskTitle("New Task");

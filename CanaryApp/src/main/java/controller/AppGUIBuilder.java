@@ -27,15 +27,17 @@ public class AppGUIBuilder {
     
     //TASK PANELS
     TaskPanel todoPanel = new TaskPanel(new BorderLayout());
-    TaskPanel taskPanel = new TaskPanel();
     TaskPanel toolbarPanel = new TaskPanel();
-    TaskLabel noTasksMsg = new TaskLabel();
     
-    TaskPanel containerTasks = new TaskPanel("Task Panel");
+    static TaskPanel taskPanel = new TaskPanel();
+    static TaskLabel noTasksMsg = new TaskLabel();
+    static TaskPanel containerTasks = new TaskPanel("Task Panel");
+    
     JScrollPane containerTasksScroll = new JScrollPane(taskPanel);
     
     public void buildAppWindow(){
         containerTasksScroll.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
+        containerTasksScroll.getVerticalScrollBar().setUnitIncrement(16);
         appSettingsPanel.setPreferredSize(new Dimension(130, 100));
         newTaskPanel.setLayout(new BoxLayout(newTaskPanel, BoxLayout.Y_AXIS));
         newTaskPanel.setPreferredSize(new Dimension(130, 100));
@@ -90,9 +92,11 @@ public class AppGUIBuilder {
     
     
     //TESTING
-    public void renderTasks(){
+    public static void renderTasks(){
         taskPanel.remove(noTasksMsg);
-//        containerTasks.createNewTask();
-//        taskPanel.add(containerTasks);
+        containerTasks.createNewTask();
+        taskPanel.add(containerTasks);
+        taskPanel.revalidate();
+        taskPanel.repaint();
     }
 }
