@@ -10,8 +10,6 @@ import java.awt.event.MouseListener;
  */
 
 
-
-
 public class NewTaskListener implements MouseListener {
 //    TaskPanel adsaf = new TaskPanel();
 //    AppGUIBuilder test = new AppGUIBuilder();

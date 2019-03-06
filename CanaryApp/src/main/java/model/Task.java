@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import model.User;
 
 public class Task {
     private String taskDescription;
