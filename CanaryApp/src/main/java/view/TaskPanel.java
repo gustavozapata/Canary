@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
  * @author k1715308
  */
 public class TaskPanel extends JPanel {
+    //PLACE THIS IN THE RIGHT PLACE
     private ArrayList<TaskPanel> taskContainers = new ArrayList();
     
     public TaskPanel(){

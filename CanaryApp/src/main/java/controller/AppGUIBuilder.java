@@ -58,11 +58,7 @@ public class AppGUIBuilder {
     
     public void addComponentsAppWindow(){
         
-        //NOTHING TO DO, RELAX! (MESSAGE)
         taskPanel.add(noTasksMsg);
-//        renderTasks();
-//        renderTasks();
-//        renderTasks();
         
         
         todoPanel.add(toolbarPanel, BorderLayout.NORTH);
@@ -91,7 +87,7 @@ public class AppGUIBuilder {
     }
     
     
-    //TESTING
+    //ADD NEW TASK TO THE TASK PANEL
     public static void renderTasks(){
         taskPanel.remove(noTasksMsg);
         containerTasks.createNewTask();
