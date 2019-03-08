@@ -3,21 +3,27 @@ package controller;
 import static controller.AppListener.newTaskView;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-/**
- *
- * @author Gustavo
- */
+import model.Task;
+import model.TaskContainer;
+import model.User;
 
 
 public class NewTaskListener implements MouseListener {
+    
+    TaskContainer taskContainer;
+    
     @Override
     public void mouseClicked(MouseEvent e) {
         newTaskView.setVisible(false);
-//        test.renderTasks();
         AppGUIBuilder.renderTasks();
-//        validate();
-//        repaint();
+        
+        if(Task.taskCounter == 0){
+            taskContainer = TaskContainer.getInstance();
+        }       
+        Task newTask = taskContainer.newTask("df", new User("asdf","d","asd","d"));
+        System.out.println(newTaskView.getProperties());
+
+
     }
 
     @Override

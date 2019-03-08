@@ -4,10 +4,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import view.NewTaskView;
 
-/**
- *
- * @author k1715308
- */
 public class AppListener implements MouseListener {
     static NewTaskView newTaskView = new NewTaskView();
     

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Task {
+    public static int taskCounter = 0;
     private String taskDescription;
     private User owner;
     private User assignedTo;
@@ -15,13 +16,9 @@ public class Task {
     private boolean complete;
     
     public Task(String taskDescription, User user){
-        
+        taskCounter++;
         this.taskDescription = taskDescription;
         this.setAssignedTo(user);
-    }
-
-    Task(TaskContainer aThis, String Description, User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public boolean getComplete() {

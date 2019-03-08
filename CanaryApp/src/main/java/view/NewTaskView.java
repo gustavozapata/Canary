@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -55,6 +56,9 @@ public class NewTaskView extends JDialog {
     
     
     
+    public NewTaskView(String type){
+    }
+    
     
     public NewTaskView() {
         this.setSize(700, 400);
@@ -103,10 +107,7 @@ public class NewTaskView extends JDialog {
         createTaskButton.setForeground(Color.WHITE);
         createTaskButton.setFont(new Font("Sans-serif", Font.BOLD, 18));
         createTaskButton.setBackground(new Color(112,112,112));
-        
-        
-        
-        
+
         //ADDING
         containerTaskAssigned.add(createTaskAssigned);
         containerTaskAssigned.add(createTaskAssignedDrop);
@@ -136,5 +137,12 @@ public class NewTaskView extends JDialog {
         createTaskMainPanel.add(createTaskSouth, BorderLayout.SOUTH);
         
         this.add(createTaskMainPanel);
+    }
+    
+    public ArrayList getProperties(){
+        ArrayList newTaskProperties = new ArrayList();
+        newTaskProperties.add(createTaskDescriptionTextField.getText());
+        
+        return newTaskProperties;
     }
 }
