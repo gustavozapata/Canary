@@ -33,12 +33,9 @@ public class TaskPanel extends JPanel {
     public TaskPanel(String type){
         if(type.equals("Task")){
             this.setBackground(new Color(241,241,241));
-            this.setPreferredSize(new Dimension(900,90));
-            this.setBorder(BorderFactory.createMatteBorder(1,1,1,1, Color.BLACK));
-        } else {
+        } 
             BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
             this.setLayout(boxLayout);
-        }
     }
     
     public void renderToolbarPanel(){
@@ -48,6 +45,7 @@ public class TaskPanel extends JPanel {
     }
     
     public void createNewTask(){
-        this.add(new TaskPanel("Task"));
+//        this.add(new TaskPanel("Task"));
+        this.add(new TaskView());
     }
 }

@@ -1,9 +1,9 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 /**
@@ -11,11 +11,40 @@ import javax.swing.JPanel;
  * @author Gustavo
  */
 public class TaskView extends JPanel {
+    
+    TaskPanel topPart = new TaskPanel("Task");
+    TaskPanel bottomPart = new TaskPanel("Task");
+    TaskPanel checkBoxPanel = new TaskPanel("Task");
+    TaskPanel taskDescriptionPanel = new TaskPanel("Task");
+    TaskPanel actionsPanel = new TaskPanel("Task");
+    TaskPanel taskInfoPanel = new TaskPanel("Task");
 
-    public TaskView(String type) {
+    public TaskView() {
+        this.setLayout(new BorderLayout());
         this.setBackground(new Color(241, 241, 241));
         this.setPreferredSize(new Dimension(900, 90));
         this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+        
+        topPart.setLayout(new BorderLayout());
+        
+        bottomPart.setPreferredSize(new Dimension(200, 25));
+        actionsPanel.setPreferredSize(new Dimension(80, 25));
+        checkBoxPanel.setPreferredSize(new Dimension(80, 25));
+        
+        topPart.setBorder(BorderFactory.createLineBorder(Color.blue));
+        bottomPart.setBorder(BorderFactory.createLineBorder(Color.red));
+        checkBoxPanel.setBorder(BorderFactory.createLineBorder(Color.orange));
+        taskDescriptionPanel.setBorder(BorderFactory.createLineBorder(Color.pink));
+        actionsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        taskInfoPanel.setBorder(BorderFactory.createLineBorder(Color.magenta));
+        
+        topPart.add(checkBoxPanel, BorderLayout.WEST);
+        topPart.add(taskDescriptionPanel, BorderLayout.CENTER);
+        topPart.add(actionsPanel, BorderLayout.EAST);
+        bottomPart.add(taskInfoPanel);
+        
+        this.add(topPart, BorderLayout.CENTER);
+        this.add(bottomPart, BorderLayout.SOUTH);
     }
 
 }
