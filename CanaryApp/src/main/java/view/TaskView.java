@@ -18,6 +18,8 @@ public class TaskView extends JPanel {
     TaskPanel taskDescriptionPanel = new TaskPanel("Task");
     TaskPanel actionsPanel = new TaskPanel("Task");
     TaskPanel taskInfoPanel = new TaskPanel("Task");
+    
+    TaskLabel taskDescription = new TaskLabel();
 
     public TaskView() {
         this.setLayout(new BorderLayout());
@@ -43,8 +45,15 @@ public class TaskView extends JPanel {
         topPart.add(actionsPanel, BorderLayout.EAST);
         bottomPart.add(taskInfoPanel);
         
+        addElementsToTask();
+        
         this.add(topPart, BorderLayout.CENTER);
         this.add(bottomPart, BorderLayout.SOUTH);
+    }
+    
+    public void addElementsToTask(){
+        taskDescription.setText(NewTaskView.createTaskDescriptionTextField.getText());
+        taskDescriptionPanel.add(taskDescription);
     }
 
 }

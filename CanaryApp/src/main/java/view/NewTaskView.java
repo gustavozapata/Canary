@@ -43,7 +43,7 @@ public class NewTaskView extends JDialog {
     private TaskLabel createTaskPriority = new TaskLabel();
     private TaskLabel createTaskAssigned = new TaskLabel();
     
-    private JTextField createTaskDescriptionTextField = new JTextField();
+    static JTextField createTaskDescriptionTextField = new JTextField();
     private JComboBox<String> createTaskCategoryDrop = new JComboBox(taskSettings.getCategories());
     private JComboBox<String> createTaskAssignedDrop = new JComboBox(taskSettings.getCategories());
     private ButtonGroup groupPriority = new ButtonGroup();

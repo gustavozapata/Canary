@@ -45,7 +45,6 @@ public class TaskPanel extends JPanel {
     }
     
     public void createNewTask(){
-//        this.add(new TaskPanel("Task"));
         this.add(new TaskView());
     }
 }
