@@ -5,11 +5,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import model.TaskContainer;
+import model.Task;
+import model.User;
 
-/**
- *
- * @author Gustavo
- */
 public class TaskView extends JPanel {
     
     TaskPanel topPart = new TaskPanel("Task");
@@ -23,6 +22,8 @@ public class TaskView extends JPanel {
     TaskLabel taskAssignee = new TaskLabel();
     TaskLabel taskCategory = new TaskLabel();
     TaskLabel taskDate = new TaskLabel();
+    
+    Task linkedTask;
 
     public TaskView() {
         this.setLayout(new BorderLayout());
@@ -49,7 +50,7 @@ public class TaskView extends JPanel {
         bottomPart.add(taskInfoPanel);
         
         addElementsToTask();
-        
+        addToTaskContainer();
         this.add(topPart, BorderLayout.CENTER);
         this.add(bottomPart, BorderLayout.SOUTH);
     }
@@ -58,5 +59,9 @@ public class TaskView extends JPanel {
         taskDescription.setText(NewTaskView.createTaskDescriptionTextField.getText());
         taskDescriptionPanel.add(taskDescription);
     }
+    
+   public void addToTaskContainer(){
+       this.linkedTask = TaskContainer.getInstance().newTask(NewTaskView.createTaskDescriptionTextField.getText(),new User("jhi","jiji","jiji","jkj"));
+   }
 
 }

@@ -7,6 +7,9 @@ public class TaskContainer {
     
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private static TaskContainer instance;
+    
+    
+    
     private TaskContainer(){
         
         
@@ -35,5 +38,13 @@ public class TaskContainer {
         Task task = new Task(Description,user);
         this.addItem(task);
         return task; 
+    }
+    
+    public void printAll(){
+        System.out.println("THERE ARE: " +  this.tasks.size());
+        for (Task task : this.tasks) {
+            System.out.println(task.getTaskDescription());
+            
+        }             
     }
 }

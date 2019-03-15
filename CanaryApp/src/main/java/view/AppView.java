@@ -7,10 +7,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-/**
- *
- * @author k1715308
- */
 public class AppView extends JFrame {
     
     //PANELS
@@ -41,6 +37,8 @@ public class AppView extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         this.appPlusSign.addMouseListener(appListener);
+        
+        this.appLogin.addMouseListener(appListener);
     }
     
     public static AppView getInstance(){
