@@ -12,8 +12,11 @@ public class AppListener implements MouseListener {
     
     @Override
     public void mouseClicked(MouseEvent e) {
-        newTaskView.setVisible(true);    
-        loginView.setVisible(true);
+        if(e.getComponent().getName() == "plus_btn"){
+            newTaskView.setVisible(true);  
+        } else if(e.getComponent().getName() == "login_btn"){
+            loginView.setVisible(true);
+        }
     }
     
 

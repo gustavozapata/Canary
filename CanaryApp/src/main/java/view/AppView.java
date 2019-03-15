@@ -1,8 +1,11 @@
 package view;
 
+import controller.AppController;
 import controller.AppListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -26,6 +29,7 @@ public class AppView extends JFrame {
     //LISTENERS
     private AppListener appListener = new AppListener();    
     
+    private AppController appController = new AppController();
     //SINGLETON CLASS
     public static AppView instance = null;
     private AppView(){
@@ -36,9 +40,8 @@ public class AppView extends JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
-        this.appPlusSign.addMouseListener(appListener);
         
-        this.appLogin.addMouseListener(appListener);
+        this.appPlusSign.addMouseListener(appListener);
     }
     
     public static AppView getInstance(){
@@ -67,6 +70,7 @@ public class AppView extends JFrame {
     
     public AppLabel getAppPlusSign(){
         this.appPlusSign.setPlusSign();
+        this.appPlusSign.setName("plus_btn");
         return this.appPlusSign;
     }
     
@@ -81,6 +85,7 @@ public class AppView extends JFrame {
     public void setAppLogin(String text){
         this.appLogin.setText(text);
         this.appLogin.setBorder(BorderFactory.createEmptyBorder(30,0,0,0));
+        this.appLogin.setName("login_btn");
     }
     public AppLabel getAppLogin(){
         return this.appLogin;
