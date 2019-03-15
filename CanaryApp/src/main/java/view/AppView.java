@@ -29,7 +29,7 @@ public class AppView extends JFrame {
     //LISTENERS
     private AppListener appListener = new AppListener();    
     
-    private AppController appController = new AppController();
+    
     //SINGLETON CLASS
     public static AppView instance = null;
     private AppView(){
