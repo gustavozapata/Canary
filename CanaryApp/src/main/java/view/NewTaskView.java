@@ -141,8 +141,8 @@ public class NewTaskView extends JDialog {
     
     public ArrayList getProperties(){
         ArrayList newTaskProperties = new ArrayList();
-        newTaskProperties.add(createTaskDescriptionTextField.getText());
-        
+        newTaskProperties.add(createTaskDescriptionTextField.getText());       
         return newTaskProperties;
     }
+    
 }

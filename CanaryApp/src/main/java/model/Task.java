@@ -20,6 +20,10 @@ public class Task {
         this.taskDescription = taskDescription;
         this.setAssignedTo(user);
     }
+
+    public Task() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     public boolean getComplete() {
         return this.complete;
