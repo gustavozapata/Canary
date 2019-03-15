@@ -16,6 +16,7 @@ import javax.swing.JDialog;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import model.AppModel;
+import org.jdatepicker.JDatePicker;
 
 /**
  *
@@ -51,6 +52,7 @@ public class NewTaskView extends JDialog {
     private JRadioButton mediumPriority = new JRadioButton(taskSettings.getPriorities()[1]);
     private JRadioButton highPriority = new JRadioButton(taskSettings.getPriorities()[2]);
     private JButton createTaskButton = new JButton();
+    private JDatePicker datePicker;
     
     private NewTaskListener newTaskListener = new NewTaskListener();
     
@@ -64,6 +66,7 @@ public class NewTaskView extends JDialog {
         this.setSize(700, 400);
         this.setLocation(300, 150);
         this.createTaskButton.addMouseListener(newTaskListener);
+//        datePicker = new JDatePicker();
         
         //PANEL FORMATTING
         createTaskMainPanel.setLayout(new BorderLayout());
