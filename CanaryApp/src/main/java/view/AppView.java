@@ -38,6 +38,7 @@ public class AppView extends JFrame {
         this.getContentPane().setBackground(Color.WHITE);
         this.setSize(1200, 700);
         this.setVisible(true);
+        this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         
