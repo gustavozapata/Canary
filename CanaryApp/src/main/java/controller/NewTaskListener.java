@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 import model.Task;
 import model.TaskContainer;
 import model.User;
+import view.TaskView;
 
 
 public class NewTaskListener implements MouseListener {
@@ -14,6 +15,8 @@ public class NewTaskListener implements MouseListener {
     
     @Override
     public void mouseClicked(MouseEvent e) {
+        TaskView taskView = new TaskView();
+        
         newTaskView.setVisible(false);
         AppGUIBuilder.renderTasks();
         
@@ -21,7 +24,7 @@ public class NewTaskListener implements MouseListener {
             taskContainer = TaskContainer.getInstance();
         }       
         Task newTask = taskContainer.newTask("df", new User("asdf","d","asd","d"));
-        System.out.println(newTaskView.getProperties());
+//        System.out.println(newTaskView.getProperties());
 
 
     }

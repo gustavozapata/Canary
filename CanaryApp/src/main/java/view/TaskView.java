@@ -20,6 +20,9 @@ public class TaskView extends JPanel {
     TaskPanel taskInfoPanel = new TaskPanel("Task");
     
     TaskLabel taskDescription = new TaskLabel();
+    TaskLabel taskAssignee = new TaskLabel();
+    TaskLabel taskCategory = new TaskLabel();
+    TaskLabel taskDate = new TaskLabel();
 
     public TaskView() {
         this.setLayout(new BorderLayout());
