@@ -19,6 +19,9 @@ public class TaskView extends JPanel {
     TaskPanel taskInfoPanel = new TaskPanel("Task");
     
     TaskLabel taskDescription = new TaskLabel();
+    TaskLabel taskAssignee = new TaskLabel();
+    TaskLabel taskCategory = new TaskLabel();
+    TaskLabel taskDate = new TaskLabel();
     
     Task linkedTask;
 
@@ -59,8 +62,6 @@ public class TaskView extends JPanel {
     
    public void addToTaskContainer(){
        this.linkedTask = TaskContainer.getInstance().newTask(NewTaskView.createTaskDescriptionTextField.getText(),new User("jhi","jiji","jiji","jkj"));
-       TaskContainer.getInstance().printAll();
-       
    }
 
 }

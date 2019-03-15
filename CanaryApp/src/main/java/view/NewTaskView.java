@@ -112,9 +112,9 @@ public class NewTaskView extends JDialog {
         containerTaskAssigned.add(createTaskAssigned);
         containerTaskAssigned.add(createTaskAssignedDrop);
         
-        containerPriorityOptions.add(lowPriority);
-        containerPriorityOptions.add(mediumPriority);
         containerPriorityOptions.add(highPriority);
+        containerPriorityOptions.add(mediumPriority);
+        containerPriorityOptions.add(lowPriority);
               
         containerPriority.add(createTaskPriority);
         containerPriority.add(containerPriorityOptions);
@@ -141,7 +141,9 @@ public class NewTaskView extends JDialog {
     
     public ArrayList getProperties(){
         ArrayList newTaskProperties = new ArrayList();
+
         newTaskProperties.add(createTaskDescriptionTextField.getText());       
+
         return newTaskProperties;
     }
     
