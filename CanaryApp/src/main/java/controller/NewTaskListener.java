@@ -7,6 +7,7 @@ import model.Task;
 import model.TaskContainer;
 import model.User;
 import view.TaskView;
+import view.NewTaskView;
 
 
 public class NewTaskListener implements MouseListener {
@@ -17,8 +18,11 @@ public class NewTaskListener implements MouseListener {
     public void mouseClicked(MouseEvent e) {
 //        TaskView taskView = new TaskView();
         
-        newTaskView.setVisible(false);
-        AppGUIBuilder.renderTasks();
+        if(NewTaskView.createTaskDescriptionTextField.getText().length() > 0){
+            newTaskView.setVisible(false);
+            AppGUIBuilder.renderTasks();
+        }
+        
         
 //        if(Task.taskCounter == 0){
 //            taskContainer = TaskContainer.getInstance();

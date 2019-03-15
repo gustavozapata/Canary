@@ -29,7 +29,7 @@ import org.jdatepicker.impl.UtilDateModel;
  */
 public class NewTaskView extends JDialog {
 
-    private AppModel taskSettings = new AppModel();
+    static AppModel taskSettings = new AppModel();
 
     //PANELS
     private TaskPanel createTaskMainPanel = new TaskPanel();
@@ -54,10 +54,10 @@ public class NewTaskView extends JDialog {
     private TaskLabel createTaskAssigned = new TaskLabel();
     private TaskLabel createTaskDate = new TaskLabel();
 
-    static JTextField createTaskDescriptionTextField = new JTextField();
-    private JComboBox<String> createTaskCategoryDrop = new JComboBox(taskSettings.getCategories());
-    private JComboBox<String> createTaskAssignedDrop = new JComboBox(taskSettings.getCategories());
-    private ButtonGroup groupPriority = new ButtonGroup();
+    public static JTextField createTaskDescriptionTextField = new JTextField();
+    static JComboBox<String> createTaskCategoryDrop = new JComboBox(taskSettings.getCategories());
+    static JComboBox<String> createTaskAssignedDrop = new JComboBox(taskSettings.getCategories());
+    static ButtonGroup groupPriority = new ButtonGroup();
     private JRadioButton lowPriority = new JRadioButton(taskSettings.getPriorities()[0]);
     private JRadioButton mediumPriority = new JRadioButton(taskSettings.getPriorities()[1]);
     private JRadioButton highPriority = new JRadioButton(taskSettings.getPriorities()[2]);
@@ -120,6 +120,11 @@ public class NewTaskView extends JDialog {
         lowPriority.setBackground(Color.white);
         mediumPriority.setBackground(Color.white);
         highPriority.setBackground(Color.white);
+        
+        lowPriority.setActionCommand("Low");
+        mediumPriority.setActionCommand("Medium");
+        highPriority.setActionCommand("High");
+        mediumPriority.setSelected(true);
 
         groupPriority.add(lowPriority);
         groupPriority.add(mediumPriority);

@@ -6,7 +6,7 @@ package model;
  */
 public class AppModel {
     final private String[] categories = new String[] {"University", "Home", "Work", "Personal"};
-    final private String[] priorities = new String[] {"High", "Medium", "Low"};
+    final private String[] priorities = new String[] {"Low", "Medium", "High"};
     
     public String[] getCategories(){
         return this.categories;
