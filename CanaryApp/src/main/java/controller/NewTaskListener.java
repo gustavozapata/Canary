@@ -15,25 +15,14 @@ public class NewTaskListener implements MouseListener {
     
     @Override
     public void mouseClicked(MouseEvent e) {
-<<<<<<< HEAD
 //        TaskView taskView = new TaskView();
-=======
-        //TaskView taskView = new TaskView();
->>>>>>> b2e03de040f538a5b5dd40c37b9594153c2d6180
         
         newTaskView.setVisible(false);
         AppGUIBuilder.renderTasks();
         
 //        if(Task.taskCounter == 0){
 //            taskContainer = TaskContainer.getInstance();
-<<<<<<< HEAD
 //        }
-=======
-//        }       
-
->>>>>>> b2e03de040f538a5b5dd40c37b9594153c2d6180
-
-
     }
 
     @Override
