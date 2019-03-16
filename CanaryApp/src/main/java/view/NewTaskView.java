@@ -62,7 +62,7 @@ public class NewTaskView extends JDialog {
     private JRadioButton mediumPriority = new JRadioButton(taskSettings.getPriorities()[1]);
     private JRadioButton highPriority = new JRadioButton(taskSettings.getPriorities()[2]);
     private JButton createTaskButton = new JButton();
-    private JDatePickerImpl datePicker;
+    static JDatePickerImpl datePicker;
     private JDatePanelImpl datePanel;
 
     private NewTaskListener newTaskListener = new NewTaskListener();
@@ -126,9 +126,9 @@ public class NewTaskView extends JDialog {
         highPriority.setActionCommand("High");
         mediumPriority.setSelected(true);
 
-        groupPriority.add(lowPriority);
-        groupPriority.add(mediumPriority);
         groupPriority.add(highPriority);
+        groupPriority.add(mediumPriority);
+        groupPriority.add(lowPriority);
 
         createTaskButton.setText("Create");
         createTaskButton.setForeground(Color.WHITE);
