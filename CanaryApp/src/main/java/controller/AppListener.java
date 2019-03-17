@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import view.NewTaskView;
 import view.LoginView;
+//import view.TaskView;
+//import static view.TaskView.taskDescription;
 
 public class AppListener implements MouseListener {
     static NewTaskView newTaskView = new NewTaskView();
@@ -12,11 +14,17 @@ public class AppListener implements MouseListener {
     
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.getComponent().getName() == "plus_btn"){
+        if(e.getComponent().getName().equals("plus_btn")){
             newTaskView.setVisible(true);  
-        } else if(e.getComponent().getName() == "login_btn"){
+        } else if(e.getComponent().getName().equals("login_btn")){
             loginView.setVisible(true);
-        }
+        } /*else if(e.getComponent().getName().equals("check_btn")){
+            TaskView.taskDescription.setText("<html><body><span style='text-decoration:line-through;'>"+TaskView.taskDescription.getText()+"</span></body></html>");
+            e.getComponent().setName("uncheck_btn");
+        } else if(e.getComponent().getName().equals("uncheck_btn")){
+            e.getComponent().setName("check_btn");
+            TaskView.taskDescription.setText(NewTaskView.createTaskDescriptionTextField.getText());
+        }*/
     }
     
 
