@@ -1,6 +1,6 @@
 package com.teamcanary.canaryapp;
 
-import controller.AppGUIBuilder;
+import view.AppView;
 
 /**
  *
@@ -9,8 +9,6 @@ import controller.AppGUIBuilder;
 public class Main {
     public static void main(String[] args){
         
-        AppGUIBuilder appBuilder = new AppGUIBuilder();
-        appBuilder.buildAppWindow();
-        appBuilder.generateLabels();
+        AppView mainWindow = AppView.getInstance();
     }
 }

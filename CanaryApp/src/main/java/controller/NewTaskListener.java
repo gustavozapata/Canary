@@ -1,34 +1,33 @@
 package controller;
 
-import static controller.AppListener.newTaskView;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import model.Task;
 import model.TaskContainer;
 import model.User;
-import view.TaskView;
+import view.AppView;
 import view.NewTaskView;
+import view.TaskView;
 
 
 public class NewTaskListener implements MouseListener {
     
-    TaskContainer taskContainer;
+    TaskContainer taskContainer = TaskContainer.getInstance();
+    TaskView taskView;
     
     @Override
     public void mouseClicked(MouseEvent e) {
-//        TaskView taskView = new TaskView();
-        
-        if(NewTaskView.createTaskDescriptionTextField.getText().length() > 0){
+        if(e.getComponent().getName().equals("create_task_btn")){
+            NewTaskView newTaskView = NewTaskView.getInstance();
+            Task task = newTaskView.createNewTask();
+            taskContainer.addItem(task);
+            taskView = new TaskView(task);
+            AppView.getInstance().renderNewTask(taskView);
+            
             newTaskView.setVisible(false);
-            AppGUIBuilder.renderTasks();
         }
-        
-        
-//        if(Task.taskCounter == 0){
-//            taskContainer = TaskContainer.getInstance();
-//        }
     }
-
+    
     @Override
     public void mousePressed(MouseEvent e) {}
     @Override

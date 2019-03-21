@@ -5,8 +5,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -14,11 +14,13 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import model.AppModel;
 import model.DateLabelFormatter;
-import org.jdatepicker.JDatePicker;
+import model.Task;
+import model.TaskContainer;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -29,14 +31,13 @@ import org.jdatepicker.impl.UtilDateModel;
  */
 public class NewTaskView extends JDialog {
 
-    static AppModel taskSettings = new AppModel();
-
-    //PANELS
+    //PANELS #1
     private TaskPanel createTaskMainPanel = new TaskPanel();
     private TaskPanel createTaskNorth = new TaskPanel();
     private TaskPanel createTaskCentre = new TaskPanel();
     private TaskPanel createTaskSouth = new TaskPanel();
 
+    //PANELS #2
     private TaskPanel containerTaskDescription = new TaskPanel();
     private TaskPanel containerCentre = new TaskPanel();
     private TaskPanel containerPriority = new TaskPanel();
@@ -47,35 +48,75 @@ public class NewTaskView extends JDialog {
     
     
     //COMPONENTS
-    private TaskLabel createTaskTitle = new TaskLabel();
-    private TaskLabel createTaskDescription = new TaskLabel();
-    private TaskLabel createTaskCategory = new TaskLabel();
-    private TaskLabel createTaskPriority = new TaskLabel();
-    private TaskLabel createTaskAssigned = new TaskLabel();
-    private TaskLabel createTaskDate = new TaskLabel();
-
-    public static JTextField createTaskDescriptionTextField = new JTextField();
-    static JComboBox<String> createTaskCategoryDrop = new JComboBox(taskSettings.getCategories());
-    static JComboBox<String> createTaskAssignedDrop = new JComboBox(taskSettings.getCategories());
-    static ButtonGroup groupPriority = new ButtonGroup();
-    private JRadioButton lowPriority = new JRadioButton(taskSettings.getPriorities()[0]);
-    private JRadioButton mediumPriority = new JRadioButton(taskSettings.getPriorities()[1]);
-    private JRadioButton highPriority = new JRadioButton(taskSettings.getPriorities()[2]);
+    private JLabel newTaskTitle = new JLabel();
+    private JLabel newTaskDescription = new JLabel();
+    private JLabel newTaskCategory = new JLabel();
+    private JLabel newTaskPriority = new JLabel();
+    private JLabel newTaskAssigned = new JLabel();
+    private JLabel newTaskDate = new JLabel();
+    
+    private JTextField createTaskDescriptionTextField = new JTextField();
+    private JComboBox<String> createTaskCategoryDrop;
+    private JComboBox<String> createTaskAssignedDrop;
+    private JRadioButton lowPriority;
+    private JRadioButton mediumPriority;
+    private JRadioButton highPriority;
+    private ButtonGroup groupPriority = new ButtonGroup();
     private JButton createTaskButton = new JButton();
-    static JDatePickerImpl datePicker;
+    private JDatePickerImpl datePicker;
     private JDatePanelImpl datePanel;
-
+    
+    
+    //MODEL
+    private AppModel taskSettings = new AppModel();
+    
+    
+    //STYLES
+    private NewTaskStyle newTaskStyle = new NewTaskStyle();
+    
+    
+    //LISTENERS
     private NewTaskListener newTaskListener = new NewTaskListener();
 
-    public NewTaskView(String type) {
-    }
 
-    public NewTaskView() {
+    //SINGLETON
+    public static NewTaskView instance = null;
+    private NewTaskView(){
         this.setSize(700, 400);
         this.setLocation(300, 150);
         this.setResizable(false);
-        this.createTaskButton.addMouseListener(newTaskListener);
         
+        createTaskButton.addMouseListener(newTaskListener);
+               
+        setComponents();
+        styleComponents();
+        setPanels();
+        
+        addComponents(this); 
+    }
+    
+    //SINGLETON METHOD
+    public static NewTaskView getInstance(){
+        if(NewTaskView.instance == null){
+            instance = new NewTaskView();
+        }
+        return instance;
+    }
+    
+    public void setComponents(){
+        createTaskCategoryDrop = new JComboBox(taskSettings.getCategories());
+        createTaskAssignedDrop = new JComboBox(taskSettings.getCategories());
+        lowPriority = new JRadioButton(taskSettings.getPriorities()[0]);
+        mediumPriority = new JRadioButton(taskSettings.getPriorities()[1]);
+        highPriority = new JRadioButton(taskSettings.getPriorities()[2]);
+        
+        setNewTaskTitle("New Task");
+        setNewTaskDescription("Task Description");
+        setNewTaskCategory("Category");
+        setNewTaskPriority("Priority");
+        setNewTaskAssigned("Assigned To");
+        setNewTaskDate("Date");
+        setCreateTaskButton("Create");
         
         //DATE PICKER
         UtilDateModel model = new UtilDateModel();
@@ -85,31 +126,12 @@ public class NewTaskView extends JDialog {
         p.put("text.year", "Year");
         datePanel = new JDatePanelImpl(model, p);
         datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-
-        //PANEL FORMATTING
-        createTaskMainPanel.setLayout(new BorderLayout());
-        createTaskMainPanel.setBackground(Color.WHITE);
-
-        createTaskNorth.setLayout(new FlowLayout(FlowLayout.LEFT));
-        createTaskNorth.setBorder(BorderFactory.createEmptyBorder(0, 25, 15, 0));
-        createTaskSouth.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
-
-        containerCentre.setLayout(new BoxLayout(containerCentre, BoxLayout.Y_AXIS));
-        containerPriority.setLayout(new BoxLayout(containerPriority, BoxLayout.Y_AXIS));
-        containerTaskAssigned.setLayout(new BoxLayout(containerTaskAssigned, BoxLayout.Y_AXIS));
-        containerTaskDescription.setLayout(new BoxLayout(containerTaskDescription, BoxLayout.Y_AXIS));
-        containerTaskDescription.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 110));
-        containerTaskDate.setBorder(BorderFactory.createEmptyBorder(20, 330, 0, 0));
-
-        //COMPONENTS FORMATTING
-        createTaskTitle.setNewTaskTitle("New Task");
-        createTaskDescription.setNewTaskLabel("Task Description");
-        createTaskCategory.setNewTaskLabel("Category");
-        createTaskPriority.setNewTaskLabel("Priority");
-        createTaskAssigned.setNewTaskLabel("Assigned To");
-        createTaskDate.setNewTaskLabel("Date");
-
-        createTaskPriority.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 75));
+        datePicker.setPreferredSize(new Dimension(110, 27));
+        datePicker.setBackground(Color.white);
+    }
+    
+    public void styleComponents(){
+        newTaskPriority.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 75));
 
         createTaskDescriptionTextField.setPreferredSize(new Dimension(520, 30));
         createTaskCategoryDrop.setPreferredSize(new Dimension(150, 30));
@@ -125,40 +147,86 @@ public class NewTaskView extends JDialog {
         mediumPriority.setActionCommand("Medium");
         highPriority.setActionCommand("High");
         mediumPriority.setSelected(true);
+    }
+    
+    public void setPanels(){
+        createTaskMainPanel.setLayout(new BorderLayout());
+        createTaskMainPanel.setBackground(Color.WHITE);
 
+        createTaskNorth.setLayout(new FlowLayout(FlowLayout.LEFT));
+        createTaskNorth.setBorder(BorderFactory.createEmptyBorder(0, 25, 15, 0));
+        createTaskSouth.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
+
+        containerCentre.setLayout(new BoxLayout(containerCentre, BoxLayout.Y_AXIS));
+        containerPriority.setLayout(new BoxLayout(containerPriority, BoxLayout.Y_AXIS));
+        containerTaskAssigned.setLayout(new BoxLayout(containerTaskAssigned, BoxLayout.Y_AXIS));
+        containerTaskDescription.setLayout(new BoxLayout(containerTaskDescription, BoxLayout.Y_AXIS));
+        containerTaskDescription.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 110));
+        containerTaskDate.setBorder(BorderFactory.createEmptyBorder(20, 330, 0, 0));
+    }
+    
+    
+    //COMPONENTS SETTERS
+    public void setNewTaskTitle(String text){
+        this.newTaskTitle.setText(text);
+        newTaskStyle.styleNewTaskTitle(this.newTaskTitle);
+    }
+    
+    public void setNewTaskDescription(String text){
+        this.newTaskDescription.setText(text);
+        newTaskStyle.styleNewTaskSubtitle(this.newTaskDescription);
+    }
+    
+    public void setNewTaskCategory(String text){
+        this.newTaskCategory.setText(text);
+        newTaskStyle.styleNewTaskSubtitle(this.newTaskCategory);
+    }
+    
+    public void setNewTaskPriority(String text){
+        this.newTaskPriority.setText(text);
+        newTaskStyle.styleNewTaskSubtitle(this.newTaskPriority);
+    }
+    
+    public void setNewTaskAssigned(String text){
+        this.newTaskAssigned.setText(text);
+        newTaskStyle.styleNewTaskSubtitle(this.newTaskAssigned);
+    }
+    
+    public void setNewTaskDate(String text){
+        this.newTaskDate.setText(text);
+        newTaskStyle.styleNewTaskSubtitle(this.newTaskDate);
+    }
+    
+    public void setCreateTaskButton(String text){
+        this.createTaskButton.setText(text);
+        this.createTaskButton.setName("create_task_btn");
+        newTaskStyle.styleCreateTaskButton(this.createTaskButton);
+    }
+    
+    
+    //COMPONENTS ADDING
+    public void addComponents(NewTaskView newTaskView){
         groupPriority.add(highPriority);
         groupPriority.add(mediumPriority);
         groupPriority.add(lowPriority);
-
-        createTaskButton.setText("Create");
-        createTaskButton.setForeground(Color.WHITE);
-        createTaskButton.setFont(new Font("Sans-serif", Font.BOLD, 18));
-        createTaskButton.setBackground(new Color(112, 112, 112));
-        datePicker.setPreferredSize(new Dimension(110, 27));
-        datePicker.setBackground(Color.white);
-
         
-        //ADDING
-        containerTaskAssigned.add(createTaskAssigned);
+        containerTaskAssigned.add(newTaskAssigned);
         containerTaskAssigned.add(createTaskAssignedDrop);
 
         containerPriorityOptions.add(highPriority);
         containerPriorityOptions.add(mediumPriority);
         containerPriorityOptions.add(lowPriority);
 
-        containerPriority.add(createTaskPriority);
+        containerPriority.add(newTaskPriority);
         containerPriority.add(containerPriorityOptions);
-
-        containerCentre.add(createTaskCategory);
+        containerCentre.add(newTaskCategory);
         containerCentre.add(createTaskCategoryDrop);
-
-        containerTaskDescription.add(createTaskDescription);
+        containerTaskDescription.add(newTaskDescription);
         containerTaskDescription.add(createTaskDescriptionTextField);
-        
-        containerTaskDate.add(createTaskDate);
+        containerTaskDate.add(newTaskDate);
         containerTaskDate.add(datePicker);
         
-        createTaskNorth.add(createTaskTitle);
+        createTaskNorth.add(newTaskTitle);
         createTaskNorth.add(containerTaskDate);
         createTaskCentre.add(containerTaskDescription, BorderLayout.WEST);
         createTaskCentre.add(containerCentre, BorderLayout.CENTER);
@@ -170,15 +238,18 @@ public class NewTaskView extends JDialog {
         createTaskMainPanel.add(createTaskCentre, BorderLayout.CENTER);
         createTaskMainPanel.add(createTaskSouth, BorderLayout.SOUTH);
 
-        this.add(createTaskMainPanel);
+        newTaskView.add(createTaskMainPanel);
     }
-
-    public ArrayList getProperties() {
-        ArrayList newTaskProperties = new ArrayList();
-
-        newTaskProperties.add(createTaskDescriptionTextField.getText());
-
-        return newTaskProperties;
+    
+    
+    public Task createNewTask(){
+        Task task = new Task();
+        task.setTaskDescription(createTaskDescriptionTextField.getText());
+        task.setPriority(groupPriority.getSelection().getActionCommand());
+        task.setCategory(createTaskCategoryDrop.getSelectedItem().toString());
+        task.setAssignedToString(createTaskAssignedDrop.getSelectedItem().toString());
+        task.setDate((Date) datePicker.getModel().getValue());
+        return task;
     }
 
 }

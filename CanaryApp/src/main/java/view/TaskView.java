@@ -1,6 +1,6 @@
 package view;
 
-import controller.AppListener;
+import controller.TaskListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -15,161 +15,188 @@ import java.time.LocalDate;
 import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import model.TaskContainer;
 import model.Task;
 import model.User;
 
 public class TaskView extends JPanel {
 
-    TaskPanel topPart = new TaskPanel("Task");
-    TaskPanel bottomPart = new TaskPanel("Task");
-    TaskPanel checkBoxPanel = new TaskPanel("Task");
-    TaskPanel taskDescriptionPanel = new TaskPanel("Task");
-    TaskPanel actionsPanel = new TaskPanel("Task");
-    TaskPanel taskInfoPanel = new TaskPanel("Task");
+    //PANELS #1
+    private TaskPanel topPart;
+    private TaskPanel bottomPart;
+    private TaskPanel checkBoxPanel;
+    private TaskPanel taskDescriptionPanel;
+    private TaskPanel actionsPanel;
+    private TaskPanel taskInfoPanel;
+        
+    //PANELS #2
+    private TaskPanel subtaskPanel;
+    private TaskPanel editPanel;
+    private TaskPanel deletePanel;
 
-    TaskPanel subtaskPanel = new TaskPanel("Task");
-    TaskPanel editPanel = new TaskPanel("Task");
-    TaskPanel deletePanel = new TaskPanel("Task");
+    
+    //COMPONENTS
+    private JLabel taskDescription = new JLabel();
+    private JLabel taskCategory = new JLabel();
+    private JLabel taskAssignee = new JLabel();
+    private JLabel taskPriority = new JLabel();
+    private JLabel taskDate = new JLabel();
+    private Date selectedDate;
 
-    TaskLabel taskDescription = new TaskLabel();
-    TaskLabel taskCategory = new TaskLabel();
-    TaskLabel taskAssignee = new TaskLabel();
-    TaskLabel taskPriority = new TaskLabel();
-    TaskLabel taskDate = new TaskLabel();
-    Date selectedDate;
+    private JLabel subtaskLabel = new JLabel();
+    private JLabel editLabel = new JLabel();
+    private JLabel deleteLabel = new JLabel();
+    private JCheckBox taskCheckBox = new JCheckBox();
 
-    TaskLabel subtaskLabel = new TaskLabel("Subtask");
-    TaskLabel editLabel = new TaskLabel("Edit");
-    TaskLabel deleteLabel = new TaskLabel("Delete");
+    //ICONS
+    private JLabel deleteIcon;
+    private JLabel editIcon;
+    private JLabel subtaskIcon;
 
-    JLabel deleteIcon;
-    JLabel editIcon;
-    JLabel subtaskIcon;
+    
+    //STYLES
+    private TaskStyle taskStyle = new TaskStyle();
 
-    TaskStyle taskStyle = new TaskStyle();
-
-    JCheckBox taskCheckBox = new JCheckBox();
-
+    
     //LISTENERS
-    private AppListener appListener = new AppListener();
+    private TaskListener taskListener = new TaskListener();
 
-    Task linkedTask;
 
-    public TaskView() {
+    public TaskView(Task task) {
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(241, 241, 241));
         this.setPreferredSize(new Dimension(900, 90));
         this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 
-        taskCheckBox.addMouseListener(appListener);
+        this.taskCheckBox.addMouseListener(this.taskListener);
+        
+        this.topPart = new TaskPanel("Task");
+        this.bottomPart = new TaskPanel("Task");
+        this.checkBoxPanel = new TaskPanel("Task");
+        this.taskDescriptionPanel = new TaskPanel("Task");
+        this.actionsPanel = new TaskPanel("Task");
+        this.taskInfoPanel = new TaskPanel("Task");
 
-        topPart.setLayout(new BorderLayout());
-
-        bottomPart.setPreferredSize(new Dimension(200, 25));
-        actionsPanel.setPreferredSize(new Dimension(120, 25));
-        checkBoxPanel.setPreferredSize(new Dimension(60, 25));
-
-        taskStyle.styleActionLabel(subtaskLabel);
-        taskStyle.styleActionLabel(editLabel);
-        taskStyle.styleActionLabel(deleteLabel);
-
+        this.subtaskPanel = new TaskPanel("Task");
+        this.editPanel = new TaskPanel("Task");
+        this.deletePanel = new TaskPanel("Task");
+        
+        setPanels();
+        initializeImages();
+        setComponents();
+        
+        addElementsToTask(task);
+        addComponents();
+    }
+    
+    public void setComponents(){
+        this.subtaskLabel.setText("Subtask");
+        this.editLabel.setText("Edit");
+        this.deleteLabel.setText("Delete");
+        
+        this.subtaskIcon.setBorder(BorderFactory.createEmptyBorder(0, 10, 5, 0));
+        this.editIcon.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        this.deleteIcon.setBorder(BorderFactory.createEmptyBorder(0, 7, 5, 0));
+        
+        this.subtaskPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        this.editPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        this.deletePanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }
+    
+    
+    public void setPanels(){
+        this.topPart.setLayout(new BorderLayout());
+                
+        this.bottomPart.setPreferredSize(new Dimension(200, 25));
+        this.actionsPanel.setPreferredSize(new Dimension(120, 25));
+        this.checkBoxPanel.setPreferredSize(new Dimension(60, 25));
+        
+        this.taskInfoPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 50, 0));
+        this.actionsPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 13, 5));
+                        
+        taskStyle.styleActionLabel(this.subtaskLabel);
+        taskStyle.styleActionLabel(this.editLabel);
+        taskStyle.styleActionLabel(this.deleteLabel);
+    }
+    
+    public void initializeImages(){
         try {
             BufferedImage deleteImg = ImageIO.read(new File("src/images/delete.png"));
             BufferedImage editImg = ImageIO.read(new File("src/images/edit.png"));
             BufferedImage subtaskImg = ImageIO.read(new File("src/images/subtask.png"));
-            deleteIcon = new JLabel(new ImageIcon(deleteImg));
-            editIcon = new JLabel(new ImageIcon(editImg));
-            subtaskIcon = new JLabel(new ImageIcon(subtaskImg));
+            this.deleteIcon = new JLabel(new ImageIcon(deleteImg));
+            this.editIcon = new JLabel(new ImageIcon(editImg));
+            this.subtaskIcon = new JLabel(new ImageIcon(subtaskImg));
 
-            taskCheckBox.setSelectedIcon(new ImageIcon(ImageIO.read(new File("src/images/checked.png"))));
-            taskCheckBox.setIcon(new ImageIcon(ImageIO.read(new File("src/images/checkbox.png"))));
+            this.taskCheckBox.setSelectedIcon(new ImageIcon(ImageIO.read(new File("src/images/checked.png"))));
+            this.taskCheckBox.setIcon(new ImageIcon(ImageIO.read(new File("src/images/checkbox.png"))));
         } catch (IOException e) {
         }
+    }
+    
+    public void addElementsToTask(Task task) {
+        this.taskDescription.setText(task.getTaskDescription());
+        this.taskDescription.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));
+        this.taskDescription.setFont(new Font("Sans-Serif", Font.PLAIN, 20));
 
-        subtaskIcon.setBorder(BorderFactory.createEmptyBorder(0, 10, 5, 0));
-        editIcon.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
-        deleteIcon.setBorder(BorderFactory.createEmptyBorder(0, 7, 5, 0));
+        this.taskCheckBox.setName("check_btn");
+        this.taskCheckBox.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 0));
+        this.taskAssignee.setText("Assigned to: " + task.getAssignedToString());
+        this.taskCategory.setText(task.getCategory());
+        this.taskPriority.setText("Priority: " + task.getPriority());
+        this.taskPriority.setOpaque(true);
+        this.taskPriority.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK), new EmptyBorder(0, 5, 0, 5)));
+        
+        setPriority(task);
+        setDueDate(task);
 
-//        topPart.setBorder(BorderFactory.createLineBorder(Color.blue));
-//        bottomPart.setBorder(BorderFactory.createLineBorder(Color.red));
-//        checkBoxPanel.setBorder(BorderFactory.createLineBorder(Color.orange));
-//        taskDescriptionPanel.setBorder(BorderFactory.createLineBorder(Color.pink));
-//        actionsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-//        taskInfoPanel.setBorder(BorderFactory.createLineBorder(Color.magenta));
-        taskInfoPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 50, 0));
-        actionsPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 13, 5));
+        this.taskCategory.setOpaque(true);
+        this.taskCategory.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK), new EmptyBorder(0, 5, 0, 5)));
+        
+        setTaskCategory(task);
+        
+    }
+    
+    public void addComponents(){
+        this.subtaskPanel.add(subtaskIcon);
+        this.subtaskPanel.add(subtaskLabel);
+        this.editPanel.add(editIcon);
+        this.editPanel.add(editLabel);
+        this.deletePanel.add(deleteIcon);
+        this.deletePanel.add(deleteLabel);
 
-        subtaskPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        editPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        deletePanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        this.actionsPanel.add(subtaskPanel);
+        this.actionsPanel.add(editPanel);
+        this.actionsPanel.add(deletePanel);
 
-        topPart.add(checkBoxPanel, BorderLayout.WEST);
-        topPart.add(taskDescriptionPanel, BorderLayout.CENTER);
-        topPart.add(actionsPanel, BorderLayout.EAST);
-        bottomPart.add(taskInfoPanel);
-
-        addElementsToTask();
-        addToTaskContainer();
-
+        this.taskDescriptionPanel.add(taskDescription);
+        this.checkBoxPanel.add(taskCheckBox);
+        this.taskInfoPanel.add(taskCategory);
+        this.taskInfoPanel.add(taskAssignee);
+        this.taskInfoPanel.add(taskPriority);
+        this.taskInfoPanel.add(taskDate);
+        
+        this.topPart.add(checkBoxPanel, BorderLayout.WEST);
+        this.topPart.add(taskDescriptionPanel, BorderLayout.CENTER);
+        this.topPart.add(actionsPanel, BorderLayout.EAST);
+        this.bottomPart.add(taskInfoPanel);
+        
         this.add(topPart, BorderLayout.CENTER);
         this.add(bottomPart, BorderLayout.SOUTH);
     }
 
-    public void addElementsToTask() {
-        taskDescription.setText(NewTaskView.createTaskDescriptionTextField.getText());
-        taskDescription.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));
-        taskDescription.setFont(new Font("Sans-Serif", Font.PLAIN, 20));
-
-        taskCheckBox.setName("check_btn");
-        taskCheckBox.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 0));
-        taskAssignee.setText("Assigned to: " + NewTaskView.createTaskAssignedDrop.getSelectedItem().toString());
-        taskCategory.setText(NewTaskView.createTaskCategoryDrop.getSelectedItem().toString());
-        taskPriority.setText("Priority: " + NewTaskView.groupPriority.getSelection().getActionCommand());
-        taskPriority.setOpaque(true);
-        taskPriority.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK), new EmptyBorder(0, 5, 0, 5)));
-        setPriority();
-
-        setDueDate();
-
-        taskCategory.setOpaque(true);
-        taskCategory.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK), new EmptyBorder(0, 5, 0, 5)));
-        setTaskCategory();
-
-        subtaskPanel.add(subtaskIcon);
-        subtaskPanel.add(subtaskLabel);
-        editPanel.add(editIcon);
-        editPanel.add(editLabel);
-        deletePanel.add(deleteIcon);
-        deletePanel.add(deleteLabel);
-
-        actionsPanel.add(subtaskPanel);
-        actionsPanel.add(editPanel);
-        actionsPanel.add(deletePanel);
-
-        taskDescriptionPanel.add(taskDescription);
-        checkBoxPanel.add(taskCheckBox);
-        taskInfoPanel.add(taskCategory);
-        taskInfoPanel.add(taskAssignee);
-        taskInfoPanel.add(taskPriority);
-        taskInfoPanel.add(taskDate);
-    }
-
-    public void setDueDate() {
-        selectedDate = (Date) NewTaskView.datePicker.getModel().getValue();
+    public void setDueDate(Task task) {
+        selectedDate = (Date) task.getDate();
         taskDate.setText("Due: " + selectedDate);
         taskDate.setForeground(new Color(255, 29, 83));
     }
 
-    public void setPriority() {
-        String priority = NewTaskView.groupPriority.getSelection().getActionCommand();
-        System.out.println(priority);
+    public void setPriority(Task task) {
+        String priority = task.getPriority();
         if (priority.equals("High")) {
             taskPriority.setBackground(new Color(248, 171, 39));
         } else if (priority.equals("Low")) {
@@ -179,12 +206,8 @@ public class TaskView extends JPanel {
         }
     }
 
-    public void addToTaskContainer() {
-        this.linkedTask = TaskContainer.getInstance().newTask(NewTaskView.createTaskDescriptionTextField.getText(), new User("jhi", "jiji", "jiji", "jkj"));
-    }
-
-    public void setTaskCategory() {
-        String category = NewTaskView.createTaskCategoryDrop.getSelectedItem().toString();
+    public void setTaskCategory(Task task) {
+        String category = task.getCategory();
         taskCategory.setForeground(Color.white);
         if (category.equals("University")) {
             taskCategory.setBackground(new Color(42, 188, 204));

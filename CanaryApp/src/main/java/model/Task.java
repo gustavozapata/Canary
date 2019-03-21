@@ -8,6 +8,7 @@ public class Task {
     private String taskDescription;
     private User owner;
     private User assignedTo;
+    private String assignee; //DELETE ONCE TESTING IS DONE
     private Date date;  //or private String date;
     private String priority;
     private String category;
@@ -22,6 +23,12 @@ public class Task {
     }
 
     public Task() {
+        //TESTING PROPERTIES
+//        this.category = "University";
+//        this.priority = "Medium";
+//        this.assignee = "Test";
+//        this.date = new Date();
+//        this.taskDescription = "amar";
     }
     
     public boolean getComplete() {
@@ -90,6 +97,13 @@ public class Task {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+    
+    public void setAssignedToString(String assignee){
+        this.assignee = assignee;
+    }
+    public String getAssignedToString(){
+        return this.assignee;
     }
     
     

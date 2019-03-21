@@ -5,15 +5,14 @@ import java.util.ArrayList;
 
 public class TaskContainer {
     
-    private ArrayList<Task> tasks = new ArrayList<Task>();
+    private ArrayList<Task> tasks = new ArrayList<>();
     private static TaskContainer instance;
     
     
-    
+    //SINGLETON
     private TaskContainer(){
-        
-        
     }
+    
     public static TaskContainer getInstance(){
         if(TaskContainer.instance == null){
              instance = new TaskContainer();
