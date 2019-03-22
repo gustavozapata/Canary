@@ -28,8 +28,12 @@ public class TaskContainer {
         this.tasks.add(task);
     }
 
-    public void addItems(ArrayList<SubTask> task){
+    public void addItems(ArrayList<Task> task){
         this.tasks.addAll(task);     
+    }
+    
+    public void clear(){
+        this.tasks = new ArrayList<>();
     }
     
     public Task newTask(String Description, User user){
