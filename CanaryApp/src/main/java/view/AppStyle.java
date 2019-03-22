@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.Map;
@@ -29,10 +30,8 @@ public class AppStyle {
         label.setFont(new Font("SansSerif", Font.BOLD, 15));
         label.setHorizontalAlignment(CENTER);
         label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        Map attributes = label.getFont().getAttributes();
-        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-        label.setFont(label.getFont().deriveFont(attributes));
         label.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
+        styleClickableLabel(label);
     }
     
     public void setLabelFour(JLabel label){
@@ -45,6 +44,7 @@ public class AppStyle {
         label.setFont(new Font("SansSerif", Font.BOLD, 15));
         label.setHorizontalAlignment(LEFT);
         label.setBorder(BorderFactory.createEmptyBorder(30,0,0,0));
+        if(label.getName().equals("login_btn")) styleClickableLabel(label);
     }
     
     public void setIconPlus(JLabel label){
@@ -61,6 +61,19 @@ public class AppStyle {
         label.setBorder(BorderFactory.createEmptyBorder(200, 0, 0, 0));
     }
     
+    public void setToolbarItem(JLabel label){
+        label.setFont(new Font("SansSerif", Font.BOLD, 13));
+        label.setBorder(BorderFactory.createEmptyBorder(3,25,0,0));
+        styleClickableLabel(label);
+    }
+    
+    public void styleClickableLabel(JLabel label){
+        Map attributes = label.getFont().getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        label.setFont(label.getFont().deriveFont(attributes));
+        label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }
+    
     
     //PANELS
     public void setTaskWindow(JPanel panel){
@@ -68,6 +81,7 @@ public class AppStyle {
     }
     
     public void setToolBar(JPanel panel){
+        panel.setLayout(new FlowLayout(FlowLayout.LEFT));
         panel.setBackground(new Color(203, 232, 254));
         panel.setPreferredSize(new Dimension(100, 35));
         panel.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Color.BLACK));

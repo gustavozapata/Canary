@@ -251,5 +251,10 @@ public class NewTaskView extends JDialog {
         task.setDate((Date) datePicker.getModel().getValue());
         return task;
     }
+    
+    public void emptyFields(){
+        createTaskDescriptionTextField.setText("");
+        mediumPriority.setSelected(true);
+    }
 
 }

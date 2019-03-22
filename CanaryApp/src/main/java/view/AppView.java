@@ -4,6 +4,7 @@ import controller.AppListener;
 import controller.NewTaskListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -44,6 +45,8 @@ public class AppView extends JFrame {
     private JLabel appLogin = new JLabel();
     private JLabel appNoTasksMsg = new JLabel();
     
+    private JLabel toolbarFilter = new JLabel();
+    
     
     //STYLES
     private AppStyle appStyle = new AppStyle();
@@ -69,7 +72,6 @@ public class AppView extends JFrame {
         
         addComponents(this);        
         
-        //containerTasksScroll.setViewportView(containerTasksScroll);
         
         appIconPlus.addMouseListener(appListener);
         appLogin.addMouseListener(appListener);
@@ -91,6 +93,8 @@ public class AppView extends JFrame {
         setAppNewTask("New Task");
         setAppLogin("Login");
         setAppNoTasksMsg("");
+        
+        setToolbarFilter("Filter");
     }
     
     public void setPanels(){
@@ -114,40 +118,48 @@ public class AppView extends JFrame {
     
     //COMPONENTS SETTERS
     public void setAppTitle(String text){
-        this.appTitle.setText(text);
-        appStyle.setLabelOne(this.appTitle);
+        appTitle.setText(text);
+        appStyle.setLabelOne(appTitle);
     }
     
     public void setAppFooter(String text){
-        this.appFooter.setText(text);
-        appStyle.setLabelThree(this.appFooter);
+        appFooter.setText(text);
+        appStyle.setLabelThree(appFooter);
     }
     
     public void setAppIconPlus(String text){
-        this.appIconPlus.setText(text);
-        this.appIconPlus.setName("plus_btn");
-        appStyle.setIconPlus(this.appIconPlus);
+        appIconPlus.setText(text);
+        appIconPlus.setName("plus_btn");
+        appStyle.setIconPlus(appIconPlus);
     }
     
     public void setAppNewTask(String text){
-        this.appNewTask.setText(text);
-        appStyle.setLabelFour(this.appNewTask);
+        appNewTask.setText(text);
+        appStyle.setLabelFour(appNewTask);
     }
     
     public void setAppLogin(String text){
-        this.appLogin.setText(text);
-        this.appLogin.setName("login_btn");
-        appStyle.setLabelFive(this.appLogin);
+        appLogin.setText(text);
+        appLogin.setName("login_btn");
+        appStyle.setLabelFive(appLogin);
     }
     
     public void setAppNoTasksMsg(String text){
-        this.appNoTasksMsg.setText(text);
-        appStyle.setTaskInfo(this.appNoTasksMsg);
+        appNoTasksMsg.setText(text);
+        appStyle.setTaskInfo(appNoTasksMsg);
+    }
+    
+    public void setToolbarFilter(String text){
+        toolbarFilter.setText(text);
+        toolbarFilter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        appStyle.setToolbarItem(toolbarFilter);
     }
     
     
     //COMPONENTS ADDING
     public void addComponents(AppView appView){
+        toolbarPanel.add(toolbarFilter);
+        
         taskPanel.add(appNoTasksMsg);
         todoPanel.add(toolbarPanel, BorderLayout.NORTH);
         todoPanel.add(containerTasksScroll, BorderLayout.CENTER);
