@@ -35,6 +35,10 @@ public class Task {
         return this.complete;
     }
     
+    public void setComplete(boolean isComplete){
+        this.complete = isComplete;
+    }
+    
     public void toggleComplete(){
         this.complete = !this.complete;
     }
@@ -46,13 +50,9 @@ public class Task {
     public void addSubTask(SubTask subtask){
         this.subtasks.add(subtask);
     }
-    
-    public void markComplete(){    
-        this.complete = true;
-    }
 
     public String getTaskDescription() {
-        return taskDescription;
+        return this.taskDescription;
     }
 
     public void setTaskDescription(String taskDescription) {
@@ -60,7 +60,7 @@ public class Task {
     }
 
     public User getOwner() {
-        return owner;
+        return this.owner;
     }
 
     public void setOwner(User owner) {
@@ -68,7 +68,7 @@ public class Task {
     }
 
     public User getAssignedTo() {
-        return assignedTo;
+        return this.assignedTo;
     }
 
     public void setAssignedTo(User assignedTo) {
@@ -76,7 +76,7 @@ public class Task {
     }
 
     public Date getDate() {
-        return date;
+        return this.date;
     }
 
     public void setDate(Date date) {
@@ -84,7 +84,7 @@ public class Task {
     }
 
     public String getPriority() {
-        return priority;
+        return this.priority;
     }
 
     public void setPriority(String priority) {
@@ -92,7 +92,7 @@ public class Task {
     }
 
     public String getCategory() {
-        return category;
+        return this.category;
     }
 
     public void setCategory(String category) {

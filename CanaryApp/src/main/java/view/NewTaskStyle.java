@@ -24,6 +24,11 @@ public class NewTaskStyle {
         label.setForeground(new Color(74,74,74));
     }
     
+    public void styleNewTaskWarning(JLabel label) {
+        label.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        label.setForeground(new Color(255, 29, 83));
+    }
+    
     public void styleCreateTaskButton(JButton button){
         button.setForeground(Color.WHITE);
         button.setFont(new Font("SansSerif", Font.BOLD, 18));

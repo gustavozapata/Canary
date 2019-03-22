@@ -1,12 +1,16 @@
 package view;
 
+import controller.AppController;
 import controller.NewTaskListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Properties;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -54,6 +58,7 @@ public class NewTaskView extends JDialog {
     private JLabel newTaskPriority = new JLabel();
     private JLabel newTaskAssigned = new JLabel();
     private JLabel newTaskDate = new JLabel();
+    private JLabel newTaskWarning = new JLabel();
     
     private JTextField createTaskDescriptionTextField = new JTextField();
     private JComboBox<String> createTaskCategoryDrop;
@@ -77,6 +82,7 @@ public class NewTaskView extends JDialog {
     
     //LISTENERS
     private NewTaskListener newTaskListener = new NewTaskListener();
+    private AppController appListener = new AppController();
 
 
     //SINGLETON
@@ -86,7 +92,8 @@ public class NewTaskView extends JDialog {
         this.setLocation(300, 150);
         this.setResizable(false);
         
-        createTaskButton.addMouseListener(newTaskListener);
+//        createTaskButton.addMouseListener(newTaskListener);
+        createTaskButton.addMouseListener(appListener);
                
         setComponents();
         styleComponents();
@@ -117,6 +124,7 @@ public class NewTaskView extends JDialog {
         setNewTaskAssigned("Assigned To");
         setNewTaskDate("Date");
         setCreateTaskButton("Create");
+        setNewTaskWarning("Please add a task description");
         
         //DATE PICKER
         UtilDateModel model = new UtilDateModel();
@@ -147,6 +155,7 @@ public class NewTaskView extends JDialog {
         mediumPriority.setActionCommand("Medium");
         highPriority.setActionCommand("High");
         mediumPriority.setSelected(true);
+        newTaskWarning.setVisible(false);
     }
     
     public void setPanels(){
@@ -168,39 +177,49 @@ public class NewTaskView extends JDialog {
     
     //COMPONENTS SETTERS
     public void setNewTaskTitle(String text){
-        this.newTaskTitle.setText(text);
-        newTaskStyle.styleNewTaskTitle(this.newTaskTitle);
+        newTaskTitle.setText(text);
+        newTaskStyle.styleNewTaskTitle(newTaskTitle);
     }
     
     public void setNewTaskDescription(String text){
-        this.newTaskDescription.setText(text);
-        newTaskStyle.styleNewTaskSubtitle(this.newTaskDescription);
+        newTaskDescription.setText(text);
+        newTaskStyle.styleNewTaskSubtitle(newTaskDescription);
     }
     
     public void setNewTaskCategory(String text){
-        this.newTaskCategory.setText(text);
-        newTaskStyle.styleNewTaskSubtitle(this.newTaskCategory);
+        newTaskCategory.setText(text);
+        newTaskStyle.styleNewTaskSubtitle(newTaskCategory);
     }
     
     public void setNewTaskPriority(String text){
-        this.newTaskPriority.setText(text);
-        newTaskStyle.styleNewTaskSubtitle(this.newTaskPriority);
+        newTaskPriority.setText(text);
+        newTaskStyle.styleNewTaskSubtitle(newTaskPriority);
     }
     
     public void setNewTaskAssigned(String text){
-        this.newTaskAssigned.setText(text);
-        newTaskStyle.styleNewTaskSubtitle(this.newTaskAssigned);
+        newTaskAssigned.setText(text);
+        newTaskStyle.styleNewTaskSubtitle(newTaskAssigned);
     }
     
     public void setNewTaskDate(String text){
-        this.newTaskDate.setText(text);
-        newTaskStyle.styleNewTaskSubtitle(this.newTaskDate);
+        newTaskDate.setText(text);
+        newTaskStyle.styleNewTaskSubtitle(newTaskDate);
+    }
+    
+    public void setNewTaskWarning(String text){
+        newTaskWarning.setText(text);
+        newTaskStyle.styleNewTaskWarning(newTaskWarning);
     }
     
     public void setCreateTaskButton(String text){
-        this.createTaskButton.setText(text);
-        this.createTaskButton.setName("create_task_btn");
-        newTaskStyle.styleCreateTaskButton(this.createTaskButton);
+        createTaskButton.setText(text);
+        createTaskButton.setName("create_task_btn");
+        newTaskStyle.styleCreateTaskButton(createTaskButton);
+    }
+    
+    
+    public String getCreateTaskDescriptionTextField(){
+        return createTaskDescriptionTextField.getText();
     }
     
     
@@ -223,6 +242,7 @@ public class NewTaskView extends JDialog {
         containerCentre.add(createTaskCategoryDrop);
         containerTaskDescription.add(newTaskDescription);
         containerTaskDescription.add(createTaskDescriptionTextField);
+        containerTaskDescription.add(newTaskWarning);
         containerTaskDate.add(newTaskDate);
         containerTaskDate.add(datePicker);
         
@@ -248,13 +268,22 @@ public class NewTaskView extends JDialog {
         task.setPriority(groupPriority.getSelection().getActionCommand());
         task.setCategory(createTaskCategoryDrop.getSelectedItem().toString());
         task.setAssignedToString(createTaskAssignedDrop.getSelectedItem().toString());
-        task.setDate((Date) datePicker.getModel().getValue());
+        task.setDate((Date)datePicker.getModel().getValue());
+        task.setComplete(false);
         return task;
+    }
+    
+    public void showWarning(){
+        newTaskWarning.setVisible(true);
     }
     
     public void emptyFields(){
         createTaskDescriptionTextField.setText("");
         mediumPriority.setSelected(true);
+        createTaskCategoryDrop.setSelectedItem("University");
+        newTaskWarning.setVisible(false);
+//        String todayDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH));
+//        datePicker.getJFormattedTextField().setText(todayDate);/
     }
 
 }

@@ -1,5 +1,6 @@
 package view;
 
+import controller.AppController;
 import controller.TaskListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,6 +12,7 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import javax.imageio.ImageIO;
@@ -51,6 +53,7 @@ public class TaskView extends JPanel {
     private JLabel editLabel = new JLabel();
     private JLabel deleteLabel = new JLabel();
     private JCheckBox taskCheckBox = new JCheckBox();
+    SimpleDateFormat format;
 
     //ICONS
     private JLabel deleteIcon;
@@ -64,6 +67,7 @@ public class TaskView extends JPanel {
     
     //LISTENERS
     private TaskListener taskListener = new TaskListener();
+    private AppController appListener = new AppController();
 
 
     public TaskView(Task task) {
@@ -72,7 +76,8 @@ public class TaskView extends JPanel {
         this.setPreferredSize(new Dimension(900, 90));
         this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 
-        this.taskCheckBox.addMouseListener(this.taskListener);
+//        this.taskCheckBox.addMouseListener(this.taskListener);
+        this.taskCheckBox.addMouseListener(this.appListener);
         
         this.topPart = new TaskPanel("Task");
         this.bottomPart = new TaskPanel("Task");
@@ -105,6 +110,7 @@ public class TaskView extends JPanel {
         this.subtaskPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.editPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.deletePanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        this.taskCheckBox.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
     
     
@@ -190,6 +196,8 @@ public class TaskView extends JPanel {
     }
 
     public void setDueDate(Task task) {
+//        format = new SimpleDateFormat("dd-MM-yyyy");
+//        taskDate.setText("Due: " + format.format(selectedDate));
         selectedDate = (Date) task.getDate();
         taskDate.setText("Due: " + selectedDate);
         taskDate.setForeground(new Color(255, 29, 83));

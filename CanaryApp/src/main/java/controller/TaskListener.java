@@ -16,7 +16,9 @@ public class TaskListener implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        
+        if(e.getComponent().getName().equals("check_btn")){
+            
+        }
     }
 
     
