@@ -1,5 +1,11 @@
 package com.teamcanary.canaryapp;
 
+import controller.TaskFilter;
+import controller.TaskSort;
+import java.util.ArrayList;
+import model.Task;
+import model.TaskContainer;
+import model.User;
 import view.AppView;
 
 /**
@@ -10,5 +16,15 @@ public class Main {
     public static void main(String[] args){
         
         AppView mainWindow = AppView.getInstance();
+        
+        
+        TaskContainer.getInstance().newTask("Medium Task", new User("Gustavo","","Gus123","")).setPriority("Medium");
+        TaskContainer.getInstance().newTask("High Task", new User("Kylan","","Ky123","")).setPriority("High");
+        TaskContainer.getInstance().newTask("Low Task", new User("Gustavo","","Gus123","")).setPriority("Low");
+        
+        
+        
+        TaskSort.SortBy("Description");
+     
     }
 }

@@ -1,9 +1,10 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 
-public class Task {
+public class Task implements Comparable<Task>{
     public static int taskCounter = 0;
     private String taskDescription;
     private User owner;
@@ -30,6 +31,9 @@ public class Task {
 //        this.date = new Date();
 //        this.taskDescription = "amar";
     }
+    
+
+    
     
     public boolean getComplete() {
         return this.complete;
@@ -90,6 +94,20 @@ public class Task {
     public void setPriority(String priority) {
         this.priority = priority;
     }
+    
+    public int getPriorityID(){
+        
+        if (this.getPriority() == "Low"){
+            return 1;
+        }
+        else if (this.getPriority() == "Medium"){
+            return 2;
+        }
+        else if (this.getPriority() == "High"){
+            return 3;
+        }
+        return 1;
+    }
 
     public String getCategory() {
         return this.category;
@@ -105,6 +123,15 @@ public class Task {
     public String getAssignedToString(){
         return this.assignee;
     }
+
+    @Override
+    public int compareTo(Task o) {
+       return this.getPriorityID()-o.getPriorityID();
+    }
+
     
+ 
     
 }
+
+
