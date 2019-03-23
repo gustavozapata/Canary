@@ -76,8 +76,8 @@ public class TaskView extends JPanel {
         this.setPreferredSize(new Dimension(900, 90));
         this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 
-//        this.taskCheckBox.addMouseListener(this.taskListener);
-        this.taskCheckBox.addMouseListener(this.appListener);
+        this.taskCheckBox.addMouseListener(this.taskListener);
+//        this.taskCheckBox.addMouseListener(this.appListener);
         
         this.topPart = new TaskPanel("Task");
         this.bottomPart = new TaskPanel("Task");
@@ -111,6 +111,10 @@ public class TaskView extends JPanel {
         this.editPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.deletePanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.taskCheckBox.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        this.subtaskPanel.setName("subtask_btn");
+        this.editPanel.setName("edit_btn");
+        this.deletePanel.setName("delete_btn");
     }
     
     
@@ -147,7 +151,7 @@ public class TaskView extends JPanel {
     public void addElementsToTask(Task task) {
         this.taskDescription.setText(task.getTaskDescription());
         this.taskDescription.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));
-        this.taskDescription.setFont(new Font("Sans-Serif", Font.PLAIN, 20));
+        this.taskDescription.setFont(new Font("SansSerif", Font.PLAIN, 20));
 
         this.taskCheckBox.setName("check_btn");
         this.taskCheckBox.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 0));

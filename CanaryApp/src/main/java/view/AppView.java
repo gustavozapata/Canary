@@ -6,12 +6,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 import javax.swing.WindowConstants;
+import model.AppModel;
 import model.Task;
 
 /**
@@ -46,6 +49,9 @@ public class AppView extends JFrame {
     private JLabel appNoTasksMsg = new JLabel();
     
     private JLabel toolbarFilter = new JLabel();
+    private JLabel toolbarSort = new JLabel();
+    private JComboBox<String> filterComboBox;
+    private JComboBox<String> sortComboBox;
     
     
     //STYLES
@@ -56,6 +62,10 @@ public class AppView extends JFrame {
     private AppListener appListener = new AppListener();
     
     
+    //MODEL
+    private AppModel taskSettings = new AppModel();
+    
+    
     //SINGLETON
     public static AppView instance = null;
     private AppView(){
@@ -63,8 +73,10 @@ public class AppView extends JFrame {
         this.setLayout(new BorderLayout());
         this.getContentPane().setBackground(Color.WHITE);
         this.setSize(1200, 700);
+        this.setTitle("TODO CANARY");
         this.setVisible(true);
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         setComponents();
@@ -94,7 +106,8 @@ public class AppView extends JFrame {
         setAppLogin("Login");
         setAppNoTasksMsg("");
         
-        setToolbarFilter("Filter");
+        setToolbarLabels();
+        setToolbarComboBox();
     }
     
     public void setPanels(){
@@ -149,16 +162,27 @@ public class AppView extends JFrame {
         appStyle.setTaskInfo(appNoTasksMsg);
     }
     
-    public void setToolbarFilter(String text){
-        toolbarFilter.setText(text);
-        toolbarFilter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        appStyle.setToolbarItem(toolbarFilter);
+    public void setToolbarLabels(){
+        toolbarFilter.setText("Filter");
+        toolbarSort.setText("Sort");
+        appStyle.styleToolbarItem(toolbarFilter);
+        appStyle.styleToolbarItem(toolbarSort);
+    }
+    
+    public void setToolbarComboBox(){
+        filterComboBox = new JComboBox(taskSettings.getCategories());
+        sortComboBox = new JComboBox(taskSettings.getPriorities());
+        appStyle.styleComboBox(filterComboBox);
+        appStyle.styleComboBox(sortComboBox);
     }
     
     
     //COMPONENTS ADDING
     public void addComponents(AppView appView){
         toolbarPanel.add(toolbarFilter);
+        toolbarPanel.add(filterComboBox);
+        toolbarPanel.add(toolbarSort);
+        toolbarPanel.add(sortComboBox);
         
         taskPanel.add(appNoTasksMsg);
         todoPanel.add(toolbarPanel, BorderLayout.NORTH);

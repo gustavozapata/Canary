@@ -1,43 +1,51 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Insets;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class LoginView extends JPanel {
+public class LoginView extends JDialog {
     
+    //PANELS
+    private JPanel topPanel = new JPanel();
+    private JPanel middlePanel = new JPanel();
+    private JPanel bottomPanel = new JPanel();
+        
     private JLabel loginTitle = new JLabel();
-    private JButton jb1 = new JButton();
+    private JLabel usernameLabel = new JLabel();
+    private JLabel passwordLabel = new JLabel();
+    
+    private JButton loginButton = new JButton();
+    private JTextField usernameField = new JTextField();
+    private JPasswordField passwordField = new JPasswordField();
+    
+    
+    //STYLES
+    private LoginStyle loginStyle = new LoginStyle();
+    
 
+    //SINGLETON
     public static LoginView instance = null;
     private LoginView() {
-        JPanel panel = new JPanel();
-        JFrame frame = new JFrame("Login");
-
-        BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-
-        panel.setLayout(boxlayout);
-
-        panel.setBorder(new EmptyBorder(new Insets(150, 200, 150, 200)));
-
-        // Define new buttons
-        loginTitle = new JLabel("Login");
-        jb1 = new JButton("Button 1");
-
-        // Add buttons to the frame (and spaces between buttons)
-        panel.add(loginTitle);
-        panel.add(jb1);
-
-        // Set size for the frame
-        //frame.setSize(300, 300);
-        // Set the window to be visible as the default to be false
-        frame.add(panel);
-        frame.pack();
-//        frame.setVisible(true);
+        this.setTitle("Login");
+        this.setSize(400, 300);
+        this.setLayout(new BorderLayout());
+        this.setBackground(Color.white);
+        
+        setComponents();
+        setPanels();
+        addComponents();
     }
     
     //SINGLETON METHOD
@@ -46,6 +54,41 @@ public class LoginView extends JPanel {
             instance = new LoginView();
         }
         return instance;
+    }
+    
+    public void setComponents(){
+        loginTitle.setText("Login");
+        usernameLabel.setText("Username");
+        passwordLabel.setText("Password");
+        
+        loginButton.setText("Login");
+        loginStyle.styleLoginButton(loginButton);
+        loginStyle.styleLoginTitle(loginTitle);
+        loginStyle.styleTextField(usernameField);
+        loginStyle.styleTextField(passwordField);
+
+        passwordLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+    }
+    
+    public void setPanels(){
+        middlePanel.setLayout(new BoxLayout(middlePanel, BoxLayout.Y_AXIS));
+        middlePanel.setBorder(BorderFactory.createEmptyBorder(20, 70, 50, 70));
+        topPanel.setBackground(Color.white);
+        middlePanel.setBackground(Color.white);
+        bottomPanel.setBackground(Color.white);
+    }
+    
+    public void addComponents(){
+        topPanel.add(loginTitle);
+        middlePanel.add(usernameLabel);
+        middlePanel.add(usernameField);
+        middlePanel.add(passwordLabel);
+        middlePanel.add(passwordField);
+        bottomPanel.add(loginButton);
+        
+        this.add(topPanel, BorderLayout.NORTH);
+        this.add(middlePanel, BorderLayout.CENTER);
+        this.add(bottomPanel, BorderLayout.SOUTH);
     }
 
 }

@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.Map;
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static javax.swing.SwingConstants.CENTER;
@@ -61,10 +62,15 @@ public class AppStyle {
         label.setBorder(BorderFactory.createEmptyBorder(200, 0, 0, 0));
     }
     
-    public void setToolbarItem(JLabel label){
+    public void styleToolbarItem(JLabel label){
         label.setFont(new Font("SansSerif", Font.BOLD, 13));
         label.setBorder(BorderFactory.createEmptyBorder(3,25,0,0));
         styleClickableLabel(label);
+        label.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }
+    
+    public void styleComboBox(JComboBox comboBox){
+        comboBox.setBackground(Color.white);
     }
     
     public void styleClickableLabel(JLabel label){

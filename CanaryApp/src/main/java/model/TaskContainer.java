@@ -47,7 +47,6 @@ public class TaskContainer {
         System.out.println("THERE ARE: " +  this.tasks.size());
         for (Task task : this.tasks) {
             System.out.println(task.getTaskDescription());
-            
         }             
     }
 }
