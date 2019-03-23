@@ -186,7 +186,7 @@ public class AppView extends JFrame {
         appLogin.setText(text);
         appLogin.setName("login_btn");
         appStyle.setLabelFive(appLogin);
-        appLogin.setBorder(BorderFactory.createEmptyBorder(15,25,0,0));
+        appLogin.setBorder(BorderFactory.createEmptyBorder(15,35,0,0));
     }
     
     public void setAppSave(String text){

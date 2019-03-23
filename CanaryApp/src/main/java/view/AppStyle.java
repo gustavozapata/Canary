@@ -25,7 +25,7 @@ public class AppStyle {
     //COMPONENTS
     public void setLabelOne(JLabel label){
         label.setFont(new Font("SansSerif", Font.BOLD, 40));
-        label.setBorder(BorderFactory.createEmptyBorder(0, 220, 0, 0));
+        label.setBorder(BorderFactory.createEmptyBorder(0, 250, 0, 0));
         label.setHorizontalAlignment(CENTER);
     }
     
