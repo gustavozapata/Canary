@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.Map;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +25,7 @@ public class AppStyle {
     //COMPONENTS
     public void setLabelOne(JLabel label){
         label.setFont(new Font("SansSerif", Font.BOLD, 40));
+        label.setBorder(BorderFactory.createEmptyBorder(0, 220, 0, 0));
         label.setHorizontalAlignment(CENTER);
     }
     
@@ -42,10 +44,16 @@ public class AppStyle {
     }
     
     public void setLabelFive(JLabel label){
-        label.setFont(new Font("SansSerif", Font.BOLD, 15));
+        label.setFont(new Font("SansSerif", Font.BOLD, 13));
         label.setHorizontalAlignment(LEFT);
         label.setBorder(BorderFactory.createEmptyBorder(30,0,0,0));
-        if(label.getName().equals("login_btn")) styleClickableLabel(label);
+        styleClickableLabel(label);
+    }
+    
+    public void styleAppSettings(JLabel label){
+        label.setFont(new Font("SansSerif", Font.BOLD, 11));
+        label.setHorizontalAlignment(LEFT);
+        label.setBorder(BorderFactory.createEmptyBorder(30,0,0,0));
     }
     
     public void setIconPlus(JLabel label){
@@ -84,6 +92,12 @@ public class AppStyle {
     //PANELS
     public void setTaskWindow(JPanel panel){
         panel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(0, 130, 20, 130), BorderFactory.createLineBorder(Color.BLACK)));
+    }
+    
+    public void setActionPanel(JPanel panel){
+        BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+        panel.setLayout(boxLayout);
+        panel.setBorder(BorderFactory.createEmptyBorder(20,0,0,0));
     }
     
     public void setToolBar(JPanel panel){

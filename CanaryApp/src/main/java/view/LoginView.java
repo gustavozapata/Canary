@@ -1,19 +1,16 @@
 package view;
 
+import controller.LoginListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 
 public class LoginView extends JDialog {
     
@@ -34,6 +31,8 @@ public class LoginView extends JDialog {
     //STYLES
     private LoginStyle loginStyle = new LoginStyle();
     
+    //LISTENERS
+    private LoginListener loginListener = new LoginListener();
 
     //SINGLETON
     public static LoginView instance = null;
@@ -42,6 +41,8 @@ public class LoginView extends JDialog {
         this.setSize(400, 300);
         this.setLayout(new BorderLayout());
         this.setBackground(Color.white);
+        
+        loginButton.addMouseListener(loginListener);
         
         setComponents();
         setPanels();
@@ -54,6 +55,20 @@ public class LoginView extends JDialog {
             instance = new LoginView();
         }
         return instance;
+    }
+    
+    public void setUsernameField(String text){
+        usernameField.setText(text);
+    }
+    public void setPasswordField(String text){
+        passwordField.setText(text);
+    }
+    
+    public String getUsernameField(){
+        return usernameField.getText();
+    }
+    public String getPasswordField(){
+        return passwordField.getText();
     }
     
     public void setComponents(){

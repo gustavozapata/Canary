@@ -20,6 +20,8 @@ public class AppListener implements MouseListener {
         } else if(e.getComponent().getName().equals("login_btn")){
             loginView.setVisible(true);
             loginView.setLocationRelativeTo(AppView.getInstance());
+            loginView.setUsernameField("");
+            loginView.setPasswordField("");
         }
     }
     
