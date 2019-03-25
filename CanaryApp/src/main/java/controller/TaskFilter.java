@@ -22,7 +22,7 @@ public static void FilterBy(String  filterBy, String  filter){
         if (filterBy.equals("Description")){       
             for (Task task : filteredTasks) 
             { 
-                if(!task.getTaskDescription().equals(filter)){
+                if(!task.getDescription().equals(filter)){
                     taskToRemove.add(task);
                 }
              }
@@ -30,7 +30,7 @@ public static void FilterBy(String  filterBy, String  filter){
         else if(filterBy.equals("Username")){
               for (Task task : filteredTasks) 
             { 
-                if(!task.getAssignedTo().getUserName().equals(filter)){
+                if(!task.getUser().getUserName().equals(filter)){
                     taskToRemove.add(task);
                 }
              }          

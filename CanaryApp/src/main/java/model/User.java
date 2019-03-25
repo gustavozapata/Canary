@@ -2,49 +2,37 @@
 package model;
 
 public class User {
-    private String givenName;
-    private String familyName;
-    private String userName;
+    private String name;
     private String password;
+    private int userLevel;
     
-    public User(String givenName, String familyName, String userName, String password){
-        
-        this.setGivenName(givenName);
-        this.setFamilyName(familyName);
+    public User(String userName, int userLevel){
         this.setUserName(userName);
-        this.setPassword(password);
-    }
-
-    public String getGivenName() {
-        return givenName;
-    }
-
-    public void setGivenName(String givenName) {
-        this.givenName = givenName;
-    }
-
-    public String getFamilyName() {
-        return familyName;
-    }
-
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
+        this.setUserLevel(userLevel);
     }
 
     public String getUserName() {
-        return userName;
+        return this.name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getUserLevel() {
+        return this.userLevel;
+    }
+
+    public void setUserLevel(int userLevel) {
+        this.userLevel = userLevel;
     }
 
     

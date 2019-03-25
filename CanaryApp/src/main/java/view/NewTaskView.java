@@ -25,6 +25,7 @@ import model.AppModel;
 import model.DateLabelFormatter;
 import model.Task;
 import model.TaskContainer;
+import model.User;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -276,11 +277,15 @@ public class NewTaskView extends JDialog {
     
     public Task createNewTask(){
         Task task = new Task();
-        task.setTaskDescription(createTaskDescriptionTextField.getText());
+        task.setDescription(createTaskDescriptionTextField.getText());
         task.setPriority(groupPriority.getSelection().getActionCommand());
         task.setCategory(createTaskCategoryDrop.getSelectedItem().toString());
-        task.setAssignedToString(createTaskAssignedDrop.getSelectedItem().toString());
-        task.setDate((Date)datePicker.getModel().getValue());
+        
+        //CHANGE THESE TWO
+        task.setUser(new User("tavo", 2));
+        task.setCompletionDate((Date)datePicker.getModel().getValue());
+        //CHANGE THESE TWO
+        
         task.setComplete(false);
         return task;
     }

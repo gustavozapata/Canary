@@ -22,11 +22,14 @@ public class TaskListener implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         taskContainer = TaskContainer.getInstance();
         newTaskView = NewTaskView.getInstance();
+        newSubTaskView = NewSubTaskView.getInstance();
         
         if(e.getComponent().getName().equals("check_btn")){
 //            System.out.println(e.getComponent().getParent().getParent().getComponent(1).getParent().getComponent(2));
 //            System.out.println(taskContainer.getAll());
             System.out.println(e.getSource());
+            System.out.println(e.getComponent());
+            System.out.println(e.getComponent().getParent().getParent().getComponent(0));
         } else if(e.getComponent().getName().equals("delete_btn")){
             System.out.println("deleting...");
         } else if(e.getComponent().getName().equals("edit_btn")){
@@ -34,7 +37,6 @@ public class TaskListener implements MouseListener {
             newTaskView.setNewTaskTitle("Edit Task");
             newTaskView.setEditTaskButton("Save");
         } else if(e.getComponent().getName().equals("subtask_btn")){
-            newSubTaskView = NewSubTaskView.getInstance();
             newSubTaskView.setLocationRelativeTo(AppView.getInstance());
             newSubTaskView.setVisible(true);
         }

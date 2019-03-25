@@ -201,9 +201,9 @@ public class NewSubTaskView extends JDialog {
     }
     
     
-    public Task createNewSubTask(){
+    public SubTask createNewSubTask(){
         SubTask subtask = new SubTask();
-        subtask.setTaskDescription(createTaskDescriptionTextField.getText());
+        subtask.setDescription(createTaskDescriptionTextField.getText());
         subtask.setPriority(groupPriority.getSelection().getActionCommand());
 //        subtask.setAssignedToString(createTaskAssignedDrop.getSelectedItem().toString());  SAME ASSIGNEE AS TASK
         return subtask;

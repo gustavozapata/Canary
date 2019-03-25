@@ -1,16 +1,13 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 
 public class Task implements Comparable<Task>{
     public static int taskCounter = 0;
-    private String taskDescription;
-    private User owner;
-    private User assignedTo;
-    private String assignee; //DELETE ONCE TESTING IS DONE
-    private Date date;  //or private String date;
+    private String description;
+    private User user;
+    private Date completionDate; 
     private String priority;
     private String category;
     private ArrayList<SubTask> subtasks;
@@ -18,8 +15,8 @@ public class Task implements Comparable<Task>{
     
     public Task(String taskDescription, User user){
         taskCounter++;
-        this.taskDescription = taskDescription;
-        this.setAssignedTo(user);
+        this.description = taskDescription;
+        this.user = user;
     }
 
     public Task() {
@@ -28,12 +25,12 @@ public class Task implements Comparable<Task>{
 //        this.priority = "Medium";
 //        this.assignee = "Test";
 //        this.date = new Date();
-//        this.taskDescription = "amar";
+//        this.description = "amar";
     }
     
 
         
-    public boolean getComplete() {
+    public boolean isComplete() {
         return this.isComplete;
     }
     
@@ -53,36 +50,28 @@ public class Task implements Comparable<Task>{
         this.subtasks.add(subtask);
     }
     
-    public String getTaskDescription() {
-        return this.taskDescription;
+    public String getDescription() {
+        return this.description;
     }
 
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public User getOwner() {
-        return this.owner;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public User getAssignedTo() {
-        return this.assignedTo;
+    public Date getCompletionDate() {
+        return this.completionDate;
     }
 
-    public void setAssignedTo(User assignedTo) {
-        this.assignedTo = assignedTo;
-    }
-
-    public Date getDate() {
-        return this.date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCompletionDate(Date completionDate) {
+        this.completionDate = completionDate;
     }
 
     public String getPriority() {
@@ -112,13 +101,6 @@ public class Task implements Comparable<Task>{
 
     public void setCategory(String category) {
         this.category = category;
-    }
-    
-    public void setAssignedToString(String assignee){
-        this.assignee = assignee;
-    }
-    public String getAssignedToString(){
-        return this.assignee;
     }
 
     @Override

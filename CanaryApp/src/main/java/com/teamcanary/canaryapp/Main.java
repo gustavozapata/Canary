@@ -18,9 +18,10 @@ public class Main {
         AppView mainWindow = AppView.getInstance();
         
         
-        TaskContainer.getInstance().newTask("Medium Task", new User("Gustavo","","Gus123","")).setPriority("Medium");
-        TaskContainer.getInstance().newTask("High Task", new User("Kylan","","Ky123","")).setPriority("High");
-        TaskContainer.getInstance().newTask("Low Task", new User("Gustavo","","Gus123","")).setPriority("Low");
+        //KYLAN, I COMMENTED THIS OUT SINCE I'M TRYING TO MATCH PAUL'S WEB SERVICE DATA WITH HIS
+//        TaskContainer.getInstance().newTask("Medium Task", new User("Gustavo","","Gus123","")).setPriority("Medium");
+//        TaskContainer.getInstance().newTask("High Task", new User("Kylan","","Ky123","")).setPriority("High");
+//        TaskContainer.getInstance().newTask("Low Task", new User("Gustavo","","Gus123","")).setPriority("Low");
         
         
         

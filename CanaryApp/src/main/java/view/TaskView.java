@@ -153,13 +153,13 @@ public class TaskView extends JPanel {
     }
     
     public void addElementsToTask(Task task) {
-        this.taskDescription.setText(task.getTaskDescription());
+        this.taskDescription.setText(task.getDescription());
         this.taskDescription.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));
         this.taskDescription.setFont(new Font("SansSerif", Font.PLAIN, 20));
 
         this.taskCheckBox.setName("check_btn");
         this.taskCheckBox.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 0));
-        this.taskAssignee.setText("Assigned to: " + task.getAssignedToString());
+        this.taskAssignee.setText("Assigned to: " + task.getUser().getUserName());
         this.taskCategory.setText(task.getCategory());
         this.taskPriority.setText("Priority: " + task.getPriority());
         this.taskPriority.setOpaque(true);
@@ -206,7 +206,7 @@ public class TaskView extends JPanel {
     public void setDueDate(Task task) {
 //        format = new SimpleDateFormat("dd-MM-yyyy");
 //        taskDate.setText("Due: " + format.format(selectedDate));
-        selectedDate = (Date) task.getDate();
+        selectedDate = (Date) task.getCompletionDate();
         taskDate.setText("Due: " + selectedDate);
         taskDate.setForeground(new Color(255, 29, 83));
     }
