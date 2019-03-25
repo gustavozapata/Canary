@@ -1,7 +1,6 @@
 package view;
 
 import controller.AppListener;
-import controller.NewTaskListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -10,10 +9,8 @@ import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -23,21 +20,20 @@ import javax.swing.JScrollPane;
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 import javax.swing.WindowConstants;
 import model.AppModel;
-import model.Task;
 
 /**
  *
  * @author Gustavo
  */
 public class AppView extends JFrame {
-    
+
     //PANELS #1
     private AppPanel appTopPanel = new AppPanel();
     private AppPanel appBottomPanel = new AppPanel();
     private AppPanel appCentrePanel = new AppPanel();
     private AppPanel appLeftPanel = new AppPanel();
     private AppPanel appRightPanel = new AppPanel();
-    
+
     //PANELS #2
     private AppPanel todoPanel = new AppPanel();
     private AppPanel toolbarPanel = new AppPanel();
@@ -46,13 +42,12 @@ public class AppView extends JFrame {
     private AppPanel appSettingsPanel = new AppPanel();
     private AppPanel newTaskPanel = new AppPanel();
     private JScrollPane containerTasksScroll = new JScrollPane(taskPanel);
-    
+
     //PANELS #3
     private AppPanel savePanel = new AppPanel();
     private AppPanel fetchPanel = new AppPanel();
     private AppPanel loadPanel = new AppPanel();
-    
-    
+
     //COMPONENTS
     private JLabel appTitle = new JLabel();
     private JLabel appFooter = new JLabel();
@@ -66,26 +61,25 @@ public class AppView extends JFrame {
     private JLabel saveIcon;
     private JLabel loadIcon;
     private JLabel fetchIcon;
-    
+
     private JLabel toolbarFilter = new JLabel();
     private JLabel toolbarSort = new JLabel();
     private JComboBox<String> filterComboBox;
     private JComboBox<String> sortComboBox;
-    
-    
+
     //STYLES
     private AppStyle appStyle = new AppStyle();
-    
+
     //LISTENERS
     private AppListener appListener = new AppListener();
-    
+
     //MODEL
     private AppModel taskSettings = new AppModel();
-    
-    
+
     //SINGLETON
     public static AppView instance = null;
-    private AppView(){
+
+    private AppView() {
         super();
         this.setLayout(new BorderLayout());
         this.getContentPane().setBackground(Color.WHITE);
@@ -95,27 +89,28 @@ public class AppView extends JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        
+
         setComponents();
         setPanels();
-        
-        addComponents(this);        
-        
-        
+        addComponents(this);
+
         appIconPlus.addMouseListener(appListener);
         appLogin.addMouseListener(appListener);
-        
+        saveIcon.addMouseListener(appListener);
+        loadIcon.addMouseListener(appListener);
+        fetchIcon.addMouseListener(appListener);
+
     }
-    
+
     //SINGLETON METHOD
-    public static AppView getInstance(){
-        if(AppView.instance == null){
+    public static AppView getInstance() {
+        if (AppView.instance == null) {
             instance = new AppView();
         }
         return instance;
     }
-    
-    public void setComponents(){
+
+    public void setComponents() {
         setAppTitle("To-Do Canary");
         setAppFooter("Contact Canary");
         setAppIconPlus("+");
@@ -125,111 +120,106 @@ public class AppView extends JFrame {
         setAppLoad("Load");
         setAppFetch("Fetch");
         setAppNoTasksMsg("");
-        
+
         setToolbarLabels();
         setToolbarComboBox();
-        
+
         initializeImages();
     }
-    
-    public void setPanels(){
+
+    public void setPanels() {
         appTopPanel.setLayout(new BorderLayout());
         appCentrePanel.setLayout(new BorderLayout());
         todoPanel.setLayout(new BorderLayout());
         newTaskPanel.setLayout(new BoxLayout(newTaskPanel, BoxLayout.Y_AXIS));
-        
+
         containerTasksScroll.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
         containerTasksScroll.getVerticalScrollBar().setUnitIncrement(16);
         BoxLayout boxLayout = new BoxLayout(containerTasks, BoxLayout.Y_AXIS);
         containerTasks.setLayout(boxLayout);
-               
+
         appSettingsPanel.setPreferredSize(new Dimension(350, 100));
         appSettingsPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 35, 10));
-        
+
         savePanel.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 7));
         loadPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 7));
         fetchPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 7));
-        
-        
+
         appStyle.setActionPanel(savePanel);
         appStyle.setActionPanel(loadPanel);
         appStyle.setActionPanel(fetchPanel);
-        
+
         appStyle.setTaskWindow(todoPanel);
         appStyle.setToolBar(toolbarPanel);
     }
-        
-    
+
     //COMPONENTS SETTERS
-    public void setAppTitle(String text){
+    public void setAppTitle(String text) {
         appTitle.setText(text);
         appStyle.setLabelOne(appTitle);
     }
-    
-    public void setAppFooter(String text){
+
+    public void setAppFooter(String text) {
         appFooter.setText(text);
         appStyle.setLabelThree(appFooter);
     }
-    
-    public void setAppIconPlus(String text){
+
+    public void setAppIconPlus(String text) {
         appIconPlus.setText(text);
         appIconPlus.setName("plus_btn");
         appStyle.setIconPlus(appIconPlus);
     }
-    
-    public void setAppNewTask(String text){
+
+    public void setAppNewTask(String text) {
         appNewTask.setText(text);
         appStyle.setLabelFour(appNewTask);
     }
-    
-    public void setAppLogin(String text){
+
+    public void setAppLogin(String text) {
         appLogin.setText(text);
         appLogin.setName("login_btn");
         appStyle.setLabelFive(appLogin);
-        appLogin.setBorder(BorderFactory.createEmptyBorder(15,35,0,0));
+        appLogin.setBorder(BorderFactory.createEmptyBorder(15, 35, 0, 0));
     }
-    
-    public void setAppSave(String text){
+
+    public void setAppSave(String text) {
         appSave.setText(text);
-        appSave.setName("save_btn");
         appStyle.styleAppSettings(appSave);
-        appSave.setBorder(BorderFactory.createEmptyBorder(5,0,0,0));
+        appSave.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
     }
-    
-    public void setAppLoad(String text){
+
+    public void setAppLoad(String text) {
         appLoad.setText(text);
-        appLoad.setName("load_btn");
         appStyle.styleAppSettings(appLoad);
-        appLoad.setBorder(BorderFactory.createEmptyBorder(6,0,0,0));
+        appLoad.setBorder(BorderFactory.createEmptyBorder(6, 0, 0, 0));
     }
-    
-    public void setAppFetch(String text){
+
+    public void setAppFetch(String text) {
         appFetch.setText(text);
-        appFetch.setName("fetch_btn");
         appStyle.styleAppSettings(appFetch);
-        appFetch.setBorder(BorderFactory.createEmptyBorder(5,0,0,0));
+        appFetch.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
     }
-        
-    public void setAppNoTasksMsg(String text){
+
+    public void setAppNoTasksMsg(String text) {
         appNoTasksMsg.setText(text);
         appStyle.setTaskInfo(appNoTasksMsg);
     }
-    
-    public void setToolbarLabels(){
+
+    public void setToolbarLabels() {
         toolbarFilter.setText("Filter");
         toolbarSort.setText("Sort");
         appStyle.styleToolbarItem(toolbarFilter);
         appStyle.styleToolbarItem(toolbarSort);
     }
-    
-    public void setToolbarComboBox(){
+
+    public void setToolbarComboBox() {
         filterComboBox = new JComboBox(taskSettings.getCategories());
         sortComboBox = new JComboBox(taskSettings.getPriorities());
         appStyle.styleComboBox(filterComboBox);
         appStyle.styleComboBox(sortComboBox);
     }
-    
-    public void initializeImages(){
+
+    public void initializeImages() {
         try {
             BufferedImage saveImg = ImageIO.read(new File("src/images/save.png"));
             BufferedImage loadImg = ImageIO.read(new File("src/images/load.png"));
@@ -237,61 +227,67 @@ public class AppView extends JFrame {
             saveIcon = new JLabel(new ImageIcon(saveImg));
             loadIcon = new JLabel(new ImageIcon(loadImg));
             fetchIcon = new JLabel(new ImageIcon(fetchImg));
-            
-            saveIcon.setToolTipText("Save Todo List");
-            loadIcon.setToolTipText("Load Todo List");
-            fetchIcon.setToolTipText("Fetch Todo List");
-            
-            saveIcon.setBorder(BorderFactory.createEmptyBorder(0,3,0,0));
-            loadIcon.setBorder(BorderFactory.createEmptyBorder(0,3,0,0));
-            fetchIcon.setBorder(BorderFactory.createEmptyBorder(0,4,0,0));
-            
-            saveIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            loadIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            fetchIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+            setImages();
         } catch (IOException e) {
         }
     }
-    
-    
+
+    public void setImages() {
+        saveIcon.setName("save_btn");
+        loadIcon.setName("load_btn");
+        fetchIcon.setName("fetch_btn");
+
+        saveIcon.setToolTipText("Save Todo List");
+        loadIcon.setToolTipText("Load Todo List");
+        fetchIcon.setToolTipText("Fetch Todo List");
+
+        saveIcon.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
+        loadIcon.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
+        fetchIcon.setBorder(BorderFactory.createEmptyBorder(0, 4, 0, 0));
+
+        saveIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        loadIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        fetchIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }
+
     //COMPONENTS ADDING
-    public void addComponents(AppView appView){
+    public void addComponents(AppView appView) {
         savePanel.add(saveIcon);
         savePanel.add(appSave);
         loadPanel.add(loadIcon);
         loadPanel.add(appLoad);
         fetchPanel.add(fetchIcon);
         fetchPanel.add(appFetch);
-        
+
         toolbarPanel.add(toolbarFilter);
         toolbarPanel.add(filterComboBox);
         toolbarPanel.add(toolbarSort);
         toolbarPanel.add(sortComboBox);
-        
+
         taskPanel.add(appNoTasksMsg);
         todoPanel.add(toolbarPanel, BorderLayout.NORTH);
         todoPanel.add(containerTasksScroll, BorderLayout.CENTER);
         newTaskPanel.add(appIconPlus);
         newTaskPanel.add(appNewTask);
-        
+
         appSettingsPanel.add(savePanel);
         appSettingsPanel.add(loadPanel);
         appSettingsPanel.add(fetchPanel);
         appSettingsPanel.add(appLogin);
-        
+
         appTopPanel.add(appTitle, BorderLayout.CENTER);
         appTopPanel.add(newTaskPanel, BorderLayout.WEST);
         appTopPanel.add(appSettingsPanel, BorderLayout.EAST);
         appCentrePanel.add(todoPanel, BorderLayout.CENTER);
         appBottomPanel.add(appFooter);
-        
-        
+
         appView.add(appTopPanel, BorderLayout.NORTH);
         appView.add(appCentrePanel, BorderLayout.CENTER);
         appView.add(appBottomPanel, BorderLayout.SOUTH);
     }
-    
-    public void renderNewTask(TaskView taskView){
+
+    public void renderNewTask(TaskView taskView) {
         taskPanel.remove(appNoTasksMsg);
         containerTasks.add(taskView);
         taskPanel.add(containerTasks);

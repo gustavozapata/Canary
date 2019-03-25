@@ -14,8 +14,7 @@ public class Task implements Comparable<Task>{
     private String priority;
     private String category;
     private ArrayList<SubTask> subtasks;
-    
-    private boolean complete;
+    private boolean isComplete;
     
     public Task(String taskDescription, User user){
         taskCounter++;
@@ -33,18 +32,17 @@ public class Task implements Comparable<Task>{
     }
     
 
-    
-    
+        
     public boolean getComplete() {
-        return this.complete;
+        return this.isComplete;
     }
     
     public void setComplete(boolean isComplete){
-        this.complete = isComplete;
+        this.isComplete = isComplete;
     }
     
     public void toggleComplete(){
-        this.complete = !this.complete;
+        this.isComplete = !this.isComplete;
     }
     
     public ArrayList<SubTask> getSubTasks(){
@@ -54,7 +52,7 @@ public class Task implements Comparable<Task>{
     public void addSubTask(SubTask subtask){
         this.subtasks.add(subtask);
     }
-
+    
     public String getTaskDescription() {
         return this.taskDescription;
     }
@@ -96,7 +94,6 @@ public class Task implements Comparable<Task>{
     }
     
     public int getPriorityID(){
-        
         if (this.getPriority() == "Low"){
             return 1;
         }

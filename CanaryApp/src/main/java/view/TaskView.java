@@ -76,7 +76,6 @@ public class TaskView extends JPanel {
         this.setPreferredSize(new Dimension(900, 90));
         this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 
-        this.taskCheckBox.addMouseListener(this.taskListener);
 //        this.taskCheckBox.addMouseListener(this.appListener);
         
         this.topPart = new TaskPanel("Task");
@@ -96,6 +95,11 @@ public class TaskView extends JPanel {
         
         addElementsToTask(task);
         addComponents();
+        
+        this.taskCheckBox.addMouseListener(this.taskListener);
+        this.subtaskPanel.addMouseListener(this.taskListener);
+        this.editPanel.addMouseListener(this.taskListener);
+        this.deletePanel.addMouseListener(this.taskListener);
     }
     
     public void setComponents(){
