@@ -102,7 +102,7 @@ public class TaskView extends JPanel {
         this.deletePanel.addMouseListener(this.taskListener);
     }
     
-    public void setComponents(){
+    public void setComponents(){ 
         this.subtaskLabel.setText("Subtask");
         this.editLabel.setText("Edit");
         this.deleteLabel.setText("Delete");

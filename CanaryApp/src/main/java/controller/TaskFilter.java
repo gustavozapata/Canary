@@ -8,16 +8,40 @@ package controller;
 import java.util.ArrayList;
 import model.Task;
 import model.TaskContainer;
+import view.AppView;
 
 public class TaskFilter {
     
-public static void FilterBy(String  filterBy, String  filter){
     
-    TaskContainer container = TaskContainer.getInstance();
+    static ArrayList<Task> old_tasks;
+    static TaskContainer container ;
+    static ArrayList<Task> unfilteredTasks = new ArrayList<Task>();
+    
+    public static void revert(){
+        container.addItems(unfilteredTasks);
+        AppView.getInstance().reRender();
+        unfilteredTasks = new ArrayList<Task>();
+   
+    }
+    
+    
+    
+    
+    
+public static void filterBy(String  filterBy, String  filter){
+    container = TaskContainer.getInstance();
+    revert();
+    
+    
+
+    
     
     ArrayList<Task> filteredTasks = container.getAll();
+
     
     ArrayList<Task> taskToRemove = new ArrayList<Task>();
+    
+    System.out.println("FILTERING!");
  
         if (filterBy.equals("Description")){       
             for (Task task : filteredTasks) 
@@ -35,14 +59,30 @@ public static void FilterBy(String  filterBy, String  filter){
                 }
              }          
         }
+        else if(filterBy.equals("Catagory")){
+              for (Task task : filteredTasks) 
+            { 
+                if(!task.getCategory().equals(filter)){
+                    System.out.println("FOUND A BAD ONE");
+                    taskToRemove.add(task);
+                }
+             }          
+        }
                  
     for (Task task : taskToRemove) 
     { 
        filteredTasks.remove(task);    
+       unfilteredTasks.add(task);
     }
     
     container.clear();
     container.addItems(filteredTasks);
+    AppView.getInstance().reRender();
+    
+    //Redraw GUI
+    
+    
+    
 }
 
 

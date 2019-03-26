@@ -1,11 +1,15 @@
 package view;
 
 import controller.AppListener;
+import controller.TaskFilter;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -219,6 +223,13 @@ public class AppView extends JFrame {
         filterComboBox = new JComboBox(taskSettings.getCategories());
         sortComboBox = new JComboBox(taskSettings.getPriorities());
         appStyle.styleComboBox(filterComboBox);
+        
+        filterComboBox.addActionListener (new ActionListener () {
+    public void actionPerformed(ActionEvent e) {
+        TaskFilter.filterBy("Catagory",filterComboBox.getSelectedItem().toString());
+    }
+});
+        
         appStyle.styleComboBox(sortComboBox);
     }
 
@@ -290,7 +301,19 @@ public class AppView extends JFrame {
         appView.add(appBottomPanel, BorderLayout.SOUTH);
     }
 
+    
+    public void reRender(){
+        System.out.println("REMOVING EVERYTHING");
+        containerTasks.removeAll();
+        containerTasks.revalidate();
+        containerTasks.repaint();
+        System.out.println("REMOVED");
+        System.out.println("ADDING");
+        testingRendering();
+        
+    }
     public void renderNewTask(TaskView taskView) {
+        
 //        taskPanel.remove(appNoTasksMsg);
 //        containerTasks.add(taskView);
 //        taskPanel.add(containerTasks);

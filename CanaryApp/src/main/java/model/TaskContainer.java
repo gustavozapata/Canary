@@ -20,6 +20,10 @@ public class TaskContainer {
         return instance;
     }
     
+    public static void setInstance(TaskContainer container){
+        instance = container;
+    }
+    
     public ArrayList<Task> getAll(){ 
         return this.tasks;
     }
