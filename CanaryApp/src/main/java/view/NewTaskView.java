@@ -246,6 +246,7 @@ public class NewTaskView extends JDialog {
     public void emptyFields(){
         createTaskDescriptionTextField.setText("");
         createTaskCategoryDrop.setSelectedItem("University");
+        createTaskPriorityDrop.setSelectedItem(10);
         newTaskWarning.setVisible(false);
     }
 

@@ -11,81 +11,59 @@ import model.TaskContainer;
 import view.AppView;
 
 public class TaskFilter {
-    
-    
+
     static ArrayList<Task> old_tasks;
-    static TaskContainer container ;
+    static TaskContainer container;
     static ArrayList<Task> unfilteredTasks = new ArrayList<Task>();
-    
-    public static void revert(){
+
+    public static void revert() {
         container.addItems(unfilteredTasks);
         AppView.getInstance().reRender();
         unfilteredTasks = new ArrayList<Task>();
-   
+
     }
-    
-    
-    
-    
-    
-public static void filterBy(String  filterBy, String  filter){
-    container = TaskContainer.getInstance();
-    revert();
-    
-    
 
-    
-    
-    ArrayList<Task> filteredTasks = container.getAll();
+    public static void filterBy(String filterBy, String filter) {
+        container = TaskContainer.getInstance();
+        revert();
 
-    
-    ArrayList<Task> taskToRemove = new ArrayList<Task>();
-    
-    System.out.println("FILTERING!");
- 
-        if (filterBy.equals("Description")){       
-            for (Task task : filteredTasks) 
-            { 
-                if(!task.getDescription().equals(filter)){
+        ArrayList<Task> filteredTasks = container.getAll();
+
+        ArrayList<Task> taskToRemove = new ArrayList<Task>();
+
+        System.out.println("FILTERING!");
+
+        if (filterBy.equals("Description")) {
+            for (Task task : filteredTasks) {
+                if (!task.getDescription().equals(filter)) {
                     taskToRemove.add(task);
                 }
-             }
-        }  
-        else if(filterBy.equals("Username")){
-              for (Task task : filteredTasks) 
-            { 
-                if(!task.getUser().getUserName().equals(filter)){
+            }
+        } else if (filterBy.equals("Username")) {
+            for (Task task : filteredTasks) {
+                if (!task.getUser().getUserName().equals(filter)) {
                     taskToRemove.add(task);
                 }
-             }          
-        }
-        else if(filterBy.equals("Catagory")){
-              for (Task task : filteredTasks) 
-            { 
-                if(!task.getCategory().equals(filter)){
+            }
+        } else if (filterBy.equals("Catagory")) {
+            for (Task task : filteredTasks) {
+                if (!task.getCategory().equals(filter)) {
                     System.out.println("FOUND A BAD ONE");
                     taskToRemove.add(task);
                 }
-             }          
+            }
         }
-                 
-    for (Task task : taskToRemove) 
-    { 
-       filteredTasks.remove(task);    
-       unfilteredTasks.add(task);
+
+        for (Task task : taskToRemove) {
+            filteredTasks.remove(task);
+            unfilteredTasks.add(task);
+        }
+
+        container.clear();
+        container.addItems(filteredTasks);
+        AppView.getInstance().reRender();
+
+        //Redraw GUI
     }
-    
-    container.clear();
-    container.addItems(filteredTasks);
-    AppView.getInstance().reRender();
-    
-    //Redraw GUI
-    
-    
-    
-}
-
-
 
 }
-

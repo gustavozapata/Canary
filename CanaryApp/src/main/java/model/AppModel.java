@@ -5,7 +5,7 @@ package model;
  * @author k1715308
  */
 public class AppModel {
-    final private String[] categories = new String[] {"University", "Home", "Work", "Personal", "Web Service"};
+    final private String[] categories = new String[] {"University", "Home", "Work", "Personal"};
     final private Integer[] priorities = new Integer[] {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
     final private String[] users = new String[] {"tavo", "kylan", "paul"};
     

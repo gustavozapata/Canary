@@ -100,10 +100,7 @@ public class AppListener implements MouseListener {
                     result.setCategory("Web Service");
                     taskContainer.addItem(result);
                 }
-                
                 appView.renderNewTask();
-                
-//                appView.testingContainer();
                 System.out.println("taskContainer.length: " + taskContainer.getAll().size());
                 
             } catch (IOException ex) {

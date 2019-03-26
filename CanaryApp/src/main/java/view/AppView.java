@@ -221,6 +221,7 @@ public final class AppView extends JFrame {
 
     public void setToolbarComboBox() {
         filterComboBox = new JComboBox(taskSettings.getCategories());
+        filterComboBox.addItem("Web Service");
         sortComboBox = new JComboBox(taskSettings.getPriorities());
         appStyle.styleComboBox(filterComboBox);
         appStyle.styleComboBox(sortComboBox);
@@ -319,13 +320,5 @@ public final class AppView extends JFrame {
         }
         taskPanel.add(containerTasks);
         taskPanel.revalidate();
-    }
-    
-    public void testingContainer(){
-        for(Task task : taskContainer.getAll()){
-            containerTasks.add(new TaskView(task));
-        }
-        taskPanel.add(containerTasks);
-        
     }
 }
