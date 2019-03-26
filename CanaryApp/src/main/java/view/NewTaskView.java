@@ -6,15 +6,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
-import java.util.Properties;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -22,13 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import model.AppModel;
-import model.DateLabelFormatter;
 import model.Task;
-import model.TaskContainer;
 import model.User;
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
 
 /**
  *
@@ -62,10 +51,7 @@ public class NewTaskView extends JDialog {
     private JTextField createTaskDescriptionTextField = new JTextField();
     private JComboBox<String> createTaskCategoryDrop;
     private JComboBox<String> createTaskAssignedDrop;
-    private JRadioButton lowPriority;
-    private JRadioButton mediumPriority;
-    private JRadioButton highPriority;
-    private ButtonGroup groupPriority = new ButtonGroup();
+    private JComboBox<Integer> createTaskPriorityDrop;
     private JButton createTaskButton = new JButton();
     private Date date = new Date();
     
@@ -80,7 +66,7 @@ public class NewTaskView extends JDialog {
     
     //LISTENERS
     private NewTaskListener newTaskListener = new NewTaskListener();
-    private AppController appListener = new AppController();
+//    private AppController appListener = new AppController();
 
 
     //SINGLETON
@@ -90,8 +76,8 @@ public class NewTaskView extends JDialog {
         this.setLocation(300, 150);
         this.setResizable(false);
         
-//        createTaskButton.addMouseListener(newTaskListener);
-        createTaskButton.addMouseListener(appListener);
+//        createTaskButton.addMouseListener(appListener);
+        createTaskButton.addMouseListener(newTaskListener);
                
         setComponents();
         styleComponents();
@@ -110,10 +96,8 @@ public class NewTaskView extends JDialog {
     
     public void setComponents(){
         createTaskCategoryDrop = new JComboBox(taskSettings.getCategories());
+        createTaskPriorityDrop = new JComboBox(taskSettings.getPriorities());
         createTaskAssignedDrop = new JComboBox(taskSettings.getUsers());
-        lowPriority = new JRadioButton(taskSettings.getPriorities()[0]);
-        mediumPriority = new JRadioButton(taskSettings.getPriorities()[1]);
-        highPriority = new JRadioButton(taskSettings.getPriorities()[2]);
         
         setNewTaskTitle("New Task");
         setNewTaskDescription("Task Description");
@@ -125,22 +109,16 @@ public class NewTaskView extends JDialog {
     }
     
     public void styleComponents(){
-        newTaskPriority.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 75));
+        newTaskPriority.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 50));
 
         createTaskDescriptionTextField.setPreferredSize(new Dimension(520, 30));
         createTaskCategoryDrop.setPreferredSize(new Dimension(150, 30));
         createTaskCategoryDrop.setBackground(Color.white);
+        createTaskPriorityDrop.setPreferredSize(new Dimension(80, 30));
+        createTaskPriorityDrop.setBackground(Color.white);
         createTaskAssignedDrop.setPreferredSize(new Dimension(100, 30));
         createTaskAssignedDrop.setBackground(Color.white);
-
-        lowPriority.setBackground(Color.white);
-        mediumPriority.setBackground(Color.white);
-        highPriority.setBackground(Color.white);
         
-        lowPriority.setActionCommand("Low");
-        mediumPriority.setActionCommand("Medium");
-        highPriority.setActionCommand("High");
-        mediumPriority.setSelected(true);
         newTaskWarning.setVisible(false);
     }
     
@@ -210,6 +188,10 @@ public class NewTaskView extends JDialog {
     }
     
     
+    public JLabel getNewTaskWarning(){
+        return this.newTaskWarning;
+    }
+    
     public String getCreateTaskDescriptionTextField(){
         return createTaskDescriptionTextField.getText();
     }
@@ -217,16 +199,11 @@ public class NewTaskView extends JDialog {
     
     //COMPONENTS ADDING
     public void addComponents(NewTaskView newTaskView){
-        groupPriority.add(highPriority);
-        groupPriority.add(mediumPriority);
-        groupPriority.add(lowPriority);
         
         containerTaskAssigned.add(newTaskAssigned);
         containerTaskAssigned.add(createTaskAssignedDrop);
 
-        containerPriorityOptions.add(highPriority);
-        containerPriorityOptions.add(mediumPriority);
-        containerPriorityOptions.add(lowPriority);
+        containerPriorityOptions.add(createTaskPriorityDrop);
 
         containerPriority.add(newTaskPriority);
         containerPriority.add(containerPriorityOptions);
@@ -254,14 +231,10 @@ public class NewTaskView extends JDialog {
     public Task createNewTask(){
         Task task = new Task();
         task.setDescription(createTaskDescriptionTextField.getText());
-        task.setPriority(groupPriority.getSelection().getActionCommand());
+        task.setPriorityOrder((Integer)createTaskPriorityDrop.getSelectedItem());
         task.setCategory(createTaskCategoryDrop.getSelectedItem().toString());
-        
-        //CHANGE THESE TWO
-        task.setUser(new User("tavo", 2));
+        task.setUser(new User(createTaskAssignedDrop.getSelectedItem().toString(), 2));
         task.setCompletionDate(date);
-        //CHANGE THESE TWO
-        
         task.setComplete(false);
         return task;
     }
@@ -272,7 +245,6 @@ public class NewTaskView extends JDialog {
     
     public void emptyFields(){
         createTaskDescriptionTextField.setText("");
-        mediumPriority.setSelected(true);
         createTaskCategoryDrop.setSelectedItem("University");
         newTaskWarning.setVisible(false);
     }

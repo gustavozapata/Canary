@@ -11,26 +11,30 @@ import view.TaskView;
 
 public class NewTaskListener implements MouseListener {
 
-    TaskContainer taskContainer = TaskContainer.getInstance();
-    TaskView taskView;
-
+        
     @Override
     public void mouseClicked(MouseEvent e) {
+        
+        TaskContainer taskContainer = TaskContainer.getInstance();
+        NewTaskView newTaskView = NewTaskView.getInstance();
+        TaskView taskView;
+        
+        //CREATE NEW TASK BUTTON
         if (e.getComponent().getName().equals("create_task_btn")) {
-            NewTaskView newTaskView = NewTaskView.getInstance();
             if (newTaskView.getCreateTaskDescriptionTextField().equals("")) {
                 newTaskView.showWarning();
             } else {
                 Task task = newTaskView.createNewTask();
                 taskContainer.addItem(task);
+                System.out.println("taskContainer.length(): " + taskContainer.getAll().size());
                 taskView = new TaskView(task);
                 AppView.getInstance().renderNewTask();
                 newTaskView.setVisible(false);
             }
         }
         
-        
-        //CREATE SUBTASK
+                
+        //CREATE NEW SUBTASK BUTTON
         if (e.getComponent().getName().equals("create_subtask_btn")) {
             NewSubTaskView newSubTaskView = NewSubTaskView.getInstance();
 //            Task task = newTaskView.createNewTask();

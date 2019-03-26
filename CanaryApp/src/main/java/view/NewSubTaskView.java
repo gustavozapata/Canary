@@ -61,7 +61,7 @@ public class NewSubTaskView extends JDialog {
     
     
     //LISTENERS
-    private NewTaskListener newTaskListener = new NewTaskListener();
+//    private NewTaskListener newTaskListener = new NewTaskListener();
 //    private AppController appListener = new AppController();
 
 
@@ -76,7 +76,7 @@ public class NewSubTaskView extends JDialog {
         setPanels();
         addComponents(this); 
         
-        createTaskButton.addMouseListener(newTaskListener);
+//        createTaskButton.addMouseListener(newTaskListener);
     }
     
     //SINGLETON METHOD
@@ -88,10 +88,6 @@ public class NewSubTaskView extends JDialog {
     }
     
     public void setComponents(){
-        lowPriority = new JRadioButton(taskSettings.getPriorities()[0]);
-        mediumPriority = new JRadioButton(taskSettings.getPriorities()[1]);
-        highPriority = new JRadioButton(taskSettings.getPriorities()[2]);
-        
         setNewTaskTitle("New Subtask");
         setNewTaskDescription("Subtask Description");
         setNewTaskPriority("Priority");
@@ -205,7 +201,6 @@ public class NewSubTaskView extends JDialog {
         SubTask subtask = new SubTask();
         subtask.setDescription(createTaskDescriptionTextField.getText());
         subtask.setPriority(groupPriority.getSelection().getActionCommand());
-//        subtask.setAssignedToString(createTaskAssignedDrop.getSelectedItem().toString());  SAME ASSIGNEE AS TASK
         return subtask;
     }
     

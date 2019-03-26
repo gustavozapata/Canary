@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -22,7 +21,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import model.Task;
-import model.User;
 
 public class TaskView extends JPanel {
 
@@ -50,7 +48,6 @@ public class TaskView extends JPanel {
     private JLabel editLabel = new JLabel();
     private JLabel deleteLabel = new JLabel();
     private JCheckBox taskCheckBox = new JCheckBox();
-    SimpleDateFormat format;
 
     private Task task;
 
@@ -73,7 +70,6 @@ public class TaskView extends JPanel {
         this.setPreferredSize(new Dimension(900, 90));
         this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 
-//        this.taskCheckBox.addMouseListener(this.appListener);
         this.topPart = new TaskPanel("Task");
         this.bottomPart = new TaskPanel("Task");
         this.checkBoxPanel = new TaskPanel("Task");
@@ -92,17 +88,21 @@ public class TaskView extends JPanel {
         addElementsToTask(task);
         addComponents();
 
-        this.subtaskPanel.addMouseListener(this.taskListener);
-        this.editPanel.addMouseListener(this.taskListener);
-        this.deletePanel.addMouseListener(this.taskListener);
+        this.subtaskPanel.addMouseListener(taskListener);
+        this.editPanel.addMouseListener(taskListener);
+        this.deletePanel.addMouseListener(taskListener);
 
         this.taskCheckBox.addActionListener((ActionEvent e) -> {
             if (this.taskCheckBox.isSelected()) {
 //                this.taskDescription.setText("<html><body><span style='text-decoration: line-through;'>"+ this.taskDescription.getText() +"</span></body></html>");
                 setCompletionDate(task);
+                task.toggleComplete();
+                System.out.println(task.isComplete());
             } else {
 //                this.taskDescription.setText("<html><body><span style='text-decoration: none;'>"+ this.taskDescription.getText() +"</span></body></html>");
                 this.taskDate.setVisible(false);
+                task.toggleComplete();
+                System.out.println("task complete? " + task.isComplete());
             }
         });
     }
@@ -165,7 +165,7 @@ public class TaskView extends JPanel {
         this.taskCheckBox.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 0));
         this.taskAssignee.setText("User: " + task.getUser().getUserName());
         this.taskCategory.setText(task.getCategory());
-        this.taskPriority.setText("Priority: " + task.getPriority());
+        this.taskPriority.setText("Priority: " + task.getPriorityOrder());
         this.taskPriority.setOpaque(true);
         this.taskPriority.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK), new EmptyBorder(0, 5, 0, 5)));
 
@@ -175,6 +175,12 @@ public class TaskView extends JPanel {
         this.taskCategory.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK), new EmptyBorder(0, 5, 0, 5)));
 
         setTaskCategory(task);
+        
+        if(task.getCategory().equals("Web Service")){
+            setCompletionDate(task);
+            task.toggleComplete();
+            
+        }
 
     }
 
@@ -219,13 +225,13 @@ public class TaskView extends JPanel {
     }
 
     public void setPriority(Task task) {
-        String priority = task.getPriority();
-        if (priority.equals("High")) {
-            taskPriority.setBackground(new Color(248, 171, 39));
-        } else if (priority.equals("Low")) {
+        int priority = task.getPriorityOrder();
+        if (priority >= 14) {
             taskPriority.setBackground(new Color(234, 248, 39));
-        } else {
+        } else if (priority >= 7) {
             taskPriority.setBackground(new Color(248, 220, 39));
+        } else {
+            taskPriority.setBackground(new Color(248, 171, 39));
         }
     }
 
@@ -240,6 +246,8 @@ public class TaskView extends JPanel {
             taskCategory.setBackground(new Color(53, 204, 42));
         } else if (category.equals("Work")) {
             taskCategory.setBackground(new Color(241, 53, 117));
+        } else if (category.equals("Web Service")){
+            taskCategory.setBackground(new Color(21, 153, 117));
         }
     }
 }

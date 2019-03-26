@@ -3,30 +3,19 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Task implements Comparable<Task>{
+public class Task {
     public static int taskCounter = 0;
     private String description;
     private User user;
     private Date completionDate; 
-    private String priority = "";
+    private Integer priorityOrder;
     private String category = "";
     private ArrayList<SubTask> subtasks;
     private boolean isComplete;
-    
-    public Task(String taskDescription, User user){
-        taskCounter++;
-        this.description = taskDescription;
-        this.user = user;
-    }
 
     public Task() {
         taskCounter++;
-        //TESTING PROPERTIES
-//        this.category = "University";
-//        this.priority = "Medium";
-//        this.assignee = "Test";
-//        this.date = new Date();
-//        this.description = "amar";
+        System.out.println("taskCounter: " + taskCounter);
     }
     
 
@@ -75,25 +64,12 @@ public class Task implements Comparable<Task>{
         this.completionDate = completionDate;
     }
 
-    public String getPriority() {
-        return this.priority;
+    public int getPriorityOrder() {
+        return priorityOrder;
     }
 
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
-    
-    public int getPriorityID(){
-        if (this.getPriority() == "Low"){
-            return 1;
-        }
-        else if (this.getPriority() == "Medium"){
-            return 2;
-        }
-        else if (this.getPriority() == "High"){
-            return 3;
-        }
-        return 1;
+    public void setPriorityOrder(Integer priorityOrder) {
+        this.priorityOrder = priorityOrder;
     }
 
     public String getCategory() {
@@ -104,10 +80,11 @@ public class Task implements Comparable<Task>{
         this.category = category;
     }
 
-    @Override
-    public int compareTo(Task o) {
-       return this.getPriorityID()-o.getPriorityID();
-    }
+    //@KYLAN, I COMMENTED THIS OUT SINCE I CHANGED THE PRIORITY SIGNATURE TO NUMBERS
+//    @Override
+//    public int compareTo(Task o) {
+//       return this.getPriorityID()-o.getPriorityID();
+//    }
 }
 
 

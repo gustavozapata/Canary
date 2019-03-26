@@ -30,20 +30,20 @@ public class AppController implements MouseListener {
     
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getComponent().getName().equals("create_task_btn")) {
-            NewTaskView newTaskView = NewTaskView.getInstance();
-            this.task = newTaskView.createNewTask();
-            if (newTaskView.getCreateTaskDescriptionTextField().equals("")) {
-                newTaskView.showWarning();
-            } else {// Add the new task to the GUI
-                taskContainer.addItem(task);
-                taskView = new TaskView(task);
-                AppView.getInstance().renderNewTask(); 
-
-                newTaskView.setVisible(false);
-                setTasksTo();
-            }
-        } 
+//        if (e.getComponent().getName().equals("create_task_btn")) {
+//            NewTaskView newTaskView = NewTaskView.getInstance();
+//            this.task = newTaskView.createNewTask();
+//            if (newTaskView.getCreateTaskDescriptionTextField().equals("")) {
+//                newTaskView.showWarning();
+//            } else {// Add the new task to the GUI
+//                taskContainer.addItem(task);
+//                taskView = new TaskView(task);
+//                AppView.getInstance().renderNewTask(); 
+//
+//                newTaskView.setVisible(false);
+//                setTasksTo();
+//            }
+//        } 
     }
 
     @Override

@@ -22,7 +22,7 @@ public class TaskSort {
         
         if(sortBy == "Description"){
             System.out.println("Sort"); 
-            Collections.sort(tasks);
+//            Collections.sort(tasks);
             
             
             

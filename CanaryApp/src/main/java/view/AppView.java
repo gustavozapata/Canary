@@ -4,7 +4,6 @@ import controller.AppListener;
 import controller.TaskFilter;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -108,7 +107,6 @@ public final class AppView extends JFrame {
         fetchIcon.addMouseListener(appListener);
 
         this.revalidate();
-        this.repaint();
     }
 
     //SINGLETON METHOD
@@ -121,7 +119,7 @@ public final class AppView extends JFrame {
 
     public void setComponents() {
         setAppTitle("To-Do Canary");
-        setAppFooter("Contact Canary");
+        setAppFooter("Developed by Canary");
         setAppIconPlus("+");
         setAppNewTask("New Task");
         setAppLogin("Login");
@@ -225,14 +223,14 @@ public final class AppView extends JFrame {
         filterComboBox = new JComboBox(taskSettings.getCategories());
         sortComboBox = new JComboBox(taskSettings.getPriorities());
         appStyle.styleComboBox(filterComboBox);
-        
-        filterComboBox.addActionListener (new ActionListener () {
-    public void actionPerformed(ActionEvent e) {
-        TaskFilter.filterBy("Catagory",filterComboBox.getSelectedItem().toString());
-    }
-});
-        
         appStyle.styleComboBox(sortComboBox);
+
+        filterComboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TaskFilter.filterBy("Catagory", filterComboBox.getSelectedItem().toString());
+            }
+        });
+
     }
 
     public void initializeImages() {
@@ -303,8 +301,7 @@ public final class AppView extends JFrame {
         appView.add(appBottomPanel, BorderLayout.SOUTH);
     }
 
-    
-    public void reRender(){
+    public void reRender() {
         System.out.println("REMOVING EVERYTHING");
         containerTasks.removeAll();
         containerTasks.revalidate();
@@ -312,15 +309,23 @@ public final class AppView extends JFrame {
         System.out.println("REMOVED");
         System.out.println("ADDING");
         renderNewTask();
-        
+
     }
+
     public void renderNewTask() {
         taskPanel.remove(appNoTasksMsg);
-        for (Task task : taskContainer.getAll()){
+        for (Task task : taskContainer.getAll()) {
             containerTasks.add(new TaskView(task));
         }
         taskPanel.add(containerTasks);
         taskPanel.revalidate();
-        taskPanel.repaint();
+    }
+    
+    public void testingContainer(){
+        for(Task task : taskContainer.getAll()){
+            containerTasks.add(new TaskView(task));
+        }
+        taskPanel.add(containerTasks);
+        
     }
 }

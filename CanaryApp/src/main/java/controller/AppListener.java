@@ -82,6 +82,7 @@ public class AppListener implements MouseListener {
 
         //FETCH BUTTON
         if (e.getComponent().getName().equals("fetch_btn")) {
+            appView = AppView.getInstance();
             try {
                 String url = "http://www.nooblab.com/p2.json";
                 
@@ -96,10 +97,14 @@ public class AppListener implements MouseListener {
                 Gson gson = new Gson();
                 Task[] results = gson.fromJson(reader, Task[].class);
                 for (Task result : results) {
+                    result.setCategory("Web Service");
                     taskContainer.addItem(result);
                 }
-                appView = AppView.getInstance();
+                
                 appView.renderNewTask();
+                
+//                appView.testingContainer();
+                System.out.println("taskContainer.length: " + taskContainer.getAll().size());
                 
             } catch (IOException ex) {
                 Logger.getLogger(AppListener.class.getName()).log(Level.SEVERE, null, ex);

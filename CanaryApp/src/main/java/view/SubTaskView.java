@@ -69,7 +69,6 @@ public class SubTaskView extends JPanel {
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(251, 251, 251));
         this.setPreferredSize(new Dimension(750, 70));
-        this.setVisible(true);
         this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 
         this.topPart = new TaskPanel("Task");

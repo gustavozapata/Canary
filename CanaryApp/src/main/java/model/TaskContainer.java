@@ -40,13 +40,6 @@ public class TaskContainer {
         this.tasks = new ArrayList<>();
     }
     
-    public Task newTask(String Description, User user){
-        System.out.println("New Task!");
-        Task task = new Task(Description,user);
-        this.addItem(task);
-        return task; 
-    }
-    
     public void printAll(){
         System.out.println("THERE ARE: " +  this.tasks.size());
         for (Task task : this.tasks) {
