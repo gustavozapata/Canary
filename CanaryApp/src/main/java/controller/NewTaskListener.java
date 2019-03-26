@@ -24,7 +24,7 @@ public class NewTaskListener implements MouseListener {
                 Task task = newTaskView.createNewTask();
                 taskContainer.addItem(task);
                 taskView = new TaskView(task);
-                AppView.getInstance().renderNewTask(taskView);
+                AppView.getInstance().renderNewTask();
                 newTaskView.setVisible(false);
             }
         }

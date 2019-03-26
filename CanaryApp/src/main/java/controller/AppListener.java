@@ -32,6 +32,7 @@ public class AppListener implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        
         //NEW TASK BUTTON
         if (e.getComponent().getName().equals("plus_btn")) {
             newTaskView.emptyFields();
@@ -98,7 +99,7 @@ public class AppListener implements MouseListener {
                     taskContainer.addItem(result);
                 }
                 appView = AppView.getInstance();
-                appView.testingRendering();
+                appView.renderNewTask();
                 
             } catch (IOException ex) {
                 Logger.getLogger(AppListener.class.getName()).log(Level.SEVERE, null, ex);

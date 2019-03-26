@@ -311,30 +311,16 @@ public final class AppView extends JFrame {
         containerTasks.repaint();
         System.out.println("REMOVED");
         System.out.println("ADDING");
-        testingRendering();
+        renderNewTask();
         
     }
-    public void renderNewTask(TaskView taskView) {
-        
-//        taskPanel.remove(appNoTasksMsg);
-//        containerTasks.add(taskView);
-//        taskPanel.add(containerTasks);
-        testingRendering();
-        taskPanel.revalidate();
-        taskPanel.repaint();
-    }
-    
-    //TESTING METHOD
-    public void testingRendering() {
+    public void renderNewTask() {
         taskPanel.remove(appNoTasksMsg);
-        
         for (Task task : taskContainer.getAll()){
             containerTasks.add(new TaskView(task));
         }
-        
         taskPanel.add(containerTasks);
         taskPanel.revalidate();
         taskPanel.repaint();
-
     }
 }

@@ -108,11 +108,6 @@ public class Task implements Comparable<Task>{
     public int compareTo(Task o) {
        return this.getPriorityID()-o.getPriorityID();
     }
-    
-//    public static Task create() {
-//        
-//    }
-            
 }
 
 

@@ -1,15 +1,13 @@
 package model;
 
+import java.util.Date;
+
 
 public class SubTask {
     
     private String description;
     private String priority;
-    
-    
-    public SubTask(TaskContainer taskContainer, String taskDescription){ // Doesnt duplicate variables, just passes them in
-//        super(taskDescription, user); // Uses superclasses constructor
-    }
+    private Date completionDate;
     
     public SubTask(){
         
@@ -30,5 +28,13 @@ public class SubTask {
 
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+    
+    public Date getCompletionDate() {
+        return completionDate;
+    }
+
+    public void setCompletionDate(Date completionDate) {
+        this.completionDate = completionDate;
     }
 }

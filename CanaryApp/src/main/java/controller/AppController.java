@@ -38,14 +38,12 @@ public class AppController implements MouseListener {
             } else {// Add the new task to the GUI
                 taskContainer.addItem(task);
                 taskView = new TaskView(task);
-                AppView.getInstance().renderNewTask(taskView); 
+                AppView.getInstance().renderNewTask(); 
 
                 newTaskView.setVisible(false);
                 setTasksTo();
             }
-        } else if(e.getComponent().getName().equals("check_btn")){
-//            System.out.println(this.task.getTaskDescription());
-        }
+        } 
     }
 
     @Override

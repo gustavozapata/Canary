@@ -279,6 +279,7 @@ public class NewTaskView extends JDialog {
 
     public void setTaskToEdit(Task taskToEdit) {
         createTaskDescriptionTextField.setText(taskToEdit.getDescription());
+        createTaskCategoryDrop.setSelectedItem(taskToEdit.getCategory());
     }
 
 }
