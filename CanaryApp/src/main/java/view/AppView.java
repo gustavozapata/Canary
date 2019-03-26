@@ -27,7 +27,7 @@ import model.TaskContainer;
  *
  * @author Gustavo
  */
-public class AppView extends JFrame {
+public final class AppView extends JFrame {
 
     //PANELS #1
     private AppPanel appTopPanel = new AppPanel();
@@ -103,6 +103,8 @@ public class AppView extends JFrame {
         loadIcon.addMouseListener(appListener);
         fetchIcon.addMouseListener(appListener);
 
+        this.revalidate();
+        this.repaint();
     }
 
     //SINGLETON METHOD
@@ -295,8 +297,8 @@ public class AppView extends JFrame {
 //        containerTasks.add(taskView);
 //        taskPanel.add(containerTasks);
         testingRendering();
-//        taskPanel.revalidate();
-//        taskPanel.repaint();
+        taskPanel.revalidate();
+        taskPanel.repaint();
     }
     
     //TESTING METHOD
@@ -310,5 +312,6 @@ public class AppView extends JFrame {
         taskPanel.add(containerTasks);
         taskPanel.revalidate();
         taskPanel.repaint();
+
     }
 }

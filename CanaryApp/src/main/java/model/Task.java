@@ -8,8 +8,8 @@ public class Task implements Comparable<Task>{
     private String description;
     private User user;
     private Date completionDate; 
-    private String priority;
-    private String category;
+    private String priority = "";
+    private String category = "";
     private ArrayList<SubTask> subtasks;
     private boolean isComplete;
     
@@ -108,10 +108,11 @@ public class Task implements Comparable<Task>{
     public int compareTo(Task o) {
        return this.getPriorityID()-o.getPriorityID();
     }
-
     
- 
-    
+//    public static Task create() {
+//        
+//    }
+            
 }
 
 

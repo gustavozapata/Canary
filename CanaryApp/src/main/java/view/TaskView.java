@@ -4,16 +4,15 @@ import controller.AppController;
 import controller.TaskListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -54,6 +53,8 @@ public class TaskView extends JPanel {
     private JLabel deleteLabel = new JLabel();
     private JCheckBox taskCheckBox = new JCheckBox();
     SimpleDateFormat format;
+    
+    private Task task;
 
     //ICONS
     private JLabel deleteIcon;
@@ -71,6 +72,7 @@ public class TaskView extends JPanel {
 
 
     public TaskView(Task task) {
+        this.task = task;
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(241, 241, 241));
         this.setPreferredSize(new Dimension(900, 90));
@@ -188,6 +190,9 @@ public class TaskView extends JPanel {
         this.actionsPanel.add(deletePanel);
 
         this.taskDescriptionPanel.add(taskDescription);
+        taskCheckBox.addActionListener((ActionEvent e) -> {
+            taskDescription.setText("Hello!");
+        });
         this.checkBoxPanel.add(taskCheckBox);
         this.taskInfoPanel.add(taskCategory);
         this.taskInfoPanel.add(taskAssignee);
@@ -204,11 +209,13 @@ public class TaskView extends JPanel {
     }
 
     public void setDueDate(Task task) {
-//        format = new SimpleDateFormat("dd-MM-yyyy");
-//        taskDate.setText("Due: " + format.format(selectedDate));
         selectedDate = (Date) task.getCompletionDate();
-        taskDate.setText("Due: " + selectedDate);
+        taskDate.setText("Completed on: " + selectedDate);
         taskDate.setForeground(new Color(255, 29, 83));
+    }
+    
+    public Task getTask(){
+        return this.task;
     }
 
     public void setPriority(Task task) {
