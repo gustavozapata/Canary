@@ -20,6 +20,8 @@ import javax.swing.JScrollPane;
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 import javax.swing.WindowConstants;
 import model.AppModel;
+import model.Task;
+import model.TaskContainer;
 
 /**
  *
@@ -75,6 +77,7 @@ public class AppView extends JFrame {
 
     //MODEL
     private AppModel taskSettings = new AppModel();
+    private TaskContainer taskContainer = TaskContainer.getInstance();
 
     //SINGLETON
     public static AppView instance = null;
@@ -288,8 +291,22 @@ public class AppView extends JFrame {
     }
 
     public void renderNewTask(TaskView taskView) {
+//        taskPanel.remove(appNoTasksMsg);
+//        containerTasks.add(taskView);
+//        taskPanel.add(containerTasks);
+        testingRendering();
+//        taskPanel.revalidate();
+//        taskPanel.repaint();
+    }
+    
+    //TESTING METHOD
+    public void testingRendering() {
         taskPanel.remove(appNoTasksMsg);
-        containerTasks.add(taskView);
+        
+        for (Task task : taskContainer.getAll()){
+            containerTasks.add(new TaskView(task));
+        }
+        
         taskPanel.add(containerTasks);
         taskPanel.revalidate();
         taskPanel.repaint();

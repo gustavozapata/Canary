@@ -20,6 +20,7 @@ public class Task implements Comparable<Task>{
     }
 
     public Task() {
+        taskCounter++;
         //TESTING PROPERTIES
 //        this.category = "University";
 //        this.priority = "Medium";

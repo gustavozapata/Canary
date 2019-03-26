@@ -22,11 +22,14 @@ import view.AppView;
 import view.NewTaskView;
 import view.LoginView;
 import model.Task;
+import model.TaskContainer;
 
 public class AppListener implements MouseListener {
 
     private NewTaskView newTaskView = NewTaskView.getInstance();
     private LoginView loginView = LoginView.getInstance();
+    private AppView appView;
+    private TaskContainer taskContainer = TaskContainer.getInstance();
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -95,6 +98,7 @@ public class AppListener implements MouseListener {
                 //Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 Task[] results = gson.fromJson(reader, Task[].class);
                 for (Task result : results) {
+                    taskContainer.addItem(result);
 //                    System.out.println(gson.toJson(result));
                     System.out.println("Description: " + result.getDescription());
                     System.out.println("User: " + result.getUser().getUserName());
@@ -102,6 +106,9 @@ public class AppListener implements MouseListener {
                     System.out.println("Completion date: " + result.getCompletionDate());
                     System.out.println("Completion: " + result.isComplete());
                 }
+                appView = AppView.getInstance();
+                appView.testingRendering();
+                
             } catch (IOException ex) {
                 Logger.getLogger(AppListener.class.getName()).log(Level.SEVERE, null, ex);
             }

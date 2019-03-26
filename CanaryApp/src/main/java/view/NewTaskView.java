@@ -113,7 +113,7 @@ public class NewTaskView extends JDialog {
     
     public void setComponents(){
         createTaskCategoryDrop = new JComboBox(taskSettings.getCategories());
-        createTaskAssignedDrop = new JComboBox(taskSettings.getCategories());
+        createTaskAssignedDrop = new JComboBox(taskSettings.getUsers());
         lowPriority = new JRadioButton(taskSettings.getPriorities()[0]);
         mediumPriority = new JRadioButton(taskSettings.getPriorities()[1]);
         highPriority = new JRadioButton(taskSettings.getPriorities()[2]);

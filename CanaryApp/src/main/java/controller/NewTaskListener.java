@@ -19,13 +19,30 @@ public class NewTaskListener implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         if (e.getComponent().getName().equals("create_task_btn")) {
             NewTaskView newTaskView = NewTaskView.getInstance();
-            Task task = newTaskView.createNewTask();
             if (newTaskView.getCreateTaskDescriptionTextField().equals("")) {
                 newTaskView.showWarning();
             } else {
+                Task task = newTaskView.createNewTask();
+                
+                //TESTING
+                Task task2 = newTaskView.createNewTask();
+                Task task3 = newTaskView.createNewTask();
+                                
                 taskContainer.addItem(task);
+                taskContainer.addItem(task2);
+                taskContainer.addItem(task3);
+                
                 taskView = new TaskView(task);
                 AppView.getInstance().renderNewTask(taskView);
+
+
+                //ORIGINAL
+//                Task task = newTaskView.createNewTask();
+//                taskContainer.addItem(task);
+//                taskView = new TaskView(task);
+//                AppView.getInstance().renderNewTask(taskView);
+                //ORIGINAL
+                
 
                 newTaskView.setVisible(false);
             }
