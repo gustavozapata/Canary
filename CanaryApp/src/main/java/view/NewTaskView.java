@@ -48,7 +48,6 @@ public class NewTaskView extends JDialog {
     private TaskPanel containerPriority = new TaskPanel();
     private TaskPanel containerPriorityOptions = new TaskPanel();
     private TaskPanel containerTaskAssigned = new TaskPanel();
-    private TaskPanel containerTaskDate = new TaskPanel();
 
     
     
@@ -58,7 +57,6 @@ public class NewTaskView extends JDialog {
     private JLabel newTaskCategory = new JLabel();
     private JLabel newTaskPriority = new JLabel();
     private JLabel newTaskAssigned = new JLabel();
-    private JLabel newTaskDate = new JLabel();
     private JLabel newTaskWarning = new JLabel();
     
     private JTextField createTaskDescriptionTextField = new JTextField();
@@ -69,8 +67,7 @@ public class NewTaskView extends JDialog {
     private JRadioButton highPriority;
     private ButtonGroup groupPriority = new ButtonGroup();
     private JButton createTaskButton = new JButton();
-    private JDatePickerImpl datePicker;
-    private JDatePanelImpl datePanel;
+    private Date date = new Date();
     
     
     //MODEL
@@ -123,20 +120,8 @@ public class NewTaskView extends JDialog {
         setNewTaskCategory("Category");
         setNewTaskPriority("Priority");
         setNewTaskAssigned("Assigned To");
-        setNewTaskDate("Date");
         setCreateTaskButton("Create");
         setNewTaskWarning("Please add a task description");
-        
-        //DATE PICKER
-        UtilDateModel model = new UtilDateModel();
-        Properties p = new Properties();
-        p.put("text.today", "Today");
-        p.put("text.month", "Month");
-        p.put("text.year", "Year");
-        datePanel = new JDatePanelImpl(model, p);
-        datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-        datePicker.setPreferredSize(new Dimension(110, 27));
-        datePicker.setBackground(Color.white);
     }
     
     public void styleComponents(){
@@ -172,7 +157,6 @@ public class NewTaskView extends JDialog {
         containerTaskAssigned.setLayout(new BoxLayout(containerTaskAssigned, BoxLayout.Y_AXIS));
         containerTaskDescription.setLayout(new BoxLayout(containerTaskDescription, BoxLayout.Y_AXIS));
         containerTaskDescription.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 110));
-        containerTaskDate.setBorder(BorderFactory.createEmptyBorder(20, 330, 0, 0));
     }
     
     
@@ -200,11 +184,6 @@ public class NewTaskView extends JDialog {
     public void setNewTaskAssigned(String text){
         newTaskAssigned.setText(text);
         newTaskStyle.styleNewTaskSubtitle(newTaskAssigned);
-    }
-    
-    public void setNewTaskDate(String text){
-        newTaskDate.setText(text);
-        newTaskStyle.styleNewTaskSubtitle(newTaskDate);
     }
     
     public void setNewTaskWarning(String text){
@@ -256,11 +235,8 @@ public class NewTaskView extends JDialog {
         containerTaskDescription.add(newTaskDescription);
         containerTaskDescription.add(createTaskDescriptionTextField);
         containerTaskDescription.add(newTaskWarning);
-        containerTaskDate.add(newTaskDate);
-        containerTaskDate.add(datePicker);
         
         createTaskNorth.add(newTaskTitle);
-        createTaskNorth.add(containerTaskDate);
         createTaskCentre.add(containerTaskDescription, BorderLayout.WEST);
         createTaskCentre.add(containerCentre, BorderLayout.CENTER);
         createTaskCentre.add(containerPriority, BorderLayout.EAST);
@@ -283,7 +259,7 @@ public class NewTaskView extends JDialog {
         
         //CHANGE THESE TWO
         task.setUser(new User("tavo", 2));
-        task.setCompletionDate((Date)datePicker.getModel().getValue());
+        task.setCompletionDate(date);
         //CHANGE THESE TWO
         
         task.setComplete(false);
@@ -299,8 +275,10 @@ public class NewTaskView extends JDialog {
         mediumPriority.setSelected(true);
         createTaskCategoryDrop.setSelectedItem("University");
         newTaskWarning.setVisible(false);
-//        String todayDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH));
-//        datePicker.getJFormattedTextField().setText(todayDate);/
+    }
+
+    public void setTaskToEdit(Task taskToEdit) {
+        createTaskDescriptionTextField.setText(taskToEdit.getDescription());
     }
 
 }

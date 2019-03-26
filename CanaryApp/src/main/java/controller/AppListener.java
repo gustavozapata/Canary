@@ -1,7 +1,6 @@
 package controller;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
@@ -94,17 +93,9 @@ public class AppListener implements MouseListener {
                         new InputStreamReader(response.getEntity().getContent()));
                 
                 Gson gson = new Gson();
-                //JSON PRETTY
-                //Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 Task[] results = gson.fromJson(reader, Task[].class);
                 for (Task result : results) {
                     taskContainer.addItem(result);
-//                    System.out.println(gson.toJson(result));
-                    System.out.println("Description: " + result.getDescription());
-                    System.out.println("User: " + result.getUser().getUserName());
-                    System.out.println("Password: " + result.getUser().getPassword());
-                    System.out.println("Completion date: " + result.getCompletionDate());
-                    System.out.println("Completion: " + result.isComplete());
                 }
                 appView = AppView.getInstance();
                 appView.testingRendering();

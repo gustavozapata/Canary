@@ -2,10 +2,12 @@ package controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import model.Task;
 import model.TaskContainer;
 import view.AppView;
 import view.NewSubTaskView;
 import view.NewTaskView;
+import view.TaskView;
 
 /**
  *
@@ -33,6 +35,8 @@ public class TaskListener implements MouseListener {
         } else if(e.getComponent().getName().equals("delete_btn")){
             System.out.println("deleting...");
         } else if(e.getComponent().getName().equals("edit_btn")){
+            Task taskToEdit = ((TaskView)(e.getComponent().getParent().getParent().getParent())).getTask();
+            newTaskView.setTaskToEdit(taskToEdit);
             newTaskView.setVisible(true);
             newTaskView.setNewTaskTitle("Edit Task");
             newTaskView.setEditTaskButton("Save");
