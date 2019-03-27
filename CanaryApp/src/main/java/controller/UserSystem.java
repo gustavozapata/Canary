@@ -13,7 +13,15 @@ public class UserSystem {
     public static ArrayList<String> loadedUsernames = new ArrayList<String>();
     public static User currentUser;
     
-    
+    public static void loadEverybody() throws FileNotFoundException{
+        ArrayList<String> newUsers = new ArrayList<String>();
+        newUsers = FileReader.loadEverybody();
+        for (int i = 0; i < newUsers.size(); i+=2) {
+            loadUser(newUsers.get(i),Integer.parseInt(newUsers.get(i+1)));
+        }
+        
+        
+    }
     
     public static User loadUser(String username,int level){
         User newUser = new User(username,level);
