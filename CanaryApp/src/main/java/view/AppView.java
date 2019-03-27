@@ -101,7 +101,8 @@ public final class AppView extends JFrame {
         setComponents();
         setPanels();
         addComponents();
-
+        
+        
         appIconPlus.addMouseListener(appListener);
         appLogin.addMouseListener(appListener);
         saveIcon.addMouseListener(appListener);
@@ -132,9 +133,11 @@ public final class AppView extends JFrame {
 
         setToolbarLabels();
         setToolbarComboBox();
-
+        
         initializeImages();
     }
+    
+
 
     public void setPanels() {
         appTopPanel.setLayout(new BorderLayout());
@@ -248,6 +251,7 @@ public final class AppView extends JFrame {
         // FOR FILTERING
         filterComboBox = new JComboBox(taskSettings.getCategories());
         filterComboBox.addItem("Web Service");
+        
 
         for (int counter = 0; counter <= highest_priority; counter++) {
             filterComboBox.addItem("Priority: " + Integer.toString(counter));
@@ -324,6 +328,7 @@ public final class AppView extends JFrame {
 
     //COMPONENTS ADDING
     public void addComponents() {
+        
         savePanel.add(saveIcon);
         savePanel.add(appSave);
         loadPanel.add(loadIcon);
