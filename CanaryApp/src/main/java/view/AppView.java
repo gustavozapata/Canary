@@ -24,6 +24,7 @@ import javax.swing.JScrollPane;
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 import javax.swing.WindowConstants;
 import model.AppModel;
+import model.SubTask;
 import model.Task;
 import model.TaskContainer;
 
@@ -101,8 +102,7 @@ public final class AppView extends JFrame {
         setComponents();
         setPanels();
         addComponents();
-        
-        
+
         appIconPlus.addMouseListener(appListener);
         appLogin.addMouseListener(appListener);
         saveIcon.addMouseListener(appListener);
@@ -133,11 +133,9 @@ public final class AppView extends JFrame {
 
         setToolbarLabels();
         setToolbarComboBox();
-        
+
         initializeImages();
     }
-    
-
 
     public void setPanels() {
         appTopPanel.setLayout(new BorderLayout());
@@ -223,13 +221,13 @@ public final class AppView extends JFrame {
         appStyle.styleToolbarItem(toolbarFilter);
         appStyle.styleToolbarItem(toolbarSort);
     }
-    
-    public void resetFilter(){
+
+    public void resetFilter() {
         filterComboBox.setSelectedIndex(0);
         filter();
     }
-    
-    public void resetSort(){
+
+    public void resetSort() {
         sortComboBox.setSelectedIndex(0);
         filter();
     }
@@ -252,7 +250,7 @@ public final class AppView extends JFrame {
 
     public void setToolbarComboBox() {
         // FOR FILTERING
-        
+
         filterComboBox = new JComboBox();
         filterComboBox.addItem("All");
         for (String catagory : taskSettings.getCategories()) {
@@ -260,7 +258,6 @@ public final class AppView extends JFrame {
         }
 
         filterComboBox.addItem("Web Service");
-        
 
         for (int counter = 0; counter <= highest_priority; counter++) {
             filterComboBox.addItem("Priority: " + Integer.toString(counter));
@@ -335,7 +332,7 @@ public final class AppView extends JFrame {
 
     //COMPONENTS ADDING
     public void addComponents() {
-        
+
         savePanel.add(saveIcon);
         savePanel.add(appSave);
         loadPanel.add(loadIcon);
@@ -380,13 +377,18 @@ public final class AppView extends JFrame {
     }
 
     //METHOD THAT RENDERS ALL THE TASKS IN THE TASKCONTAINER
-    public void renderNewTask(){
+    public void renderNewTask() {
         containerTasks.removeAll();
         appNoTasksMsg.setVisible(false);
         for (Task task : TaskContainer.getInstance().getAll()) {
             containerTasks.add(new TaskView(task));
+            if(task.getSubTasks().size() > 0){
+                for(SubTask subtask : task.getSubTasks()){
+                    containerTasks.add(new SubTaskView(subtask));
+                }
+            }
         }
-        if(TaskContainer.getInstance().getAll().size() <= 0){
+        if (TaskContainer.getInstance().getAll().size() <= 0) {
             appNoTasksMsg.setVisible(true);
         } else {
             appNoTasksMsg.setVisible(false);
