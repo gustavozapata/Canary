@@ -34,7 +34,7 @@ import model.TaskContainer;
 public final class AppView extends JFrame {
 
     int highest_priority = 5;
-    
+
     //PANELS #1
     private AppPanel appTopPanel = new AppPanel();
     private AppPanel appBottomPanel = new AppPanel();
@@ -107,7 +107,7 @@ public final class AppView extends JFrame {
         saveIcon.addMouseListener(appListener);
         loadIcon.addMouseListener(appListener);
         fetchIcon.addMouseListener(appListener);
-        
+
         this.setVisible(true);
     }
 
@@ -221,29 +221,22 @@ public final class AppView extends JFrame {
         appStyle.styleToolbarItem(toolbarSort);
     }
 
-        
-    public void filter(){
+    public void filter() {
         String item = filterComboBox.getSelectedItem().toString();
-                if(item.contains("Priority: ")){
-                    item = item.substring(10);
-                   TaskFilter.filterBy("Priority", item); 
-                }
+        if (item.contains("Priority: ")) {
+            item = item.substring(10);
+            TaskFilter.filterBy("Priority", item);
+        } else {
+            TaskFilter.filterBy("Catagory", item);
+        }
 
-                else{
-                 TaskFilter.filterBy("Catagory", item);
-                }
-                
+    }
 
-        
+    public void sort() {
+        String item = sortComboBox.getSelectedItem().toString();
+        TaskSort.sortBy(item);
     }
-    
-    public void sort(){
-        
-         String item = sortComboBox.getSelectedItem().toString();
-            TaskSort.sortBy(item);
-                
-    }
-    
+
     public void setToolbarComboBox() {
         // FOR FILTERING
         filterComboBox = new JComboBox(taskSettings.getCategories());
@@ -251,41 +244,39 @@ public final class AppView extends JFrame {
 
         for (int counter = 0; counter <= highest_priority; counter++) {
             filterComboBox.addItem("Priority: " + Integer.toString(counter));
-        }    
-        
+        }
+
         appStyle.styleComboBox(filterComboBox);
- 
-        
+
         filterComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-              if(filterComboBox.getSelectedItem().toString()!="None"){
-                  
-                   filter();
-                   if(sortComboBox.getSelectedItem().toString()!="None"){
-                    sort();         
+                if (filterComboBox.getSelectedItem().toString() != "None") {
+
+                    filter();
+                    if (sortComboBox.getSelectedItem().toString() != "None") {
+                        sort();
                     }
                 }
-                
-                
+
             }
         });
-        
-         // FOR SORTING
-             sortComboBox = new JComboBox();
-             appStyle.styleComboBox(sortComboBox);
-             sortComboBox.addItem("None");
-             sortComboBox.addItem("Priority");
-             sortComboBox.addItem("Description");
-             sortComboBox.addItem("Date");
-             sortComboBox.addActionListener(new ActionListener() {
+
+        // FOR SORTING
+        sortComboBox = new JComboBox();
+        appStyle.styleComboBox(sortComboBox);
+        sortComboBox.addItem("None");
+        sortComboBox.addItem("Priority");
+        sortComboBox.addItem("Description");
+        sortComboBox.addItem("Date");
+        sortComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(sortComboBox.getSelectedItem().toString()!="None"){
+                if (sortComboBox.getSelectedItem().toString() != "None") {
                     sort();
-                    if(filterComboBox.getSelectedItem().toString()!="All"){
-                         filter();         
+                    if (filterComboBox.getSelectedItem().toString() != "All") {
+                        filter();
+                    }
                 }
-                }
-                
+
             }
         });
     }
@@ -357,8 +348,7 @@ public final class AppView extends JFrame {
         this.add(appCentrePanel, BorderLayout.CENTER);
         this.add(appBottomPanel, BorderLayout.SOUTH);
     }
-    
-    
+
     public void reRender() {
         System.out.println("ReRendering EVerything");
         containerTasks.removeAll();
@@ -367,9 +357,9 @@ public final class AppView extends JFrame {
         renderNewTask();
 
     }
-    
+
     //METHOD THAT RENDERS ALL THE TASKS IN THE TASKCONTAINER
-   public void renderNewTask() {
+    public void renderNewTask() {
         taskPanel.remove(appNoTasksMsg);
         for (Task task : taskContainer.getAll()) {
             containerTasks.add(new TaskView(task));

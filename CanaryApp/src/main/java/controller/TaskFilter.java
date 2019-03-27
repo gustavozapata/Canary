@@ -13,21 +13,19 @@ import view.AppView;
 public class TaskFilter {
 
     static ArrayList<Task> old_tasks;
-    static TaskContainer container;
     static ArrayList<Task> unfilteredTasks = new ArrayList<Task>();
 
     public static void revert() {
-        container.addItems(unfilteredTasks);
+        TaskContainer.getInstance().addItems(unfilteredTasks);
         AppView.getInstance().reRender();
         unfilteredTasks = new ArrayList<Task>();
 
     }
 
     public static void filterBy(String filterBy, String filter) {
-        container = TaskContainer.getInstance();
         revert();
 
-        ArrayList<Task> filteredTasks = container.getAll();
+        ArrayList<Task> filteredTasks = TaskContainer.getInstance().getAll();
 
         ArrayList<Task> taskToRemove = new ArrayList<Task>();
 
@@ -64,8 +62,8 @@ public class TaskFilter {
             filteredTasks.remove(task);
             unfilteredTasks.add(task);
         }
-        container.clear();
-        container.addItems(filteredTasks);
+        TaskContainer.getInstance().clear();
+        TaskContainer.getInstance().addItems(filteredTasks);
         }
         AppView.getInstance().reRender();
 
