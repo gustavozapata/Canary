@@ -21,7 +21,7 @@ public class TaskListener implements MouseListener {
         //TASK TO EDIT/DELETE
         Task taskToEdit = ((TaskView) (e.getComponent().getParent().getParent().getParent())).getTask();
         
-
+        
         //DELETE BUTTON
         if (e.getComponent().getName().equals("delete_btn")) {
             System.out.println("deleting...");

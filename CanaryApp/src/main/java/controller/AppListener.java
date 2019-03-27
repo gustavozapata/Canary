@@ -39,7 +39,11 @@ public class AppListener implements MouseListener {
         
         //CREATE TASK BUTTON
         if(e.getComponent().getName().equals("plus_btn")){
+            
             System.out.println("new task button");
+                        
+            AppView.getInstance().resetFilter();
+            AppView.getInstance().resetSort();
             NewTaskView.getInstance().setUserDropDown();
             NewTaskView.getInstance().setVisible(true);
             NewTaskView.getInstance().emptyFields();
@@ -60,6 +64,10 @@ public class AppListener implements MouseListener {
         //FETCH BUTTON
         } else if(e.getComponent().getName().equals("fetch_btn")){
             System.out.println("fetch button");
+            
+            AppView.getInstance().resetFilter();
+            AppView.getInstance().resetSort();
+            
             try {
                 String url = "http://www.nooblab.com/p2.json";
                 

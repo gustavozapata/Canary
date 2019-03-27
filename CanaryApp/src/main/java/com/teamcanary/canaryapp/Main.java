@@ -10,8 +10,7 @@ import view.AppView;
  */
 public class Main {
     public static void main(String[] args) throws FileNotFoundException{
-        
         AppView mainWindow = AppView.getInstance();
-              UserSystem.loadEverybody();
+        UserSystem.loadEverybody();
     }
 }

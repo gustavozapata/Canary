@@ -26,6 +26,7 @@ public class NewTaskListener implements MouseListener {
         //CREATE TASK BUTTON
         if(e.getComponent().getName().equals("create_task_btn")){
             System.out.println("create task button");
+            
             if(NewTaskView.getInstance().getCreateTaskDescriptionTextField().equals("")){
                 NewTaskView.getInstance().showWarning();
                 

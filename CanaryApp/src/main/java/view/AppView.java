@@ -223,6 +223,16 @@ public final class AppView extends JFrame {
         appStyle.styleToolbarItem(toolbarFilter);
         appStyle.styleToolbarItem(toolbarSort);
     }
+    
+    public void resetFilter(){
+        filterComboBox.setSelectedIndex(0);
+        filter();
+    }
+    
+    public void resetSort(){
+        sortComboBox.setSelectedIndex(0);
+        filter();
+    }
 
     public void filter() {
         String item = filterComboBox.getSelectedItem().toString();
@@ -242,7 +252,13 @@ public final class AppView extends JFrame {
 
     public void setToolbarComboBox() {
         // FOR FILTERING
-        filterComboBox = new JComboBox(taskSettings.getCategories());
+        
+        filterComboBox = new JComboBox();
+        filterComboBox.addItem("All");
+        for (String catagory : taskSettings.getCategories()) {
+            filterComboBox.addItem(catagory);
+        }
+
         filterComboBox.addItem("Web Service");
         
 
