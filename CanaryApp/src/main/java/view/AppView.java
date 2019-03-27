@@ -364,10 +364,16 @@ public final class AppView extends JFrame {
     }
 
     //METHOD THAT RENDERS ALL THE TASKS IN THE TASKCONTAINER
-    public void renderNewTask() {
-        taskPanel.remove(appNoTasksMsg);
-        for (Task task : taskContainer.getAll()) {
+    public void renderNewTask(){
+        containerTasks.removeAll();
+        appNoTasksMsg.setVisible(false);
+        for (Task task : TaskContainer.getInstance().getAll()) {
             containerTasks.add(new TaskView(task));
+        }
+        if(TaskContainer.getInstance().getAll().size() <= 0){
+            appNoTasksMsg.setVisible(true);
+        } else {
+            appNoTasksMsg.setVisible(false);
         }
         taskPanel.add(containerTasks);
         taskPanel.revalidate();
