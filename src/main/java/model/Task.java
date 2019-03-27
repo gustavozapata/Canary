@@ -96,12 +96,16 @@ public class Task implements Comparable<Task>{
               if(result!=0){
                   break;
               }
+             }
+            return result;   
+        }
+        else if (TaskSort.sortTaskBy == "Date"){
+            if(this.getCompletionDate().before(o.getCompletionDate())){
+                return -1;
             }
-            return result;
-            
-            
-            
-            
+            else{
+                return 1;
+            }
         }
         
         

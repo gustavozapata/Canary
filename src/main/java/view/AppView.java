@@ -228,6 +228,7 @@ public final class AppView extends JFrame {
                     item = item.substring(10);
                    TaskFilter.filterBy("Priority", item); 
                 }
+
                 else{
                  TaskFilter.filterBy("Catagory", item);
                 }
@@ -275,6 +276,7 @@ public final class AppView extends JFrame {
              sortComboBox.addItem("None");
              sortComboBox.addItem("Priority");
              sortComboBox.addItem("Description");
+             sortComboBox.addItem("Date");
              sortComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(sortComboBox.getSelectedItem().toString()!="None"){

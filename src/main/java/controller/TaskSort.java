@@ -20,7 +20,6 @@ public class TaskSort {
         TaskContainer container = TaskContainer.getInstance();
         ArrayList <Task> tasks = container.getAll();
         sortTaskBy = sortBy;
-            System.out.println("Sort"); 
             Collections.sort(tasks);
             
             container.clear();

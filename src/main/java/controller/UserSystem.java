@@ -10,7 +10,7 @@ import view.AppView;
 public class UserSystem {
     
     static ArrayList<User> loadedUsers = new ArrayList<User>(); 
-    static User currentUser;
+    public static User currentUser;
     
     public static User loadUser(String username,int level){
         User newUser = new User(username,level);

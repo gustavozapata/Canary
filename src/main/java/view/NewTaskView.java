@@ -2,6 +2,7 @@ package view;
 
 import controller.AppController;
 import controller.NewTaskListener;
+import controller.UserSystem;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -233,7 +234,7 @@ public class NewTaskView extends JDialog {
         task.setDescription(createTaskDescriptionTextField.getText());
         task.setPriorityOrder((Integer)createTaskPriorityDrop.getSelectedItem());
         task.setCategory(createTaskCategoryDrop.getSelectedItem().toString());
-        task.setUser(new User(createTaskAssignedDrop.getSelectedItem().toString(), 2));
+        task.setUser(UserSystem.currentUser);
         task.setCompletionDate(date);
         task.setComplete(false);
         return task;
