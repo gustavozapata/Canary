@@ -86,9 +86,8 @@ public class Task implements Comparable<Task>{
     //@KYLAN, I COMMENTED THIS OUT SINCE I CHANGED THE PRIORITY SIGNATURE TO NUMBERS
     @Override
     public int compareTo(Task o) {
-        System.out.println("COMPARE");
         if(TaskSort.sortTaskBy == "Priority"){
-       return this.getPriorityOrder() -o.getPriorityOrder();
+       return  o.getPriorityOrder()-this.getPriorityOrder();
         }
         else if(TaskSort.sortTaskBy == "Description"){
             int result = this.description.charAt(0) - o.description.charAt(0);

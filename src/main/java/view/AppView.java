@@ -221,7 +221,28 @@ public final class AppView extends JFrame {
         appStyle.styleToolbarItem(toolbarFilter);
         appStyle.styleToolbarItem(toolbarSort);
     }
+    
+    public void filter(){
+        String item = filterComboBox.getSelectedItem().toString();
+                if(item.contains("Priority: ")){
+                    item = item.substring(10);
+                   TaskFilter.filterBy("Priority", item); 
+                }
+                else{
+                 TaskFilter.filterBy("Catagory", item);
+                }
+                
 
+        
+    }
+    
+    public void sort(){
+        
+         String item = sortComboBox.getSelectedItem().toString();
+            TaskSort.sortBy(item);
+                
+    }
+    
     public void setToolbarComboBox() {
         // FOR FILTERING
         filterComboBox = new JComboBox(taskSettings.getCategories());
@@ -232,18 +253,18 @@ public final class AppView extends JFrame {
         }    
         
         appStyle.styleComboBox(filterComboBox);
+ 
         
         filterComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String item = filterComboBox.getSelectedItem().toString();
-                if(item.contains("Priority: ")){
-                    item = item.substring(10);
-                   TaskFilter.filterBy("Priority", item); 
+              if(filterComboBox.getSelectedItem().toString()!="None"){
+                  
+                   filter();
+                   if(sortComboBox.getSelectedItem().toString()!="None"){
+                    sort();         
+                    }
                 }
-                else{
-                 TaskFilter.filterBy("Catagory", item);
-                }
-               
+                
                 
             }
         });
@@ -256,9 +277,12 @@ public final class AppView extends JFrame {
              sortComboBox.addItem("Description");
              sortComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String item = sortComboBox.getSelectedItem().toString();
-                TaskSort.sortBy(item);
-                
+                if(sortComboBox.getSelectedItem().toString()!="None"){
+                    sort();
+                    if(filterComboBox.getSelectedItem().toString()!="All"){
+                         filter();         
+                }
+                }
                 
             }
         });
