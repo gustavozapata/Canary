@@ -33,7 +33,8 @@ public class TaskContainer {
     }
 
     public void addItems(ArrayList<Task> task){
-        this.tasks.addAll(task);     
+        this.tasks.addAll(task);    
+
     }
     
     public void removeTask(Task task){

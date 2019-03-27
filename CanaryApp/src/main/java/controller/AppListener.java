@@ -40,6 +40,7 @@ public class AppListener implements MouseListener {
         //CREATE TASK BUTTON
         if(e.getComponent().getName().equals("plus_btn")){
             System.out.println("new task button");
+            NewTaskView.getInstance().setUserDropDown();
             NewTaskView.getInstance().setVisible(true);
             NewTaskView.getInstance().emptyFields();
             NewTaskView.getInstance().setNewTaskTitle("New Task");
@@ -74,6 +75,7 @@ public class AppListener implements MouseListener {
                 Task[] results = gson.fromJson(reader, Task[].class);
                 for (Task result : results) {
                     result.setCategory("Web Service");
+                    UserSystem.loadUser(result.getUser().getUserName(),result.getUser().getUserLevel());
                     TaskContainer.getInstance().addItem(result);
                 }
                 System.out.println("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());

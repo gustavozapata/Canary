@@ -1,14 +1,13 @@
 
 package model;
 
-public final class User {
+public class User {
     private String name;
     private String password;
     private int userLevel;
     
-    public User(String userName, String password, int userLevel){
+    public User(String userName, int userLevel){
         this.setUserName(userName);
-        this.setPassword(password);
         this.setUserLevel(userLevel);
     }
 

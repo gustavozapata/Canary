@@ -16,6 +16,7 @@ import model.AppModel;
 import model.User;
 import controller.NewTaskListener;
 import controller.TaskListener;
+import controller.UserSystem;
 import model.Task;
 
 /**
@@ -95,13 +96,18 @@ public class NewTaskView extends JDialog {
         return instance;
     }
     
+    public void setUserDropDown(){
+        createTaskAssignedDrop.removeAllItems();
+        for(User user : UserSystem.loadedUsers){
+            createTaskAssignedDrop.addItem(user.getUserName());
+        }
+    }
+    
     public void setComponents(){
         createTaskCategoryDrop = new JComboBox(taskSettings.getCategories());
         createTaskPriorityDrop = new JComboBox(taskSettings.getPriorities());
         createTaskAssignedDrop = new JComboBox();
-        for(User user : taskSettings.getUsers()){
-            createTaskAssignedDrop.addItem(user.getUserName());
-        }
+        setUserDropDown();
         
         setNewTaskTitle("New Task");
         setNewTaskDescription("Task Description");
@@ -249,7 +255,7 @@ public class NewTaskView extends JDialog {
         task.setDescription(createTaskDescriptionTextField.getText());
         task.setPriorityOrder((Integer)createTaskPriorityDrop.getSelectedItem());
         task.setCategory(createTaskCategoryDrop.getSelectedItem().toString());
-        for(User user : taskSettings.getUsers()){
+        for(User user : UserSystem.loadedUsers){
             if(user.getUserName().equals(createTaskAssignedDrop.getSelectedItem().toString())){
                 task.setUser(user);
                 break;
@@ -281,7 +287,7 @@ public class NewTaskView extends JDialog {
         taskEdited.setDescription(createTaskDescriptionTextField.getText());
         taskEdited.setPriorityOrder((Integer)createTaskPriorityDrop.getSelectedItem());
         taskEdited.setCategory(createTaskCategoryDrop.getSelectedItem().toString());
-        for(User user : taskSettings.getUsers()){
+        for(User user : UserSystem.loadedUsers){
             if(user.getUserName().equals(createTaskAssignedDrop.getSelectedItem().toString())){
                 taskEdited.setUser(user);
                 break;
