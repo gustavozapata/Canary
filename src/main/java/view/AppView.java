@@ -2,6 +2,7 @@ package view;
 
 import controller.AppListener;
 import controller.TaskFilter;
+import controller.TaskSort;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -222,20 +223,16 @@ public final class AppView extends JFrame {
     }
 
     public void setToolbarComboBox() {
+        // FOR FILTERING
         filterComboBox = new JComboBox(taskSettings.getCategories());
         filterComboBox.addItem("Web Service");
 
         for (int counter = 0; counter <= highest_priority; counter++) {
             filterComboBox.addItem("Priority: " + Integer.toString(counter));
-        }
+        }    
         
-        
-        
-        sortComboBox = new JComboBox(taskSettings.getPriorities());
         appStyle.styleComboBox(filterComboBox);
-        appStyle.styleComboBox(sortComboBox);
-
-
+        
         filterComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String item = filterComboBox.getSelectedItem().toString();
@@ -250,7 +247,21 @@ public final class AppView extends JFrame {
                 
             }
         });
-
+        
+         // FOR SORTING
+             sortComboBox = new JComboBox();
+             appStyle.styleComboBox(sortComboBox);
+             sortComboBox.addItem("None");
+             sortComboBox.addItem("Priority");
+             sortComboBox.addItem("Description");
+             sortComboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String item = sortComboBox.getSelectedItem().toString();
+                TaskSort.sortBy(item);
+                
+                
+            }
+        });
     }
 
     public void initializeImages() {

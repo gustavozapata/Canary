@@ -11,27 +11,24 @@ import java.util.Arrays;
 import java.util.Collections;
 import model.Task;
 import model.TaskContainer;
+import view.AppView;
 
 public class TaskSort {
-    
-    public static void SortBy(String sortBy){
+    public static String sortTaskBy = "";
+    public static void sortBy(String sortBy){
     
         TaskContainer container = TaskContainer.getInstance();
         ArrayList <Task> tasks = container.getAll();
-
-        
-        if(sortBy == "Description"){
+        sortTaskBy = sortBy;
             System.out.println("Sort"); 
-//            Collections.sort(tasks);
-            
-            
-            
+            Collections.sort(tasks);
             
             container.clear();
             container.addItems(tasks);
-            container.printAll();
+            //container.printAll();
+            AppView.getInstance().reRender();
    
-        }
+        
        
     }
     
