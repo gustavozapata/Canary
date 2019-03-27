@@ -151,7 +151,7 @@ public class SubTaskView extends JPanel {
 
         this.taskCheckBox.setName("check_btn");
         this.taskCheckBox.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 0));
-        this.taskPriority.setText("Priority: " + subtask.getPriority());
+        this.taskPriority.setText("Priority: " + subtask.getPriorityOrder());
         this.taskPriority.setOpaque(true);
         this.taskPriority.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK), new EmptyBorder(0, 5, 0, 5)));
 
@@ -195,13 +195,13 @@ public class SubTaskView extends JPanel {
     }
 
     public void setPriority(SubTask subtask) {
-        String priority = subtask.getPriority();
-        if (priority.equals("High")) {
-            taskPriority.setBackground(new Color(248, 171, 39));
-        } else if (priority.equals("Low")) {
-            taskPriority.setBackground(new Color(234, 248, 39));
-        } else {
-            taskPriority.setBackground(new Color(248, 220, 39));
-        }
+//        String priority = subtask.getPriorityOrder();
+//        if (priority.equals("High")) {
+//            taskPriority.setBackground(new Color(248, 171, 39));
+//        } else if (priority.equals("Low")) {
+//            taskPriority.setBackground(new Color(234, 248, 39));
+//        } else {
+//            taskPriority.setBackground(new Color(248, 220, 39));
+//        }
     }
 }

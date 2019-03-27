@@ -6,7 +6,7 @@ import java.util.Date;
 public class SubTask {
     
     private String description;
-    private String priority;
+    private Integer priorityOrder;
     private Date completionDate;
     
     public SubTask(){
@@ -22,12 +22,12 @@ public class SubTask {
         this.description = description;
     }
     
-    public String getPriority() {
-        return this.priority;
+    public int getPriorityOrder() {
+        return priorityOrder;
     }
 
-    public void setPriority(String priority) {
-        this.priority = priority;
+    public void setPriorityOrder(Integer priorityOrder) {
+        this.priorityOrder = priorityOrder;
     }
     
     public Date getCompletionDate() {

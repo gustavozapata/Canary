@@ -45,15 +45,14 @@ public class NewSubTaskView extends JDialog {
     private JLabel newTaskWarning = new JLabel();
     
     private JTextField createTaskDescriptionTextField = new JTextField();
-    private JRadioButton lowPriority;
-    private JRadioButton mediumPriority;
-    private JRadioButton highPriority;
+    private JComboBox<Integer> createTaskPriorityDrop;
     private ButtonGroup groupPriority = new ButtonGroup();
     private JButton createTaskButton = new JButton();
     
     
     //MODEL
     private AppModel taskSettings = new AppModel();
+    private Task task;
     
     
     //STYLES
@@ -61,8 +60,7 @@ public class NewSubTaskView extends JDialog {
     
     
     //LISTENERS
-//    private NewTaskListener newTaskListener = new NewTaskListener();
-//    private AppController appListener = new AppController();
+    private NewTaskListener newTaskListener = new NewTaskListener();
 
 
     //SINGLETON
@@ -70,13 +68,14 @@ public class NewSubTaskView extends JDialog {
     private NewSubTaskView(){
         this.setSize(600, 350);
         this.setResizable(false);
+        this.setLocationRelativeTo(AppView.getInstance());
                
         setComponents();
         styleComponents();
         setPanels();
         addComponents(this); 
         
-//        createTaskButton.addMouseListener(newTaskListener);
+        createTaskButton.addMouseListener(newTaskListener);
     }
     
     //SINGLETON METHOD
@@ -96,18 +95,8 @@ public class NewSubTaskView extends JDialog {
     }
     
     public void styleComponents(){
-        newTaskPriority.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 75));
-
+        newTaskPriority.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
         createTaskDescriptionTextField.setPreferredSize(new Dimension(520, 30));
-
-        lowPriority.setBackground(Color.white);
-        mediumPriority.setBackground(Color.white);
-        highPriority.setBackground(Color.white);
-        
-        lowPriority.setActionCommand("Low");
-        mediumPriority.setActionCommand("Medium");
-        highPriority.setActionCommand("High");
-        mediumPriority.setSelected(true);
         newTaskWarning.setVisible(false);
     }
     
@@ -123,6 +112,10 @@ public class NewSubTaskView extends JDialog {
         containerCentre.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
         containerTaskDescription.setLayout(new BoxLayout(containerTaskDescription, BoxLayout.Y_AXIS));
         containerTaskDescription.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 20));
+        
+        createTaskPriorityDrop = new JComboBox(taskSettings.getPriorities());
+        createTaskPriorityDrop.setPreferredSize(new Dimension(80, 30));
+        createTaskPriorityDrop.setBackground(Color.white);
     }
     
     
@@ -153,32 +146,25 @@ public class NewSubTaskView extends JDialog {
         newTaskStyle.styleCreateTaskButton(createTaskButton);
     }
     
-    public void setEditTaskButton(String text){
-        createTaskButton.setText(text);
-        createTaskButton.setName("save_subtask_btn");
-        newTaskStyle.styleCreateTaskButton(createTaskButton);
-    }
-    
     
     public String getCreateTaskDescriptionTextField(){
         return createTaskDescriptionTextField.getText();
     }
     
+    public Task getTask(){
+        return task;
+    }
+    
     
     //COMPONENTS ADDING
-    public void addComponents(NewSubTaskView newSubTaskView){
-        groupPriority.add(highPriority);
-        groupPriority.add(mediumPriority);
-        groupPriority.add(lowPriority);
-
-        containerPriorityOptions.add(highPriority);
-        containerPriorityOptions.add(mediumPriority);
-        containerPriorityOptions.add(lowPriority);
-
-        containerPriority.add(containerPriorityOptions);
+    public void addComponents(NewSubTaskView newSubtaskView){
         containerTaskDescription.add(newTaskDescription);
         containerTaskDescription.add(createTaskDescriptionTextField);
         containerTaskDescription.add(newTaskWarning);
+        
+        containerPriorityOptions.add(createTaskPriorityDrop);
+        containerPriority.add(newTaskPriority);
+        containerPriority.add(containerPriorityOptions);
         
         containerCentre.add(newTaskPriority);
         containerCentre.add(containerPriorityOptions);
@@ -193,15 +179,16 @@ public class NewSubTaskView extends JDialog {
         createTaskMainPanel.add(createTaskCentre, BorderLayout.CENTER);
         createTaskMainPanel.add(createTaskSouth, BorderLayout.SOUTH);
 
-        newSubTaskView.add(createTaskMainPanel);
+        newSubtaskView.add(createTaskMainPanel);
     }
     
     
-    public SubTask createNewSubTask(){
+    public void createNewSubTask(){
         SubTask subtask = new SubTask();
         subtask.setDescription(createTaskDescriptionTextField.getText());
-        subtask.setPriority(groupPriority.getSelection().getActionCommand());
-        return subtask;
+        subtask.setPriorityOrder((Integer)createTaskPriorityDrop.getSelectedItem());
+        task.addSubTask(subtask);
+        System.out.println("and the subtask is: " + subtask.getDescription());
     }
     
     public void showWarning(){
@@ -210,8 +197,12 @@ public class NewSubTaskView extends JDialog {
     
     public void emptyFields(){
         createTaskDescriptionTextField.setText("");
-        mediumPriority.setSelected(true);
+        createTaskPriorityDrop.setSelectedItem(10);
         newTaskWarning.setVisible(false);
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
     }
 
 }

@@ -10,14 +10,4 @@ public class LoginSystem {
     public static User user;
     
     
-   
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

@@ -10,7 +10,7 @@ public class Task {
     private Date completionDate; 
     private Integer priorityOrder;
     private String category = "";
-    private ArrayList<SubTask> subtasks;
+    private ArrayList<SubTask> subtasks = new ArrayList();
     private boolean isComplete;
 
     public Task() {

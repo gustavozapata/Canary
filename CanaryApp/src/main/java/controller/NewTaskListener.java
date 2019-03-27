@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controller;
 
 import java.awt.event.MouseEvent;
@@ -9,61 +14,79 @@ import view.NewSubTaskView;
 import view.NewTaskView;
 import view.TaskView;
 
+/**
+ *
+ * @author Gustavo
+ */
 public class NewTaskListener implements MouseListener {
 
-        
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {     
         
-        TaskContainer taskContainer = TaskContainer.getInstance();
-        NewTaskView newTaskView = NewTaskView.getInstance();
-        TaskView taskView;
-        
-        //CREATE NEW TASK BUTTON
-        if (e.getComponent().getName().equals("create_task_btn")) {
-            if (newTaskView.getCreateTaskDescriptionTextField().equals("")) {
-                newTaskView.showWarning();
-            } else {
-                Task task = newTaskView.createNewTask();
-                taskContainer.addItem(task);
-                System.out.println("taskContainer.length(): " + taskContainer.getAll().size());
-                taskView = new TaskView(task);
-                AppView.getInstance().renderNewTask();
-                newTaskView.setVisible(false);
-            }
-        }
-        
+        //CREATE TASK BUTTON
+        if(e.getComponent().getName().equals("create_task_btn")){
+            System.out.println("create task button");
+            if(NewTaskView.getInstance().getCreateTaskDescriptionTextField().equals("")){
+                NewTaskView.getInstance().showWarning();
                 
-        //CREATE NEW SUBTASK BUTTON
-        if (e.getComponent().getName().equals("create_subtask_btn")) {
-            NewSubTaskView newSubTaskView = NewSubTaskView.getInstance();
-//            Task task = newTaskView.createNewTask();
-            if (newSubTaskView.getCreateTaskDescriptionTextField().equals("")) {
-                newSubTaskView.showWarning();
+                
+            //CREATE AN ACTUAL TASK AND ITS TASKVIEW
             } else {
-//                taskContainer.addItem(task);
-//                taskView = new TaskView(task);
-//                AppView.getInstance().renderNewTask(taskView);
-
-                newSubTaskView.setVisible(false);
+                NewTaskView.getInstance().setVisible(false);
+                
+                //create a new instance of Task
+                Task task = NewTaskView.getInstance().createTask();
+                //add it to the TaskContainer
+                TaskContainer.getInstance().addItem(task);
+                System.out.println("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());
+                
+                //renders all the tasks in the taskContainer
+                AppView.getInstance().renderNewTask();
             }
         }
+        
+        
+        //EDIT SAVE BUTTON
+        if (e.getComponent().getName().equals("save_task_btn")) {
+            System.out.println("save edit...");
+            if (NewTaskView.getInstance().getCreateTaskDescriptionTextField().equals("")) {
+                NewTaskView.getInstance().showWarning();
+            } else {
+                NewTaskView.getInstance().setVisible(false);
+                NewTaskView.getInstance().saveEditedTask(NewTaskView.getInstance().getTask());
+                AppView.getInstance().renderNewTask();
+            }
+        }
+        
+        
+        
+        //SUBTASK CREATE BUTTON
+        if (e.getComponent().getName().equals("create_subtask_btn")) {
+            System.out.println("subtask...");
+            if (NewSubTaskView.getInstance().getCreateTaskDescriptionTextField().equals("")) {
+                NewSubTaskView.getInstance().showWarning();
+            } else {
+                NewSubTaskView.getInstance().setVisible(false);
+                NewSubTaskView.getInstance().createNewSubTask();
+                AppView.getInstance().renderNewTask();
+            }
+        }
+        
     }
 
+    
+    
     @Override
     public void mousePressed(MouseEvent e) {
     }
-
     @Override
     public void mouseReleased(MouseEvent e) {
     }
-
     @Override
     public void mouseEntered(MouseEvent e) {
     }
-
     @Override
     public void mouseExited(MouseEvent e) {
     }
-
+    
 }

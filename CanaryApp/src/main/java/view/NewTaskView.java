@@ -1,7 +1,5 @@
 package view;
 
-import controller.AppController;
-import controller.NewTaskListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,11 +11,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import model.AppModel;
-import model.Task;
 import model.User;
+import controller.NewTaskListener;
+import controller.TaskListener;
+import model.Task;
 
 /**
  *
@@ -54,6 +53,7 @@ public class NewTaskView extends JDialog {
     private JComboBox<Integer> createTaskPriorityDrop;
     private JButton createTaskButton = new JButton();
     private Date date = new Date();
+    private Task task;
     
     
     //MODEL
@@ -66,7 +66,7 @@ public class NewTaskView extends JDialog {
     
     //LISTENERS
     private NewTaskListener newTaskListener = new NewTaskListener();
-//    private AppController appListener = new AppController();
+    private TaskListener taskListener = new TaskListener();
 
 
     //SINGLETON
@@ -75,15 +75,16 @@ public class NewTaskView extends JDialog {
         this.setSize(700, 400);
         this.setLocation(300, 150);
         this.setResizable(false);
-        
-//        createTaskButton.addMouseListener(appListener);
-        createTaskButton.addMouseListener(newTaskListener);
+        this.setLocationRelativeTo(AppView.getInstance());
                
         setComponents();
         styleComponents();
         setPanels();
         
-        addComponents(this); 
+        addComponents(); 
+        
+        createTaskButton.addMouseListener(newTaskListener);
+//        createTaskButton.addMouseListener(taskListener);
     }
     
     //SINGLETON METHOD
@@ -97,7 +98,10 @@ public class NewTaskView extends JDialog {
     public void setComponents(){
         createTaskCategoryDrop = new JComboBox(taskSettings.getCategories());
         createTaskPriorityDrop = new JComboBox(taskSettings.getPriorities());
-        createTaskAssignedDrop = new JComboBox(taskSettings.getUsers());
+        createTaskAssignedDrop = new JComboBox();
+        for(User user : taskSettings.getUsers()){
+            createTaskAssignedDrop.addItem(user.getUserName());
+        }
         
         setNewTaskTitle("New Task");
         setNewTaskDescription("Task Description");
@@ -198,7 +202,7 @@ public class NewTaskView extends JDialog {
     
     
     //COMPONENTS ADDING
-    public void addComponents(NewTaskView newTaskView){
+    public void addComponents(){
         
         containerTaskAssigned.add(newTaskAssigned);
         containerTaskAssigned.add(createTaskAssignedDrop);
@@ -224,19 +228,7 @@ public class NewTaskView extends JDialog {
         createTaskMainPanel.add(createTaskCentre, BorderLayout.CENTER);
         createTaskMainPanel.add(createTaskSouth, BorderLayout.SOUTH);
 
-        newTaskView.add(createTaskMainPanel);
-    }
-    
-    
-    public Task createNewTask(){
-        Task task = new Task();
-        task.setDescription(createTaskDescriptionTextField.getText());
-        task.setPriorityOrder((Integer)createTaskPriorityDrop.getSelectedItem());
-        task.setCategory(createTaskCategoryDrop.getSelectedItem().toString());
-        task.setUser(new User(createTaskAssignedDrop.getSelectedItem().toString(), 2));
-        task.setCompletionDate(date);
-        task.setComplete(false);
-        return task;
+        this.add(createTaskMainPanel);
     }
     
     public void showWarning(){
@@ -249,10 +241,52 @@ public class NewTaskView extends JDialog {
         createTaskPriorityDrop.setSelectedItem(10);
         newTaskWarning.setVisible(false);
     }
-
+    
+    
+    //METHOD THAT CREATES A NEW TASK
+    public Task createTask(){
+        Task task = new Task();
+        task.setDescription(createTaskDescriptionTextField.getText());
+        task.setPriorityOrder((Integer)createTaskPriorityDrop.getSelectedItem());
+        task.setCategory(createTaskCategoryDrop.getSelectedItem().toString());
+        for(User user : taskSettings.getUsers()){
+            if(user.getUserName().equals(createTaskAssignedDrop.getSelectedItem().toString())){
+                task.setUser(user);
+                break;
+            }
+        }
+        task.setCompletionDate(date);
+        task.setComplete(false);
+        return task;
+    }
+    
+    public Task getTask() {
+        return task;
+    }
+    
+    public void setTask(Task task){
+        this.task = task;
+    }
+    
+    
     public void setTaskToEdit(Task taskToEdit) {
         createTaskDescriptionTextField.setText(taskToEdit.getDescription());
         createTaskCategoryDrop.setSelectedItem(taskToEdit.getCategory());
+        createTaskPriorityDrop.setSelectedItem(taskToEdit.getPriorityOrder());
+        createTaskAssignedDrop.setSelectedItem(taskToEdit.getUser().getUserName());
+    }
+    
+    
+    public void saveEditedTask(Task taskEdited){
+        taskEdited.setDescription(createTaskDescriptionTextField.getText());
+        taskEdited.setPriorityOrder((Integer)createTaskPriorityDrop.getSelectedItem());
+        taskEdited.setCategory(createTaskCategoryDrop.getSelectedItem().toString());
+        for(User user : taskSettings.getUsers()){
+            if(user.getUserName().equals(createTaskAssignedDrop.getSelectedItem().toString())){
+                taskEdited.setUser(user);
+                break;
+            }
+        }
     }
 
 }

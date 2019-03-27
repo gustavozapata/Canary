@@ -36,6 +36,10 @@ public class TaskContainer {
         this.tasks.addAll(task);     
     }
     
+    public void removeTask(Task task){
+        tasks.remove(task);
+    }
+    
     public void clear(){
         this.tasks = new ArrayList<>();
     }

@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controller;
 
 import com.google.gson.Gson;
@@ -11,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import model.Task;
+import model.TaskContainer;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -18,71 +25,40 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import static org.apache.http.protocol.HTTP.USER_AGENT;
 import view.AppView;
-import view.NewTaskView;
 import view.LoginView;
-import model.Task;
-import model.TaskContainer;
+import view.NewTaskView;
 
+/**
+ *
+ * @author Gustavo
+ */
 public class AppListener implements MouseListener {
-
-    private NewTaskView newTaskView = NewTaskView.getInstance();
-    private LoginView loginView = LoginView.getInstance();
-    private AppView appView;
-    private TaskContainer taskContainer = TaskContainer.getInstance();
 
     @Override
     public void mouseClicked(MouseEvent e) {
         
-        //NEW TASK BUTTON
-        if (e.getComponent().getName().equals("plus_btn")) {
-            newTaskView.emptyFields();
-            newTaskView.setVisible(true);
-            newTaskView.setNewTaskTitle("New Task");
-            newTaskView.setCreateTaskButton("Create");
-            newTaskView.setLocationRelativeTo(AppView.getInstance());
-        }
-
-        //LOGIN BUTTON 
-        if (e.getComponent().getName().equals("login_btn")) {
-            loginView.setVisible(true);
-            loginView.setLocationRelativeTo(AppView.getInstance());
-            loginView.setUsernameField("");
-            loginView.setPasswordField("");
-        }
-
-        //SAVE BUTTON
-        if (e.getComponent().getName().equals("save_btn")) {
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Save current game");
-            int selection = fileChooser.showSaveDialog(null);
-            if (selection == JFileChooser.APPROVE_OPTION) {
-                File saveFile = fileChooser.getSelectedFile();
-//                try {
-//                    FileUtils.writeStringToFile(saveFile, Task.getJson());
-//                } catch (IOException ex) {
-//                    JOptionPane.showMessageDialog(null, "Failed to save");
-//                }
-            }
-        }
-
-        //LOAD BUTTON
-        if (e.getComponent().getName().equals("load_btn")) {
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Load previous game");
-            int selection = fileChooser.showOpenDialog(null);
-            if (selection == JFileChooser.APPROVE_OPTION) {
-                try {
-                    File saveFile = fileChooser.getSelectedFile();
-                    String inboundJson = FileUtils.readFileToString(saveFile);
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Failed to load");
-                }
-            }
-        }
-
+        //CREATE TASK BUTTON
+        if(e.getComponent().getName().equals("plus_btn")){
+            System.out.println("new task button");
+            NewTaskView.getInstance().setVisible(true);
+            NewTaskView.getInstance().emptyFields();
+            NewTaskView.getInstance().setNewTaskTitle("New Task");
+            NewTaskView.getInstance().getNewTaskWarning().setVisible(false);
+            NewTaskView.getInstance().setCreateTaskButton("Create");
+            
+          
+        //LOGIN BUTTON
+        } else if(e.getComponent().getName().equals("login_btn")){
+            System.out.println("login button");
+            LoginView.getInstance().setVisible(true);
+            LoginView.getInstance().setLocationRelativeTo(AppView.getInstance());
+            LoginView.getInstance().setUsernameField("");
+            LoginView.getInstance().setPasswordField("");
+        
+            
         //FETCH BUTTON
-        if (e.getComponent().getName().equals("fetch_btn")) {
-            appView = AppView.getInstance();
+        } else if(e.getComponent().getName().equals("fetch_btn")){
+            System.out.println("fetch button");
             try {
                 String url = "http://www.nooblab.com/p2.json";
                 
@@ -98,17 +74,52 @@ public class AppListener implements MouseListener {
                 Task[] results = gson.fromJson(reader, Task[].class);
                 for (Task result : results) {
                     result.setCategory("Web Service");
-                    taskContainer.addItem(result);
+                    TaskContainer.getInstance().addItem(result);
                 }
-                appView.renderNewTask();
-                System.out.println("taskContainer.length: " + taskContainer.getAll().size());
+                System.out.println("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());
+                
+                //renders all the tasks in the taskContainer
+                AppView.getInstance().renderNewTask();
                 
             } catch (IOException ex) {
                 Logger.getLogger(AppListener.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+        //LOAD BUTTON
+        } else if(e.getComponent().getName().equals("load_btn")){
+            System.out.println("load button");
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Load previous game");
+            int selection = fileChooser.showOpenDialog(null);
+            if (selection == JFileChooser.APPROVE_OPTION) {
+                try {
+                    File saveFile = fileChooser.getSelectedFile();
+                    String inboundJson = FileUtils.readFileToString(saveFile);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Failed to load");
+                }
+            }
+            
+            
+        //SAVE BUTTON
+        } else if(e.getComponent().getName().equals("save_btn")){
+            System.out.println("save button");
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Save current game");
+            int selection = fileChooser.showSaveDialog(null);
+            if (selection == JFileChooser.APPROVE_OPTION) {
+                File saveFile = fileChooser.getSelectedFile();
+//                try {
+//                    FileUtils.writeStringToFile(saveFile, Task.getJson());
+//                } catch (IOException ex) {
+//                    JOptionPane.showMessageDialog(null, "Failed to save");
+//                }
+            }
         }
     }
 
+    
+    
     @Override
     public void mousePressed(MouseEvent e) {
     }
@@ -124,4 +135,5 @@ public class AppListener implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
     }
+    
 }

@@ -10,10 +10,6 @@ import view.NewTaskView;
 import view.TaskView;
 
 public class AppController implements MouseListener {
-
-    TaskContainer taskContainer = TaskContainer.getInstance();
-    TaskView taskView;
-    Task task;
     
    
 

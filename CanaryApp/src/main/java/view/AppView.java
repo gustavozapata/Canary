@@ -1,14 +1,11 @@
 package view;
 
 import controller.AppListener;
-import controller.TaskFilter;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -80,7 +77,6 @@ public final class AppView extends JFrame {
 
     //MODEL
     private AppModel taskSettings = new AppModel();
-    private TaskContainer taskContainer = TaskContainer.getInstance();
 
     //SINGLETON
     public static AppView instance = null;
@@ -91,22 +87,21 @@ public final class AppView extends JFrame {
         this.getContentPane().setBackground(Color.WHITE);
         this.setSize(1200, 700);
         this.setTitle("TODO CANARY");
-        this.setVisible(true);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         setComponents();
         setPanels();
-        addComponents(this);
+        addComponents();
 
         appIconPlus.addMouseListener(appListener);
         appLogin.addMouseListener(appListener);
         saveIcon.addMouseListener(appListener);
         loadIcon.addMouseListener(appListener);
         fetchIcon.addMouseListener(appListener);
-
-        this.revalidate();
+        
+        this.setVisible(true);
     }
 
     //SINGLETON METHOD
@@ -226,12 +221,6 @@ public final class AppView extends JFrame {
         appStyle.styleComboBox(filterComboBox);
         appStyle.styleComboBox(sortComboBox);
 
-        filterComboBox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TaskFilter.filterBy("Catagory", filterComboBox.getSelectedItem().toString());
-            }
-        });
-
     }
 
     public void initializeImages() {
@@ -267,7 +256,7 @@ public final class AppView extends JFrame {
     }
 
     //COMPONENTS ADDING
-    public void addComponents(AppView appView) {
+    public void addComponents() {
         savePanel.add(saveIcon);
         savePanel.add(appSave);
         loadPanel.add(loadIcon);
@@ -297,11 +286,12 @@ public final class AppView extends JFrame {
         appCentrePanel.add(todoPanel, BorderLayout.CENTER);
         appBottomPanel.add(appFooter);
 
-        appView.add(appTopPanel, BorderLayout.NORTH);
-        appView.add(appCentrePanel, BorderLayout.CENTER);
-        appView.add(appBottomPanel, BorderLayout.SOUTH);
+        this.add(appTopPanel, BorderLayout.NORTH);
+        this.add(appCentrePanel, BorderLayout.CENTER);
+        this.add(appBottomPanel, BorderLayout.SOUTH);
     }
-
+    
+    
     public void reRender() {
         System.out.println("REMOVING EVERYTHING");
         containerTasks.removeAll();
@@ -310,13 +300,19 @@ public final class AppView extends JFrame {
         System.out.println("REMOVED");
         System.out.println("ADDING");
         renderNewTask();
-
     }
-
-    public void renderNewTask() {
-        taskPanel.remove(appNoTasksMsg);
-        for (Task task : taskContainer.getAll()) {
+    
+    //METHOD THAT RENDERS ALL THE TASKS IN THE TASKCONTAINER
+    public void renderNewTask(){
+        containerTasks.removeAll();
+        appNoTasksMsg.setVisible(false);
+        for (Task task : TaskContainer.getInstance().getAll()) {
             containerTasks.add(new TaskView(task));
+        }
+        if(TaskContainer.getInstance().getAll().size() <= 0){
+            appNoTasksMsg.setVisible(true);
+        } else {
+            appNoTasksMsg.setVisible(false);
         }
         taskPanel.add(containerTasks);
         taskPanel.revalidate();
