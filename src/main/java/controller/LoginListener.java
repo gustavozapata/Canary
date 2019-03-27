@@ -3,6 +3,9 @@ package controller;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import view.LoginView;
@@ -26,17 +29,22 @@ public class LoginListener implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         loginView = LoginView.getInstance();
         
-        if(loginView.getUsernameField().equals("tavo") && loginView.getPasswordField().equals("lovecoding")){
-            alert.showMessageDialog(loginView.getInstance(), "Welcome Tavo");
-            loginView.setVisible(false);
-        } else if(loginView.getUsernameField().equals("paul") && loginView.getPasswordField().equals("neve")){
-            alert.showMessageDialog(loginView.getInstance(), "Welcome Mr. Neve");
+        boolean accepted = false;
+        
+        try {
+            accepted = UserSystem.login(loginView.getUsernameField(), loginView.getPasswordField());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(LoginListener.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        if(accepted){
+            alert.showMessageDialog(loginView.getInstance(), "Welcome " + UserSystem.currentUser.getUserName());
             loginView.setVisible(false);
         } else {
             alert.showMessageDialog(loginView.getInstance(), "Incorrect username or password");
         }
-        
-//        if(alert.)
+
     }
 
     @Override
