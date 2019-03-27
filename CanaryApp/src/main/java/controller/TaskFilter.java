@@ -31,8 +31,8 @@ public class TaskFilter {
 
         ArrayList<Task> taskToRemove = new ArrayList<Task>();
 
-        System.out.println("FILTERING!");
-
+        
+        if(filter!="All"){
         if (filterBy.equals("Description")) {
             for (Task task : filteredTasks) {
                 if (!task.getDescription().equals(filter)) {
@@ -48,7 +48,13 @@ public class TaskFilter {
         } else if (filterBy.equals("Catagory")) {
             for (Task task : filteredTasks) {
                 if (!task.getCategory().equals(filter)) {
-                    System.out.println("FOUND A BAD ONE");
+                    taskToRemove.add(task);
+                }
+            }           
+        }
+        else if(filterBy.equals("Priority")){
+            for (Task task : filteredTasks) {
+                if (!Integer.toString(task.getPriorityOrder()).equals(filter)) {
                     taskToRemove.add(task);
                 }
             }
@@ -58,9 +64,9 @@ public class TaskFilter {
             filteredTasks.remove(task);
             unfilteredTasks.add(task);
         }
-
         container.clear();
         container.addItems(filteredTasks);
+        }
         AppView.getInstance().reRender();
 
         //Redraw GUI

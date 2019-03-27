@@ -1,9 +1,11 @@
 package model;
 
+import controller.TaskSort;
+import static java.lang.Integer.min;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Task {
+public class Task implements Comparable<Task>{
     public static int taskCounter = 0;
     private String description;
     private User user;
@@ -80,11 +82,34 @@ public class Task {
         this.category = category;
     }
 
-    //@KYLAN, I COMMENTED THIS OUT SINCE I CHANGED THE PRIORITY SIGNATURE TO NUMBERS
-//    @Override
-//    public int compareTo(Task o) {
-//       return this.getPriorityID()-o.getPriorityID();
-//    }
+
+    @Override
+    public int compareTo(Task o) {
+        if(TaskSort.sortTaskBy == "Priority"){
+       return  o.getPriorityOrder()-this.getPriorityOrder();
+        }
+        else if(TaskSort.sortTaskBy == "Description"){
+            int result = this.description.charAt(0) - o.description.charAt(0);
+            for (int i = 0; i < min(this.description.length(),o.description.length()); i++) {
+              result = this.description.charAt(i) - o.description.charAt(i);
+              if(result!=0){
+                  break;
+              }
+             }
+            return result;   
+        }
+        else if (TaskSort.sortTaskBy == "Date"){
+            if(this.getCompletionDate().before(o.getCompletionDate())){
+                return -1;
+            }
+            else{
+                return 1;
+            }
+        }
+        
+        
+        return this.getPriorityOrder() -o.getPriorityOrder();
+    }
 }
 
 

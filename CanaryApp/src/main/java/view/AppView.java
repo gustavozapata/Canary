@@ -1,11 +1,15 @@
 package view;
 
 import controller.AppListener;
+import controller.TaskFilter;
+import controller.TaskSort;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +33,8 @@ import model.TaskContainer;
  */
 public final class AppView extends JFrame {
 
+    int highest_priority = 5;
+    
     //PANELS #1
     private AppPanel appTopPanel = new AppPanel();
     private AppPanel appBottomPanel = new AppPanel();
@@ -80,6 +86,7 @@ public final class AppView extends JFrame {
 
     //SINGLETON
     public static AppView instance = null;
+    private TaskContainer taskContainer = TaskContainer.getInstance();
 
     private AppView() {
         super();
@@ -214,13 +221,73 @@ public final class AppView extends JFrame {
         appStyle.styleToolbarItem(toolbarSort);
     }
 
+        
+    public void filter(){
+        String item = filterComboBox.getSelectedItem().toString();
+                if(item.contains("Priority: ")){
+                    item = item.substring(10);
+                   TaskFilter.filterBy("Priority", item); 
+                }
+
+                else{
+                 TaskFilter.filterBy("Catagory", item);
+                }
+                
+
+        
+    }
+    
+    public void sort(){
+        
+         String item = sortComboBox.getSelectedItem().toString();
+            TaskSort.sortBy(item);
+                
+    }
+    
     public void setToolbarComboBox() {
+        // FOR FILTERING
         filterComboBox = new JComboBox(taskSettings.getCategories());
         filterComboBox.addItem("Web Service");
-        sortComboBox = new JComboBox(taskSettings.getPriorities());
-        appStyle.styleComboBox(filterComboBox);
-        appStyle.styleComboBox(sortComboBox);
 
+        for (int counter = 0; counter <= highest_priority; counter++) {
+            filterComboBox.addItem("Priority: " + Integer.toString(counter));
+        }    
+        
+        appStyle.styleComboBox(filterComboBox);
+ 
+        
+        filterComboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+              if(filterComboBox.getSelectedItem().toString()!="None"){
+                  
+                   filter();
+                   if(sortComboBox.getSelectedItem().toString()!="None"){
+                    sort();         
+                    }
+                }
+                
+                
+            }
+        });
+        
+         // FOR SORTING
+             sortComboBox = new JComboBox();
+             appStyle.styleComboBox(sortComboBox);
+             sortComboBox.addItem("None");
+             sortComboBox.addItem("Priority");
+             sortComboBox.addItem("Description");
+             sortComboBox.addItem("Date");
+             sortComboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(sortComboBox.getSelectedItem().toString()!="None"){
+                    sort();
+                    if(filterComboBox.getSelectedItem().toString()!="All"){
+                         filter();         
+                }
+                }
+                
+            }
+        });
     }
 
     public void initializeImages() {
@@ -293,26 +360,19 @@ public final class AppView extends JFrame {
     
     
     public void reRender() {
-        System.out.println("REMOVING EVERYTHING");
+        System.out.println("ReRendering EVerything");
         containerTasks.removeAll();
         containerTasks.revalidate();
         containerTasks.repaint();
-        System.out.println("REMOVED");
-        System.out.println("ADDING");
         renderNewTask();
+
     }
     
     //METHOD THAT RENDERS ALL THE TASKS IN THE TASKCONTAINER
-    public void renderNewTask(){
-        containerTasks.removeAll();
-        appNoTasksMsg.setVisible(false);
-        for (Task task : TaskContainer.getInstance().getAll()) {
+   public void renderNewTask() {
+        taskPanel.remove(appNoTasksMsg);
+        for (Task task : taskContainer.getAll()) {
             containerTasks.add(new TaskView(task));
-        }
-        if(TaskContainer.getInstance().getAll().size() <= 0){
-            appNoTasksMsg.setVisible(true);
-        } else {
-            appNoTasksMsg.setVisible(false);
         }
         taskPanel.add(containerTasks);
         taskPanel.revalidate();
