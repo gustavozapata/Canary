@@ -27,6 +27,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import static org.apache.http.protocol.HTTP.USER_AGENT;
 import view.AppView;
 import view.LoginView;
+import view.NewSubTaskView;
 import view.NewTaskView;
 
 /**
@@ -85,6 +86,7 @@ public class AppListener implements MouseListener {
                 Gson gson = new Gson();
                 Task[] results = gson.fromJson(reader, Task[].class);
                 for (Task result : results) {
+                    //TESTING
                     result.setCategory("Web Service");
                     UserSystem.loadUser(result.getUser().getUserName(),result.getUser().getUserLevel());
                     TaskContainer.getInstance().addItem(result);
@@ -92,6 +94,7 @@ public class AppListener implements MouseListener {
                 System.out.println("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());
                 
                 //renders all the tasks in the taskContainer
+                NewSubTaskView.getInstance().createNewSubTask();
                 AppView.getInstance().renderNewTask();
                 
             } catch (IOException ex) {
