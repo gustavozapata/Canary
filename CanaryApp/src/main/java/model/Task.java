@@ -38,6 +38,10 @@ public class Task implements Comparable<Task>{
         return this.subtasks;
     }
     
+    public void deleteSubtask(SubTask subtask){
+        this.subtasks.remove(subtask);
+    }
+    
     public void addSubTask(SubTask subtask){
         this.subtasks.add(subtask);
     }

@@ -8,11 +8,20 @@ public class SubTask {
     private String description;
     private Integer priorityOrder;
     private Date completionDate;
+    private Task task;
     
     public SubTask(){
         
     }
     
+    //TESTING METHOD
+    public Task getTask(){
+        return this.task;
+    }
+    public void setTask(Task task){
+        this.task = task;
+    }
+    //TESTING
     
     public String getDescription() {
         return this.description;

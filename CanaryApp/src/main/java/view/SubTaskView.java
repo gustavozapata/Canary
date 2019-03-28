@@ -55,6 +55,7 @@ public class SubTaskView extends JPanel {
     private SubTaskListener subtaskListener = new SubTaskListener();
 
     public SubTaskView(SubTask subtask) {
+        this.subtask = subtask;
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(221, 221, 221));
         this.setPreferredSize(new Dimension(650, 60));
