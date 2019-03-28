@@ -395,7 +395,7 @@ public final class AppView extends JFrame {
         containerTasks.removeAll();
         appNoTasksMsg.setVisible(false);
         for (Task task : TaskContainer.getInstance().getAll()) {
-            if(UserSystem.currentUser.getUserLevel() == 3 || task.getUser().getUserName().equals(UserSystem.currentUser.getUserName()))
+            if(UserSystem.currentUser.getUserLevel() == 3 || task.getUser().getUserName().equals(UserSystem.currentUser.getUserName())){
             containerTasks.add(new TaskView(task));
             if (task.getSubTasks().size() > 0) {
                 for (SubTask subtask : task.getSubTasks()) {
@@ -411,6 +411,8 @@ public final class AppView extends JFrame {
         taskPanel.add(containerTasks);
         taskPanel.revalidate();
     }
+        }
+   }
 
     public void showList() {
         toolbarPanel.add(toolbarList);
