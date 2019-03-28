@@ -381,9 +381,12 @@ public final class AppView extends JFrame {
         containerTasks.removeAll();
         appNoTasksMsg.setVisible(false);
         for (Task task : TaskContainer.getInstance().getAll()) {
-            containerTasks.add(new TaskView(task));
-            if(task.getSubTasks().size() > 0){
-                for(SubTask subtask : task.getSubTasks()){
+            try {
+                containerTasks.add(new TaskView(task));
+            } catch (Exception e) {
+            }
+            if (task.getSubTasks().size() > 0) {
+                for (SubTask subtask : task.getSubTasks()) {
                     containerTasks.add(new SubTaskView(subtask));
                 }
             }
