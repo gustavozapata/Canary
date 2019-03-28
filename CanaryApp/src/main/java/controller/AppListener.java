@@ -94,7 +94,7 @@ public class AppListener implements MouseListener {
                 System.out.println("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());
                 
                 //renders all the tasks in the taskContainer
-                NewSubTaskView.getInstance().createNewSubTask();
+//                NewSubTaskView.getInstance().createNewSubTask();
                 AppView.getInstance().renderNewTask();
                 
             } catch (IOException ex) {
