@@ -1,6 +1,7 @@
 package view;
 
 import controller.NewTaskListener;
+import controller.UserSystem;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,6 +18,7 @@ import javax.swing.JTextField;
 import model.AppModel;
 import model.SubTask;
 import model.Task;
+import model.User;
 
 /**
  *
@@ -53,6 +55,7 @@ public class NewSubTaskView extends JDialog {
     //MODEL
     private AppModel taskSettings = new AppModel();
     private Task task;
+    private SubTask subtask;
     
     
     //STYLES
@@ -155,6 +158,10 @@ public class NewSubTaskView extends JDialog {
         return task;
     }
     
+    public SubTask getSubTask(){
+        return subtask;
+    }
+    
     
     //COMPONENTS ADDING
     public void addComponents(NewSubTaskView newSubtaskView){
@@ -204,10 +211,34 @@ public class NewSubTaskView extends JDialog {
     public void setTask(Task task) {
         this.task = task;
     }
+    
+    public void setSubTask(SubTask subtask){
+        this.subtask = subtask;
+    }
 
     public void setEditReady() {
         createTaskButton.setText("Save");
+        createTaskButton.setName("edit_subtask_btn");
         setNewTaskTitle("Edit Subtask");
+        newTaskWarning.setVisible(false);
+    }
+
+    public void setSubtaskToEdit(SubTask subtaskToEdit) {
+        createTaskDescriptionTextField.setText(subtaskToEdit.getDescription());
+        createTaskPriorityDrop.setSelectedItem(subtaskToEdit.getPriorityOrder());
+        this.subtask = subtaskToEdit;
+    }
+
+    public void saveEditedSubTask(SubTask subtaskEdited) {
+        subtaskEdited.setDescription(createTaskDescriptionTextField.getText());
+        subtaskEdited.setPriorityOrder((Integer)createTaskPriorityDrop.getSelectedItem());
+    }
+
+    public void setNewReady() {
+        createTaskButton.setText("Create");
+        createTaskButton.setName("create_subtask_btn");
+        setNewTaskTitle("New Subtask");
+        emptyFields();
         newTaskWarning.setVisible(false);
     }
 

@@ -73,6 +73,18 @@ public class NewTaskListener implements MouseListener {
             }
         }
         
+        //SUBTASK EDIT SAVE
+        if (e.getComponent().getName().equals("edit_subtask_btn")) {
+            System.out.println("subtask save edit...");
+            if (NewSubTaskView.getInstance().getCreateTaskDescriptionTextField().equals("")) {
+                NewSubTaskView.getInstance().showWarning();
+            } else {
+                NewSubTaskView.getInstance().setVisible(false);
+                NewSubTaskView.getInstance().saveEditedSubTask(NewSubTaskView.getInstance().getSubTask());
+                AppView.getInstance().renderNewTask();
+            }
+        }
+        
     }
 
     
