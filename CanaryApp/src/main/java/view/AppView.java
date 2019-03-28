@@ -74,7 +74,9 @@ public final class AppView extends JFrame {
 
     private JLabel toolbarFilter = new JLabel();
     private JLabel toolbarSort = new JLabel();
+    private JLabel toolbarList = new JLabel();
     private JComboBox<String> filterComboBox;
+    private JComboBox<String> listComboBox;
     private JComboBox<String> sortComboBox;
 
     //STYLES
@@ -134,6 +136,7 @@ public final class AppView extends JFrame {
 
         setToolbarLabels();
         setToolbarComboBox();
+        setListComboBox();
 
         initializeImages();
     }
@@ -219,8 +222,10 @@ public final class AppView extends JFrame {
     public void setToolbarLabels() {
         toolbarFilter.setText("Filter");
         toolbarSort.setText("Sort");
+        toolbarList.setText("Lists");
         appStyle.styleToolbarItem(toolbarFilter);
         appStyle.styleToolbarItem(toolbarSort);
+        appStyle.styleToolbarItem(toolbarList);
     }
 
     public void resetFilter() {
@@ -297,6 +302,14 @@ public final class AppView extends JFrame {
 
             }
         });
+    }
+
+    public void setListComboBox() {
+        listComboBox = new JComboBox();
+        listComboBox.addItem("All");
+        listComboBox.addItem("gustavo");
+        listComboBox.addItem("kylan");
+        appStyle.styleComboBox(listComboBox);
     }
 
     public void initializeImages() {
@@ -397,5 +410,11 @@ public final class AppView extends JFrame {
         }
         taskPanel.add(containerTasks);
         taskPanel.revalidate();
+    }
+
+    public void showList() {
+        toolbarPanel.add(toolbarList);
+        toolbarPanel.add(listComboBox);
+        toolbarPanel.revalidate();
     }
 }

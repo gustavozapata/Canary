@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import view.LoginView;
+import view.AppView;
 
 /**
  *
@@ -41,6 +42,9 @@ public class LoginListener implements MouseListener {
         if(accepted){
             alert.showMessageDialog(loginView.getInstance(), "Welcome " + UserSystem.currentUser.getUserName());
             loginView.setVisible(false);
+            if(UserSystem.currentUser.getUserName().equals("paul")){
+                AppView.getInstance().showList();
+            }
         } else {
             alert.showMessageDialog(loginView.getInstance(), "Incorrect username or password");
         }
