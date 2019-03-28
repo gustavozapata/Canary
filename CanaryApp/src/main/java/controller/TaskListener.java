@@ -27,6 +27,7 @@ public class TaskListener implements MouseListener {
             System.out.println("deleting...");
             TaskContainer.getInstance().removeTask(taskToEdit);
             AppView.getInstance().renderNewTask();
+            
             System.out.println("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());
 
         //EDIT BUTTON

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import static model.Task.taskCounter;
 
 
 public class TaskContainer {
@@ -39,6 +40,7 @@ public class TaskContainer {
     
     public void removeTask(Task task){
         tasks.remove(task);
+        taskCounter--;
     }
     
     public void clear(){
