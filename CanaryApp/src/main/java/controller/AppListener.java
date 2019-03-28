@@ -62,6 +62,7 @@ public class AppListener implements MouseListener {
             AppView.getInstance().resetFilter();
             AppView.getInstance().resetSort();
 
+
             try {
                 String url = "http://www.nooblab.com/p2.json";
                 HttpClient client = HttpClientBuilder.create().build();
@@ -77,14 +78,16 @@ public class AppListener implements MouseListener {
                 for (Task result : results) {
                     result.setCategory("Web Service");
                     UserSystem.loadUser(result.getUser().getUserName(), result.getUser().getUserLevel());
-                    if (result.getSubTasks().size() > 0) {
-                        for (SubTask subtask : result.getSubTasks()) {
-                            
-                        }
+
+                    if(UserSystem.currentUser.getUserLevel() == 3||UserSystem.currentUser.getUserName().equals(result.getUser())){
+                        TaskContainer.getInstance().addItem(result);
                     }
-                    TaskContainer.getInstance().addItem(result);
                 }
                 System.out.println("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());
+                if(TaskContainer.getInstance().getAll().size()==0){
+                    JOptionPane.showMessageDialog(null, "Either the file is empty, or you do not have permission to view ");
+                }
+                AppView.getInstance().setUsersBox();
                 //renders all the tasks in the taskContainer
                 AppView.getInstance().renderNewTask();
             } catch (IOException ex) {
