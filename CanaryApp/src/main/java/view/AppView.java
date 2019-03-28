@@ -28,6 +28,7 @@ import model.AppModel;
 import model.SubTask;
 import model.Task;
 import model.TaskContainer;
+import model.User;
 
 /**
  *
@@ -246,6 +247,9 @@ public final class AppView extends JFrame {
         } else {
             TaskFilter.filterBy("Catagory", item);
         }
+    }
+    public void filterUsers(String username) {
+        TaskFilter.filterByUsername(username);
 
     }
 
@@ -302,14 +306,30 @@ public final class AppView extends JFrame {
 
             }
         });
+        
+  
+        
+    }
+    
+    public void setUsersBox(){
+        listComboBox.removeAllItems();
+        
+        for(User user:UserSystem.loadedUsers){
+            listComboBox.addItem(user.getUserName());
+        }
+        
     }
 
     public void setListComboBox() {
         listComboBox = new JComboBox();
-        listComboBox.addItem("All");
-        listComboBox.addItem("gustavo");
-        listComboBox.addItem("kylan");
+        setUsersBox();
         appStyle.styleComboBox(listComboBox);
+        listComboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String username = listComboBox.getSelectedItem().toString();
+                filterUsers(username);
+            }
+        });
     }
 
     public void initializeImages() {

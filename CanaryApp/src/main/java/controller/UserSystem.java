@@ -18,8 +18,10 @@ public class UserSystem {
         newUsers = FileReader.loadEverybody();
         for (int i = 0; i < newUsers.size(); i+=2) {
             loadUser(newUsers.get(i),Integer.parseInt(newUsers.get(i+1)));
-        }
-        
+        }  
+    }
+    
+    public static void getUserLevel(String username){
         
     }
     
@@ -34,8 +36,12 @@ public class UserSystem {
     
     public static boolean login(String username, String password) throws FileNotFoundException{
         boolean success = FileReader.checkUser(username, password);
+        int level = FileReader.getLevelUser(username, password);
+        
         if (success){
-            currentUser = loadUser(username,1); // DEFUALT 1
+            currentUser = loadUser(username,level); 
+            System.out.println(level);
+            
             AppView.getInstance().setAppLogin(username);
         }
         return success;
