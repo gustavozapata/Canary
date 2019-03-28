@@ -13,6 +13,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -63,7 +65,7 @@ public class TaskView extends JPanel {
     private TaskListener taskListener = new TaskListener();
     private AppController appListener = new AppController();
 
-    public TaskView(Task task) {
+    public TaskView(Task task) throws IOException {
         this.task = task;
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(241, 241, 241));
@@ -96,17 +98,22 @@ public class TaskView extends JPanel {
         this.deletePanel.addMouseListener(taskListener);
         this.subtaskPanel.addMouseListener(taskListener);
         this.taskCheckBox.addActionListener((ActionEvent e) -> {
-            checkIfComplete();
+            try {
+                checkIfComplete();
+            } catch (IOException ex) {
+                Logger.getLogger(TaskView.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
-    public void checkIfComplete(){
+    public void checkIfComplete() throws IOException{
         if (this.taskCheckBox.isSelected()) {
             markComplete();
             } else {
                 markUncomplete();
             } 
     }
-    public void markComplete(){
+    public void markComplete() throws IOException{
+        this.taskCheckBox.setIcon(new ImageIcon(ImageIO.read(new File("src/images/checked.png"))));
         setCompletionDate(task);
         task.setComplete(true);
         this.taskDescription.setForeground(new Color(170,170,170));
