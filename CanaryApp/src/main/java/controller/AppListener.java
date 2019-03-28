@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -35,6 +36,8 @@ import view.NewTaskView;
  */
 public class AppListener implements MouseListener {
 
+    
+    
     @Override
     public void mouseClicked(MouseEvent e) {
         
@@ -102,12 +105,14 @@ public class AppListener implements MouseListener {
         } else if(e.getComponent().getName().equals("load_btn")){
             System.out.println("load button");
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Load previous game");
+            fileChooser.setDialogTitle("Load File");
             int selection = fileChooser.showOpenDialog(null);
             if (selection == JFileChooser.APPROVE_OPTION) {
                 try {
                     File saveFile = fileChooser.getSelectedFile();
                     String inboundJson = FileUtils.readFileToString(saveFile);
+                    Task[] tasks = JsonManager.read(saveFile.toString());
+                    System.out.println(tasks);
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "Failed to load");
                 }
@@ -122,11 +127,16 @@ public class AppListener implements MouseListener {
             int selection = fileChooser.showSaveDialog(null);
             if (selection == JFileChooser.APPROVE_OPTION) {
                 File saveFile = fileChooser.getSelectedFile();
+                try {
+                    JsonManager.write(saveFile.toString(),TaskContainer.getInstance().getAll());
 //                try {
 //                    FileUtils.writeStringToFile(saveFile, Task.getJson());
 //                } catch (IOException ex) {
 //                    JOptionPane.showMessageDialog(null, "Failed to save");
 //                }
+                } catch (IOException ex) {
+                    Logger.getLogger(AppListener.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
