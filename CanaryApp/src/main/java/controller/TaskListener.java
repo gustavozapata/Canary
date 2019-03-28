@@ -34,9 +34,7 @@ public class TaskListener implements MouseListener {
             NewTaskView.getInstance().setTaskToEdit(taskToEdit);
             NewTaskView.getInstance().setTask(taskToEdit);
             NewTaskView.getInstance().setVisible(true);
-            NewTaskView.getInstance().setNewTaskTitle("Edit Task");
-            NewTaskView.getInstance().getNewTaskWarning().setVisible(false);
-            NewTaskView.getInstance().setEditTaskButton("Save");
+            NewTaskView.getInstance().setEditReady();
 
         //SUBTASK BUTTON
         } else if (e.getComponent().getName().equals("subtask_btn")) {

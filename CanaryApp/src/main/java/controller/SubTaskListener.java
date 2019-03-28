@@ -11,6 +11,8 @@ import model.SubTask;
 import model.Task;
 import model.TaskContainer;
 import view.AppView;
+import view.NewSubTaskView;
+import view.NewTaskView;
 import view.SubTaskView;
 import view.TaskView;
 
@@ -29,6 +31,8 @@ public class SubTaskListener implements MouseListener {
         //SUBTASK EDIT BUTTON
         if(e.getComponent().getName().equals("subtask_edit_btn")){
             System.out.println("subtask edit btn");
+            NewSubTaskView.getInstance().setEditReady();
+            NewSubTaskView.getInstance().setVisible(true);
             
             
         //SUBTASK DELETE BUTTON

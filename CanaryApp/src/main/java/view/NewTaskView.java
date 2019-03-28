@@ -248,6 +248,13 @@ public class NewTaskView extends JDialog {
         newTaskWarning.setVisible(false);
     }
     
+    public void setEditReady() {
+        createTaskButton.setText("Save");
+        createTaskButton.setName("save_task_btn");
+        setNewTaskTitle("Edit Task");
+        newTaskWarning.setVisible(false);
+    }
+    
     
     //METHOD THAT CREATES A NEW TASK
     public Task createTask(){

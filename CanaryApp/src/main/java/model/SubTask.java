@@ -14,14 +14,12 @@ public class SubTask {
         
     }
     
-    //TESTING METHOD
     public Task getTask(){
         return this.task;
     }
     public void setTask(Task task){
         this.task = task;
     }
-    //TESTING
     
     public String getDescription() {
         return this.description;

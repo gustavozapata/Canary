@@ -205,4 +205,10 @@ public class NewSubTaskView extends JDialog {
         this.task = task;
     }
 
+    public void setEditReady() {
+        createTaskButton.setText("Save");
+        setNewTaskTitle("Edit Subtask");
+        newTaskWarning.setVisible(false);
+    }
+
 }
