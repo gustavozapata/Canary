@@ -3,6 +3,7 @@ package view;
 import controller.AppListener;
 import controller.TaskFilter;
 import controller.TaskSort;
+import controller.UserSystem;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -381,13 +382,14 @@ public final class AppView extends JFrame {
         containerTasks.removeAll();
         appNoTasksMsg.setVisible(false);
         for (Task task : TaskContainer.getInstance().getAll()) {
+            if(UserSystem.currentUser.getUserLevel() == 3 || task.getUser().getUserName().equals(UserSystem.currentUser.getUserName()))
             containerTasks.add(new TaskView(task));
             if (task.getSubTasks().size() > 0) {
                 for (SubTask subtask : task.getSubTasks()) {
                     containerTasks.add(new SubTaskView(subtask));
                 }
             }
-        }
+        
         if (TaskContainer.getInstance().getAll().size() <= 0) {
             appNoTasksMsg.setVisible(true);
         } else {
