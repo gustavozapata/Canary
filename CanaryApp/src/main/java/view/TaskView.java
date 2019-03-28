@@ -88,22 +88,34 @@ public class TaskView extends JPanel {
         addElementsToTask(task);
         addComponents();       
         
+        if(task.isComplete()){
+            markComplete();
+        }
+        
         this.editPanel.addMouseListener(taskListener);
         this.deletePanel.addMouseListener(taskListener);
         this.subtaskPanel.addMouseListener(taskListener);
         this.taskCheckBox.addActionListener((ActionEvent e) -> {
-            if (this.taskCheckBox.isSelected()) {
-                setCompletionDate(task);
-                task.toggleComplete();
-                this.taskDescription.setForeground(new Color(170,170,170));
-                System.out.println("task complete? " + task.isComplete());
-            } else {
-                this.taskDate.setVisible(false);
-                task.toggleComplete();
-                this.taskDescription.setForeground(new Color(50,50,50));
-                System.out.println("task complete? " + task.isComplete());
-            }
+            checkIfComplete();
         });
+    }
+    public void checkIfComplete(){
+        if (this.taskCheckBox.isSelected()) {
+            markComplete();
+            } else {
+                markUncomplete();
+            } 
+    }
+    public void markComplete(){
+        setCompletionDate(task);
+        task.setComplete(true);
+        this.taskDescription.setForeground(new Color(170,170,170));
+    }
+    
+    public void markUncomplete(){
+        this.taskDate.setVisible(false);
+        task.setComplete(false);
+        this.taskDescription.setForeground(new Color(50,50,50));
     }
 
     public void setComponents() {
