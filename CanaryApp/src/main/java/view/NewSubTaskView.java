@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import model.AppModel;
 import model.SubTask;
 import model.Task;
+import model.TaskContainer;
 import model.User;
 
 /**
@@ -226,6 +227,14 @@ public class NewSubTaskView extends JDialog {
         createTaskDescriptionTextField.setText(subtaskToEdit.getDescription());
         createTaskPriorityDrop.setSelectedItem(subtaskToEdit.getPriorityOrder());
         this.subtask = subtaskToEdit;
+    }
+    
+    public void deleteSubtask(SubTask subtaskToEdit){
+        for(Task task : TaskContainer.getInstance().getAll()){
+            if(task.getSubTasks().size() > 0){
+                task.deleteSubtask(subtaskToEdit);
+            }
+        }
     }
 
     public void saveEditedSubTask(SubTask subtaskEdited) {

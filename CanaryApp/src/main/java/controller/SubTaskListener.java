@@ -32,14 +32,15 @@ public class SubTaskListener implements MouseListener {
         if(e.getComponent().getName().equals("subtask_edit_btn")){
             System.out.println("subtask edit btn");
             NewSubTaskView.getInstance().setSubtaskToEdit(subtaskToEdit);
-//            NewSubTaskView.getInstance().setTask(taskToEdit);
             NewSubTaskView.getInstance().setEditReady();
             NewSubTaskView.getInstance().setVisible(true);
             
             
         //SUBTASK DELETE BUTTON
         } else if (e.getComponent().getName().equals("subtask_delete_btn")){
-           // subtaskToEdit.getTask().deleteSubtask(subtaskToEdit); CHANGE THIS
+            System.out.println("deleting subtask");
+//            subtaskToEdit.getTask().deleteSubtask(subtaskToEdit);
+            NewSubTaskView.getInstance().deleteSubtask(subtaskToEdit);
             AppView.getInstance().renderNewTask();
             
             
