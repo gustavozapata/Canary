@@ -39,7 +39,7 @@ public class SubTaskListener implements MouseListener {
             
         //SUBTASK DELETE BUTTON
         } else if (e.getComponent().getName().equals("subtask_delete_btn")){
-            subtaskToEdit.getTask().deleteSubtask(subtaskToEdit);
+           // subtaskToEdit.getTask().deleteSubtask(subtaskToEdit); CHANGE THIS
             AppView.getInstance().renderNewTask();
             
             

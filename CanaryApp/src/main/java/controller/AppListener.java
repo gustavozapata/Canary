@@ -79,7 +79,7 @@ public class AppListener implements MouseListener {
                     UserSystem.loadUser(result.getUser().getUserName(), result.getUser().getUserLevel());
                     if (result.getSubTasks().size() > 0) {
                         for (SubTask subtask : result.getSubTasks()) {
-                            subtask.setTask(result);
+                            
                         }
                     }
                     TaskContainer.getInstance().addItem(result);
