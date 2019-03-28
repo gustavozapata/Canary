@@ -13,7 +13,7 @@ public class FileReader {
     private static String file;
     public static ArrayList<String> loadEverybody() throws FileNotFoundException{
         ArrayList<String> everybody = new ArrayList<String>();
-        File file = new File("src/main/java/com/teamcanary/canaryapp/Users.txt"); 
+        File file = new File("src/main/java/model/Users.txt"); 
         String account_type="";
         String username ="";
         String password="";
@@ -29,7 +29,7 @@ public class FileReader {
     }
     
     public static boolean checkUser(String input_username, String input_password) throws FileNotFoundException{
-        File file = new File("src/main/java/com/teamcanary/canaryapp/Users.txt"); 
+        File file = new File("src/main/java/model/Users.txt"); 
         Scanner sc = new Scanner(file);
         String account_type="";
         String username ="";
