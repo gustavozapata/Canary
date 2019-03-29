@@ -36,7 +36,7 @@ public class AppListener implements MouseListener {
         //CREATE TASK BUTTON
         if (e.getComponent().getName().equals("plus_btn")) {
 
-            System.out.println("new task button");
+            //("new task button");
 
             AppView.getInstance().resetFilter();
             AppView.getInstance().resetSort();
@@ -49,7 +49,7 @@ public class AppListener implements MouseListener {
 
             //LOGIN BUTTON
         } else if (e.getComponent().getName().equals("login_btn")) {
-            System.out.println("login button");
+            //("login button");
             LoginView.getInstance().setVisible(true);
             LoginView.getInstance().setLocationRelativeTo(AppView.getInstance());
             LoginView.getInstance().setUsernameField("");
@@ -57,7 +57,7 @@ public class AppListener implements MouseListener {
 
             //FETCH BUTTON
         } else if (e.getComponent().getName().equals("fetch_btn")) {
-            System.out.println("fetch button");
+            //("fetch button");
 
             AppView.getInstance().resetFilter();
             AppView.getInstance().resetSort();
@@ -80,7 +80,7 @@ public class AppListener implements MouseListener {
                     result.toggleComplete();
                     TaskContainer.getInstance().addItem(result);
                 }
-                System.out.println("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());
+                //("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());
                 //renders all the tasks in the taskContainer
                 AppView.getInstance().renderNewTask();
             } catch (IOException ex) {
@@ -89,7 +89,7 @@ public class AppListener implements MouseListener {
 
             //LOAD BUTTON
         } else if (e.getComponent().getName().equals("load_btn")) {
-            System.out.println("load button");
+            //("load button");
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Load File");
             int selection = fileChooser.showOpenDialog(null);
@@ -106,7 +106,7 @@ public class AppListener implements MouseListener {
 
             //SAVE BUTTON
         } else if (e.getComponent().getName().equals("save_btn")) {
-            System.out.println("save button");
+            //("save button");
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Save current list");
             int selection = fileChooser.showSaveDialog(null);

@@ -40,7 +40,7 @@ public class UserSystem {
         
         if (success){
             currentUser = loadUser(username,level); 
-            System.out.println(level);
+            //(level);
             
             AppView.getInstance().setAppLogin(username);
         }

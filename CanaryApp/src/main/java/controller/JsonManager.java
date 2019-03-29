@@ -25,7 +25,7 @@ public class JsonManager {
         String text = usingFileReader(path);
         Task[] results = gson.fromJson(text, Task[].class);
         ArrayList<Task> list_tasks = new ArrayList<Task>(Arrays.asList(results));
-        System.out.println("READ");
+        //("READ");
         TaskContainer.getInstance().clear();
         TaskContainer.getInstance().addItems(list_tasks);
         AppView.getInstance().reRender();
@@ -48,7 +48,7 @@ public class JsonManager {
         try (FileReader fr = new FileReader(file)) {
             BufferedReader br = new BufferedReader(fr);
             String line;          
-            System.out.println("Reading text file using FileReader");
+            //("Reading text file using FileReader");
             while((line = br.readLine()) != null){
                 finalString += line;
             }

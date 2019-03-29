@@ -25,7 +25,7 @@ public class NewTaskListener implements MouseListener {
         
         //CREATE TASK BUTTON
         if(e.getComponent().getName().equals("create_task_btn")){
-            System.out.println("create task button");
+            //("create task button");
             
             if(NewTaskView.getInstance().getCreateTaskDescriptionTextField().equals("")){
                 NewTaskView.getInstance().showWarning();
@@ -39,7 +39,7 @@ public class NewTaskListener implements MouseListener {
                 Task task = NewTaskView.getInstance().createTask();
                 //add it to the TaskContainer
                 TaskContainer.getInstance().addItem(task);
-                System.out.println("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());
+                //("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());
                 //renders all the tasks in the taskContainer
                 AppView.getInstance().renderNewTask();
             }
@@ -48,7 +48,7 @@ public class NewTaskListener implements MouseListener {
         
         //EDIT SAVE BUTTON
         if (e.getComponent().getName().equals("save_task_btn")) {
-            System.out.println("save edit...");
+            //("save edit...");
             if (NewTaskView.getInstance().getCreateTaskDescriptionTextField().equals("")) {
                 NewTaskView.getInstance().showWarning();
             } else {
@@ -62,7 +62,7 @@ public class NewTaskListener implements MouseListener {
         
         //SUBTASK CREATE BUTTON
         if (e.getComponent().getName().equals("create_subtask_btn")) {
-            System.out.println("subtask...");
+            //("subtask...");
             if (NewSubTaskView.getInstance().getCreateTaskDescriptionTextField().equals("")) {
                 NewSubTaskView.getInstance().showWarning();
             } else {
@@ -74,7 +74,7 @@ public class NewTaskListener implements MouseListener {
         
         //SUBTASK EDIT SAVE
         if (e.getComponent().getName().equals("edit_subtask_btn")) {
-            System.out.println("subtask save edit...");
+            //("subtask save edit...");
             if (NewSubTaskView.getInstance().getCreateTaskDescriptionTextField().equals("")) {
                 NewSubTaskView.getInstance().showWarning();
             } else {

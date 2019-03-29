@@ -24,11 +24,11 @@ public class TaskListener implements MouseListener {
         
         //DELETE BUTTON
         if (e.getComponent().getName().equals("delete_btn")) {
-            System.out.println("deleting...");
+            //("deleting...");
             TaskContainer.getInstance().removeTask(taskToEdit);
             AppView.getInstance().renderNewTask();
             
-            System.out.println("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());
+            //("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());
 
         //EDIT BUTTON
         } else if (e.getComponent().getName().equals("edit_btn")) {
@@ -39,7 +39,7 @@ public class TaskListener implements MouseListener {
 
         //SUBTASK BUTTON
         } else if (e.getComponent().getName().equals("subtask_btn")) {
-            System.out.println("subtasking...");
+            //("subtasking...");
             NewSubTaskView.getInstance().setVisible(true);
             NewSubTaskView.getInstance().setNewReady();
             NewSubTaskView.getInstance().setTask(taskToEdit);

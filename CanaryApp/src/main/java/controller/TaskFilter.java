@@ -18,7 +18,7 @@ public class TaskFilter {
     static int repaintID;
     public static void revert() {
         repaintID++;
-        //System.out.println("ITS A REPAINT" + repaintID);
+        ////("ITS A REPAINT" + repaintID);
         TaskContainer.getInstance().addItems(unfilteredTasks);
         
         AppView.getInstance().reRender();
@@ -40,7 +40,7 @@ public class TaskFilter {
 
         ArrayList<Task> taskToRemove = new ArrayList<Task>();
 
-        //System.out.println(filter);
+        ////(filter);
         
         if (filterBy.equals("Description")) {
             for (Task task : filteredTasks) {

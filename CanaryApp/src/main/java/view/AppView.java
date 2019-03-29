@@ -391,7 +391,7 @@ public final class AppView extends JFrame {
 
     public void reRender() {
         rerenderid++;
-        System.out.println("ReRendering everything " + rerenderid);
+        //("ReRendering everything " + rerenderid);
         containerTasks.removeAll();
         containerTasks.revalidate();
         containerTasks.repaint();
@@ -406,7 +406,7 @@ public final class AppView extends JFrame {
             TaskView view = new TaskView(task);
             containerTasks.add(view);
             if(task.isComplete()){
-                System.out.println(task.getDescription() + " SHOULD BE COMPLETE");
+                //(task.getDescription() + " SHOULD BE COMPLETE");
                // view.markComplete();
             }
             if (task.getSubTasks().size() > 0) {
@@ -435,7 +435,7 @@ public final class AppView extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 TaskContainer.getInstance().clear();
                 autoLoadTasks(listComboBox.getSelectedItem().toString());
-                System.out.println("running...");
+                //("running...");
             }
         });
     }

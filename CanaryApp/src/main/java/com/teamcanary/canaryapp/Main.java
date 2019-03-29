@@ -9,7 +9,7 @@ import view.AppView;
 
 /**
  *
- * @author k1715308
+ * Written by Gustavo and Kylan
  */
 public class Main {
 
