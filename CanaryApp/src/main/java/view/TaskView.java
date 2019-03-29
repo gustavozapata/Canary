@@ -108,8 +108,7 @@ public class TaskView extends JPanel {
     }
 
     public void markComplete(){
-
-        //this.taskCheckBox.setIcon(new ImageIcon(ImageIO.read(new File("src/images/checked.png"))));
+        taskCheckBox.setSelected(true);
         setCompletionDate(task);
         task.setComplete(true);
         this.taskDescription.setForeground(new Color(170, 170, 170));

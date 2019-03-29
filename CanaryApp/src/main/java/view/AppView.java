@@ -408,11 +408,11 @@ public final class AppView extends JFrame {
                     containerTasks.add(new SubTaskView(subtask));
                 }
             }
-            if (TaskContainer.getInstance().getAll().size() <= 0) {
-                appNoTasksMsg.setVisible(true);
-            } else {
-                appNoTasksMsg.setVisible(false);
-            }
+        }
+        if (TaskContainer.getInstance().getAll().size() <= 0) {
+            appNoTasksMsg.setVisible(true);
+        } else {
+            appNoTasksMsg.setVisible(false);
         }
         taskPanel.add(containerTasks);
         taskPanel.revalidate();

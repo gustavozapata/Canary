@@ -40,7 +40,6 @@ public class NewTaskListener implements MouseListener {
                 //add it to the TaskContainer
                 TaskContainer.getInstance().addItem(task);
                 System.out.println("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());
-                
                 //renders all the tasks in the taskContainer
                 AppView.getInstance().renderNewTask();
             }
