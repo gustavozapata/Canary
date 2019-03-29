@@ -12,7 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import model.SubTask;
 import model.Task;
 import model.TaskContainer;
 import org.apache.commons.io.FileUtils;

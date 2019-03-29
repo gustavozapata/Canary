@@ -317,6 +317,17 @@ public final class AppView extends JFrame {
     public void setListComboBox() {
         listComboBox = new JComboBox();
         appStyle.styleComboBox(listComboBox);
+        listComboBoxAction();
+    }
+
+    public void listComboBoxAction() {
+        listComboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (listComboBox.getSelectedItem().equals("All")) {
+//                    loadAllTasks();
+                }
+            }
+        });
     }
 
     public void initializeImages() {
@@ -424,7 +435,7 @@ public final class AppView extends JFrame {
     }
 
     private void loadUsers() {
-        listComboBox.addItem("All");
+//        listComboBox.addItem("All");
         File userFile = new File("src/main/java/model/users_json");
         try {
             String userJson = FileUtils.readFileToString(userFile);
@@ -445,20 +456,36 @@ public final class AppView extends JFrame {
     }
 
     public void autoLoadTasks(User user) {
-        containerTasks.removeAll();
         File userFile = new File("src/main/java/model/users_tasks");
         try {
             String taskJson = FileUtils.readFileToString(userFile);
             Gson gson = new Gson();
             Task[] tasks = gson.fromJson(taskJson, Task[].class);
-            System.out.println("taskJson: " + tasks[0].getUser().getUserName());
-            System.out.println("user: " + user.getUserName());
             for (Task task : tasks) {
                 if (task.getUser().getUserName().equals(user.getUserName())) {
                     TaskContainer.getInstance().addItem(task);
                     UserSystem.loadUser(task.getUser().getUserName(), task.getUser().getUserLevel());
                 }
             }
+            
+        } catch (IOException e) {
+        }
+        containerTasks.removeAll();
+        renderNewTask();
+    }
+
+    public void loadAllTasks() {
+        containerTasks.removeAll();
+        File userFile = new File("src/main/java/model/users_tasks");
+        try {
+            String taskJson = FileUtils.readFileToString(userFile);
+            Gson gson = new Gson();
+            Task[] tasks = gson.fromJson(taskJson, Task[].class);
+            for (Task task : tasks) {
+                TaskContainer.getInstance().addItem(task);
+                UserSystem.loadUser(task.getUser().getUserName(), task.getUser().getUserLevel());
+            }
+            renderNewTask();
         } catch (IOException e) {
         }
     }
