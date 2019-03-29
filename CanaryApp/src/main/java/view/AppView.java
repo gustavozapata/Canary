@@ -181,6 +181,7 @@ public final class AppView extends JFrame {
     public void setAppFooter(String text) {
         appFooter.setText(text);
         appStyle.setLabelThree(appFooter);
+        appFooter.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
     public void setAppIconPlus(String text) {
@@ -317,17 +318,6 @@ public final class AppView extends JFrame {
     public void setListComboBox() {
         listComboBox = new JComboBox();
         appStyle.styleComboBox(listComboBox);
-        listComboBoxAction();
-    }
-
-    public void listComboBoxAction() {
-        listComboBox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (listComboBox.getSelectedItem().equals("All")) {
-//                    loadAllTasks();
-                }
-            }
-        });
     }
 
     public void initializeImages() {
@@ -434,8 +424,17 @@ public final class AppView extends JFrame {
         toolbarPanel.revalidate();
     }
 
+    public void listComboBoxAction() {
+        listComboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TaskContainer.getInstance().clear();
+                autoLoadTasks(listComboBox.getSelectedItem().toString());
+                System.out.println("running...");
+            }
+        });
+    }
+
     private void loadUsers() {
-//        listComboBox.addItem("All");
         File userFile = new File("src/main/java/model/users_json");
         try {
             String userJson = FileUtils.readFileToString(userFile);
@@ -453,40 +452,25 @@ public final class AppView extends JFrame {
         toolbarPanel.remove(toolbarList);
         toolbarPanel.remove(listComboBox);
         toolbarPanel.repaint();
+//        TaskContainer.getInstance().clear();
     }
 
-    public void autoLoadTasks(User user) {
+    public void autoLoadTasks(String user) {
         File userFile = new File("src/main/java/model/users_tasks");
         try {
             String taskJson = FileUtils.readFileToString(userFile);
             Gson gson = new Gson();
             Task[] tasks = gson.fromJson(taskJson, Task[].class);
             for (Task task : tasks) {
-                if (task.getUser().getUserName().equals(user.getUserName())) {
+                if (task.getUser().getUserName().equals(user)) {
                     TaskContainer.getInstance().addItem(task);
                     UserSystem.loadUser(task.getUser().getUserName(), task.getUser().getUserLevel());
                 }
             }
-            
+
         } catch (IOException e) {
         }
         containerTasks.removeAll();
         renderNewTask();
-    }
-
-    public void loadAllTasks() {
-        containerTasks.removeAll();
-        File userFile = new File("src/main/java/model/users_tasks");
-        try {
-            String taskJson = FileUtils.readFileToString(userFile);
-            Gson gson = new Gson();
-            Task[] tasks = gson.fromJson(taskJson, Task[].class);
-            for (Task task : tasks) {
-                TaskContainer.getInstance().addItem(task);
-                UserSystem.loadUser(task.getUser().getUserName(), task.getUser().getUserLevel());
-            }
-            renderNewTask();
-        } catch (IOException e) {
-        }
     }
 }

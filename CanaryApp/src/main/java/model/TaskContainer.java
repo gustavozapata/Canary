@@ -40,7 +40,6 @@ public class TaskContainer {
     
     public void removeTask(Task task){
         tasks.remove(task);
-        taskCounter--;
     }
     
     public void clear(){

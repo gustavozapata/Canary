@@ -16,8 +16,6 @@ public class Task implements Comparable<Task>{
     private boolean isComplete;
 
     public Task() {
-        taskCounter++;
-        System.out.println("taskCounter: " + taskCounter);
     }
     
 

@@ -97,11 +97,11 @@ public class AppListener implements MouseListener {
                     File saveFile = fileChooser.getSelectedFile();
                     String inboundJson = FileUtils.readFileToString(saveFile);
                     Task[] tasks = JsonManager.read(saveFile.toString());
-                    System.out.println(tasks);
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "Failed to load");
                 }
             }
+            
 
             //SAVE BUTTON
         } else if (e.getComponent().getName().equals("save_btn")) {

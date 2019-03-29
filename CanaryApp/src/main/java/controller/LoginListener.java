@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import model.TaskContainer;
 import view.LoginView;
 import view.AppView;
 
@@ -17,7 +18,6 @@ import view.AppView;
  */
 public class LoginListener implements MouseListener {
     
-    LoginView loginView;
     JOptionPane alert = new JOptionPane();
     UIManager UI = new UIManager();
     
@@ -28,29 +28,29 @@ public class LoginListener implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        loginView = LoginView.getInstance();
-        
         boolean accepted = false;
         
         try {
-            accepted = UserSystem.login(loginView.getUsernameField(), loginView.getPasswordField());
+            accepted = UserSystem.login(LoginView.getInstance().getUsernameField(), LoginView.getInstance().getPasswordField());
         } catch (FileNotFoundException ex) {
             Logger.getLogger(LoginListener.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
         if(accepted){
-            alert.showMessageDialog(loginView.getInstance(), "Welcome " + UserSystem.currentUser.getUserName());
+            alert.showMessageDialog(LoginView.getInstance(), "Welcome " + UserSystem.currentUser.getUserName());
             if(UserSystem.currentUser.getUserLevel() == 1){
                 AppView.getInstance().showList();
+                AppView.getInstance().listComboBoxAction();;
             } else {
                 AppView.getInstance().hideList();
             }
-            loginView.setVisible(false);
-            AppView.getInstance().autoLoadTasks(UserSystem.currentUser);
+            LoginView.getInstance().setVisible(false);
+            TaskContainer.getInstance().clear();
+            AppView.getInstance().autoLoadTasks(UserSystem.currentUser.getUserName());
             
         } else {
-            alert.showMessageDialog(loginView.getInstance(), "Incorrect username or password");
+            alert.showMessageDialog(LoginView.getInstance(), "Incorrect username or password");
         }
 
     }
