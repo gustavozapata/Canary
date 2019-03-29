@@ -77,6 +77,7 @@ public class AppListener implements MouseListener {
                 for (Task result : results) {
                     result.setCategory("Web Service");
                     UserSystem.loadUser(result.getUser().getUserName(), result.getUser().getUserLevel());
+                    result.toggleComplete();
                     TaskContainer.getInstance().addItem(result);
                 }
                 System.out.println("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());

@@ -15,9 +15,12 @@ public class TaskFilter {
     static ArrayList<Task> old_tasks;
     static ArrayList<Task> unfilteredTasks = new ArrayList<Task>();
 
-    
+    static int repaintID;
     public static void revert() {
+        repaintID++;
+        //System.out.println("ITS A REPAINT" + repaintID);
         TaskContainer.getInstance().addItems(unfilteredTasks);
+        
         AppView.getInstance().reRender();
         unfilteredTasks = new ArrayList<Task>();
 
@@ -32,13 +35,13 @@ public class TaskFilter {
 
     public static void filterBy(String filterBy, String filter) {
         revert();
-
+        if(filter!="All"){
         ArrayList<Task> filteredTasks = TaskContainer.getInstance().getAll();
 
         ArrayList<Task> taskToRemove = new ArrayList<Task>();
 
-        System.out.println(filter);
-        if(filter!="All"){
+        //System.out.println(filter);
+        
         if (filterBy.equals("Description")) {
             for (Task task : filteredTasks) {
                 if (!task.getDescription().equals(filter)) {
@@ -68,6 +71,20 @@ public class TaskFilter {
         else if(filterBy.equals("User")){
             for (Task task : filteredTasks) {
                 if (!task.getUser().getUserName().equals(filter)) {
+                    taskToRemove.add(task);
+                }
+            }
+        }
+        else if(filterBy.equals("Completed")){
+            boolean compare = false;
+            for (Task task : filteredTasks) {
+                if (filter=="Complete"){
+                    compare = true;
+                }
+                else{
+                    compare = false;
+                }
+                if (task.isComplete() != compare) {
                     taskToRemove.add(task);
                 }
             }

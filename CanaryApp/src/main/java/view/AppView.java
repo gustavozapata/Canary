@@ -246,9 +246,8 @@ public final class AppView extends JFrame {
 
     public void filter() {
         String item = filterComboBox.getSelectedItem().toString();
-        if (item.contains("Priority: ")) {
-            item = item.substring(10);
-            TaskFilter.filterBy("Priority", item);
+        if (item.equals("Complete") || item.equals("Incomplete")) {
+            TaskFilter.filterBy("Completed", item);
         } else {
             TaskFilter.filterBy("Catagory", item);
         }
@@ -274,10 +273,10 @@ public final class AppView extends JFrame {
         }
 
         filterComboBox.addItem("Web Service");
+        filterComboBox.addItem("Complete");
+        filterComboBox.addItem("Incomplete");
 
-        for (int counter = 0; counter <= highest_priority; counter++) {
-            filterComboBox.addItem("Priority: " + Integer.toString(counter));
-        }
+
 
         appStyle.styleComboBox(filterComboBox);
 
@@ -388,9 +387,11 @@ public final class AppView extends JFrame {
         this.add(appCentrePanel, BorderLayout.CENTER);
         this.add(appBottomPanel, BorderLayout.SOUTH);
     }
+    public int rerenderid = 0;
 
     public void reRender() {
-        System.out.println("ReRendering EVerything");
+        rerenderid++;
+        System.out.println("ReRendering everything " + rerenderid);
         containerTasks.removeAll();
         containerTasks.revalidate();
         containerTasks.repaint();
@@ -402,7 +403,12 @@ public final class AppView extends JFrame {
     public void renderNewTask() {
         containerTasks.removeAll();
         for (Task task : TaskContainer.getInstance().getAll()) {
-            containerTasks.add(new TaskView(task));
+            TaskView view = new TaskView(task);
+            containerTasks.add(view);
+            if(task.isComplete()){
+                System.out.println(task.getDescription() + " SHOULD BE COMPLETE");
+               // view.markComplete();
+            }
             if (task.getSubTasks().size() > 0) {
                 for (SubTask subtask : task.getSubTasks()) {
                     containerTasks.add(new SubTaskView(subtask));

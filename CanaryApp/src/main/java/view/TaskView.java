@@ -100,6 +100,7 @@ public class TaskView extends JPanel {
         });
     }
     public void checkIfComplete(){
+        System.out.println("CHECKING");
         if (this.taskCheckBox.isSelected()) {
             markComplete();
         } else {
@@ -108,6 +109,7 @@ public class TaskView extends JPanel {
     }
 
     public void markComplete(){
+        System.out.println("MARKING COMPLETE");
         taskCheckBox.setSelected(true);
         setCompletionDate(task);
         task.setComplete(true);
@@ -115,6 +117,7 @@ public class TaskView extends JPanel {
     }
 
     public void markUncomplete() {
+        System.out.println("MARKING INCOMPLETE");
         this.taskDate.setVisible(false);
         task.setComplete(false);
         this.taskDescription.setForeground(new Color(50, 50, 50));
@@ -191,7 +194,7 @@ public class TaskView extends JPanel {
 
         if (task.getCategory().equals("Web Service")) {
             setCompletionDate(task);
-            task.toggleComplete();
+           
 
         }
 
