@@ -321,9 +321,12 @@ public final class AppView extends JFrame {
 
     public void initializeImages() {
         try {
+            BufferedImage appLogo = ImageIO.read(new File("src/images/logo.png"));
             BufferedImage saveImg = ImageIO.read(new File("src/images/save.png"));
             BufferedImage loadImg = ImageIO.read(new File("src/images/load.png"));
             BufferedImage fetchImg = ImageIO.read(new File("src/images/fetch.png"));
+            ImageIcon imgLogo = new ImageIcon(appLogo);
+            this.setIconImage(imgLogo.getImage());
             saveIcon = new JLabel(new ImageIcon(saveImg));
             loadIcon = new JLabel(new ImageIcon(loadImg));
             fetchIcon = new JLabel(new ImageIcon(fetchImg));
