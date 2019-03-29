@@ -1,5 +1,6 @@
 package view;
 
+import com.google.gson.Gson;
 import controller.AppListener;
 import controller.TaskFilter;
 import controller.TaskSort;
@@ -29,6 +30,7 @@ import model.SubTask;
 import model.Task;
 import model.TaskContainer;
 import model.User;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -106,6 +108,8 @@ public final class AppView extends JFrame {
         setComponents();
         setPanels();
         addComponents();
+
+        loadUsers();
 
         appIconPlus.addMouseListener(appListener);
         appLogin.addMouseListener(appListener);
@@ -248,6 +252,7 @@ public final class AppView extends JFrame {
             TaskFilter.filterBy("Catagory", item);
         }
     }
+
     public void filterUsers(String username) {
         TaskFilter.filterByUsername(username);
 
@@ -306,30 +311,12 @@ public final class AppView extends JFrame {
 
             }
         });
-        
-  
-        
-    }
-    
-    public void setUsersBox(){
-        listComboBox.removeAllItems();
-        
-        for(User user:UserSystem.loadedUsers){
-            listComboBox.addItem(user.getUserName());
-        }
-        
+
     }
 
     public void setListComboBox() {
         listComboBox = new JComboBox();
-        setUsersBox();
         appStyle.styleComboBox(listComboBox);
-        listComboBox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String username = listComboBox.getSelectedItem().toString();
-                filterUsers(username);
-            }
-        });
     }
 
     public void initializeImages() {
@@ -413,30 +400,66 @@ public final class AppView extends JFrame {
     //METHOD THAT RENDERS ALL THE TASKS IN THE TASKCONTAINER
     public void renderNewTask() {
         containerTasks.removeAll();
-        appNoTasksMsg.setVisible(false);
         for (Task task : TaskContainer.getInstance().getAll()) {
-            if(UserSystem.currentUser.getUserLevel() == 3 || task.getUser().getUserName().equals(UserSystem.currentUser.getUserName())){
             containerTasks.add(new TaskView(task));
             if (task.getSubTasks().size() > 0) {
                 for (SubTask subtask : task.getSubTasks()) {
                     containerTasks.add(new SubTaskView(subtask));
                 }
             }
-        
-        if (TaskContainer.getInstance().getAll().size() <= 0) {
-            appNoTasksMsg.setVisible(true);
-        } else {
-            appNoTasksMsg.setVisible(false);
+            if (TaskContainer.getInstance().getAll().size() <= 0) {
+                appNoTasksMsg.setVisible(true);
+            } else {
+                appNoTasksMsg.setVisible(false);
+            }
         }
         taskPanel.add(containerTasks);
         taskPanel.revalidate();
     }
-        }
-   }
 
     public void showList() {
         toolbarPanel.add(toolbarList);
         toolbarPanel.add(listComboBox);
         toolbarPanel.revalidate();
+    }
+
+    private void loadUsers() {
+        listComboBox.addItem("All");
+        File userFile = new File("src/main/java/model/users_json");
+        try {
+            String userJson = FileUtils.readFileToString(userFile);
+            Gson gson = new Gson();
+            User[] users = gson.fromJson(userJson, User[].class);
+            for (User user : users) {
+                listComboBox.addItem(user.getUserName());
+            }
+        } catch (IOException e) {
+        }
+
+    }
+
+    public void hideList() {
+        toolbarPanel.remove(toolbarList);
+        toolbarPanel.remove(listComboBox);
+        toolbarPanel.repaint();
+    }
+
+    public void autoLoadTasks(User user) {
+        containerTasks.removeAll();
+        File userFile = new File("src/main/java/model/users_tasks");
+        try {
+            String taskJson = FileUtils.readFileToString(userFile);
+            Gson gson = new Gson();
+            Task[] tasks = gson.fromJson(taskJson, Task[].class);
+            System.out.println("taskJson: " + tasks[0].getUser().getUserName());
+            System.out.println("user: " + user.getUserName());
+            for (Task task : tasks) {
+                if (task.getUser().getUserName().equals(user.getUserName())) {
+                    TaskContainer.getInstance().addItem(task);
+                    UserSystem.loadUser(task.getUser().getUserName(), task.getUser().getUserLevel());
+                }
+            }
+        } catch (IOException e) {
+        }
     }
 }

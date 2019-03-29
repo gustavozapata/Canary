@@ -12,9 +12,10 @@ import view.AppView;
  * @author k1715308
  */
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException, IOException{
+
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         AppView mainWindow = AppView.getInstance();
         UserSystem.loadEverybody();
-       
+        
     }
 }

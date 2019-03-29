@@ -41,10 +41,14 @@ public class LoginListener implements MouseListener {
         
         if(accepted){
             alert.showMessageDialog(loginView.getInstance(), "Welcome " + UserSystem.currentUser.getUserName());
-            loginView.setVisible(false);
-            if(UserSystem.currentUser.getUserName().equals("paul")){
+            if(UserSystem.currentUser.getUserLevel() == 1){
                 AppView.getInstance().showList();
+            } else {
+                AppView.getInstance().hideList();
             }
+            loginView.setVisible(false);
+            AppView.getInstance().autoLoadTasks(UserSystem.currentUser);
+            AppView.getInstance().renderNewTask();
         } else {
             alert.showMessageDialog(loginView.getInstance(), "Incorrect username or password");
         }

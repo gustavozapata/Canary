@@ -1,0 +1,17 @@
+[
+  {
+      "name": "kylan",
+      "password": "123",
+      "userLevel": 2
+  },
+  {
+      "name": "gustavo",
+      "password": "123",
+      "userLevel": 2
+  },
+  {
+      "name": "paul",
+      "password": "neve",
+      "userLevel": 1
+   }
+]

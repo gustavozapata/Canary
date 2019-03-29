@@ -1,6 +1,7 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
@@ -62,7 +63,6 @@ public class AppListener implements MouseListener {
             AppView.getInstance().resetFilter();
             AppView.getInstance().resetSort();
 
-
             try {
                 String url = "http://www.nooblab.com/p2.json";
                 HttpClient client = HttpClientBuilder.create().build();
@@ -78,16 +78,9 @@ public class AppListener implements MouseListener {
                 for (Task result : results) {
                     result.setCategory("Web Service");
                     UserSystem.loadUser(result.getUser().getUserName(), result.getUser().getUserLevel());
-
-                    if(UserSystem.currentUser.getUserLevel() == 3||UserSystem.currentUser.getUserName().equals(result.getUser())){
-                        TaskContainer.getInstance().addItem(result);
-                    }
+                    TaskContainer.getInstance().addItem(result);
                 }
                 System.out.println("taskContainer.size(): " + TaskContainer.getInstance().getAll().size());
-                if(TaskContainer.getInstance().getAll().size()==0){
-                    JOptionPane.showMessageDialog(null, "Either the file is empty, or you do not have permission to view ");
-                }
-                AppView.getInstance().setUsersBox();
                 //renders all the tasks in the taskContainer
                 AppView.getInstance().renderNewTask();
             } catch (IOException ex) {
@@ -115,17 +108,15 @@ public class AppListener implements MouseListener {
         } else if (e.getComponent().getName().equals("save_btn")) {
             System.out.println("save button");
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Save current game");
+            fileChooser.setDialogTitle("Save current list");
             int selection = fileChooser.showSaveDialog(null);
             if (selection == JFileChooser.APPROVE_OPTION) {
                 File saveFile = fileChooser.getSelectedFile();
                 try {
-                    JsonManager.write(saveFile.toString(), TaskContainer.getInstance().getAll());
-//                try {
-//                    FileUtils.writeStringToFile(saveFile, Task.getJson());
-//                } catch (IOException ex) {
-//                    JOptionPane.showMessageDialog(null, "Failed to save");
-//                }
+                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                    String taskToJson = gson.toJson(TaskContainer.getInstance().getAll());
+//                    JsonManager.write(saveFile.toString(), TaskContainer.getInstance().getAll());
+                    FileUtils.writeStringToFile(saveFile, taskToJson);
                 } catch (IOException ex) {
                     Logger.getLogger(AppListener.class.getName()).log(Level.SEVERE, null, ex);
                 }
