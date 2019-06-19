@@ -1,5 +1,5 @@
-##Kingston University London
-##Module: Programming II
+# Kingston University London
+# Module: Programming II
 
 Team: Kirk
 Group: Canary
@@ -10,6 +10,6 @@ Programming Language: Java
 IDE: NetBeans 8
 
 
-##Prototype:
+## Prototype:
 https://xd.adobe.com/view/5bbaf232-e2b5-46c2-4b9d-5ff6fb37ca93-2d8b/
 Todocanary123
